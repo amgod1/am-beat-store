@@ -1,0 +1,1 @@
+export { AdminBeatsPage } from "./AdminBeatsPage"
