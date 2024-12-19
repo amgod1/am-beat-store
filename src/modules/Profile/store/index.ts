@@ -1,7 +1,7 @@
 export { getUserProfile, createUserProfile } from "./thunks"
 export {
+  selectAdminStatus,
   selectProfileInfo,
-  selectAdmin,
   selectProfileStatus,
 } from "./selectors"
 export { profileReducer, clearProfile } from "./slice"

@@ -1,6 +1,10 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
-import { StoreProvider, PersistProvider } from "./providers"
+import {
+  StoreProvider,
+  PersistProvider,
+  DataRestoreProvider,
+} from "./providers"
 import { AppRouter } from "./router"
 import "./index.css"
 import { AuthProvider } from "@/modules/Auth"
@@ -10,7 +14,9 @@ createRoot(document.getElementById("root")!).render(
     <StoreProvider>
       <PersistProvider>
         <AuthProvider>
-          <AppRouter />
+          <DataRestoreProvider>
+            <AppRouter />
+          </DataRestoreProvider>
         </AuthProvider>
       </PersistProvider>
     </StoreProvider>

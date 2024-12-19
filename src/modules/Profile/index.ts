@@ -2,5 +2,8 @@ export {
   profileReducer,
   getUserProfile,
   clearProfile,
-  selectAdmin,
+  selectAdminStatus,
+  selectProfileInfo,
+  selectProfileStatus,
 } from "./store"
+export { getUserNameFromEmail } from "./helpers/getUserNameFromEmail"

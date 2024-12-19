@@ -3,10 +3,12 @@ import { persistStore, persistReducer } from "redux-persist"
 import storage from "redux-persist/lib/storage"
 import { userReducer } from "@/modules/Auth"
 import { profileReducer } from "@/modules/Profile"
+import { tagsReducer } from "@/modules/Tags"
 
 const rootReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
+  tags: tagsReducer,
 })
 
 const persistConfig = {

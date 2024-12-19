@@ -1,12 +1,17 @@
 import { createSelector } from "@reduxjs/toolkit"
 import { RootState } from "@/store"
 
-const selectInfo = (state: RootState) => state.profile.info
-export const selectProfileInfo = createSelector([selectInfo], (info) => info)
-export const selectAdmin = createSelector([selectInfo], (info) => info.admin)
+const selectProfile = (state: RootState) => state.profile
+export const selectProfileInfo = createSelector(
+  [selectProfile],
+  (profile) => profile.info
+)
+export const selectAdminStatus = createSelector(
+  [selectProfile],
+  (profile) => profile.info.admin
+)
 
-const selectStatus = (state: RootState) => state.profile.status
 export const selectProfileStatus = createSelector(
-  [selectStatus],
-  (status) => status
+  [selectProfile],
+  (profile) => profile.status
 )
