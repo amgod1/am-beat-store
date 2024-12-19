@@ -3,11 +3,13 @@ import { FaUser } from "react-icons/fa"
 import { MdAdminPanelSettings, MdLogout } from "react-icons/md"
 import { TbLogin2 } from "react-icons/tb"
 import { getAuth, signOut } from "firebase/auth"
-import { IconLink } from "@components/IconLink"
-import { ROUTES } from "@constants/Routes"
+import { IconLink } from "@/components/IconLink"
+import { ROUTES } from "@/constants/Routes"
+import { useAppSelector } from "@/hooks"
+import { selectUserAuth } from "@/modules/Auth"
 
 export const Header = () => {
-  const auth = false
+  const auth = useAppSelector(selectUserAuth)
 
   const logOutHandler = () => {
     const auth = getAuth()

@@ -1,9 +1,9 @@
 import { FC } from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { ROUTES } from "@constants/Routes"
 import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes"
 import { Layout } from "../layout"
-import { AuthPage, LoginPage, SignUpPage } from "@/pages/Auth"
+import { ROUTES } from "@/constants/Routes"
+import { AuthRedirect, LoginPage, SignUpPage } from "@/pages/Auth"
 import { CatalogPage } from "@/pages/Catalog"
 import { ProfilePage } from "@/pages/Profile"
 import { AdminPage } from "@/pages/Admin"
@@ -16,7 +16,7 @@ export const AppRouter: FC = () => (
       <Route path={ROUTES.Home} element={<Layout />}>
         <Route path={ROUTES.Catalog} element={<CatalogPage />} />
         <Route element={<ProtectedRoute />}>
-          <Route path={ROUTES.Auth} element={<AuthPage />}>
+          <Route path={ROUTES.Auth} element={<AuthRedirect />}>
             <Route path={ROUTES.Login} element={<LoginPage />} />
             <Route path={ROUTES.SignUp} element={<SignUpPage />} />
           </Route>
