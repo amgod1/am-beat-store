@@ -12,7 +12,6 @@ export interface BeatInfo {
   title: string
   bpm: number
   tagIds: string[]
-  tags: string[]
   createdAt: number
 }
 

@@ -12,7 +12,6 @@ const initialState: InitialState = {
     bpm: 0,
     createdAt: 0,
     tagIds: [],
-    tags: [],
   },
   status: {
     progress: 0,
@@ -35,7 +34,6 @@ const beatsSlice = createSlice({
       state.info.title = ""
       state.info.bpm = 0
       state.info.tagIds = []
-      state.info.tags = []
     },
     addTag: (state, { payload: tagId }: PayloadAction<string>) => {
       state.info.tagIds.push(tagId)
@@ -123,7 +121,6 @@ const beatsSlice = createSlice({
         state.info.bpm = 0
         state.info.createdAt = 0
         state.info.tagIds = []
-        state.info.tags = []
 
         state.status.progress = 0
         state.status.loading = false

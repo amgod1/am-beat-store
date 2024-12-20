@@ -1,14 +1,18 @@
 import { FC } from "react"
 import { TagsInterface } from "./Tags.interface"
 import { useAppSelector } from "@/hooks"
-import { selectTagsInfo } from "@/modules/Tags"
+import { selectTagsInfo, selectTagsStatus } from "@/modules/Tags"
+import { Loader } from "@/components"
 
 export const Tags: FC<TagsInterface> = ({ tagIds }) => {
   const TAGS_BREAKPOINT = 2
 
   const { allTagsObject } = useAppSelector(selectTagsInfo)
+  const { loading } = useAppSelector(selectTagsStatus)
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <div className="flex gap-2 xl:flex-row flex-wrap justify-start flex-col p-3">
       {tagIds.slice(0, TAGS_BREAKPOINT).map((tag) => (
         <p
