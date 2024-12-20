@@ -10,3 +10,4 @@ export {
   selectBeatsInfo,
   selectBeatsStatus,
 } from "./store"
+export type { BeatInfo } from "./store"

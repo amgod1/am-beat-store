@@ -50,6 +50,10 @@ export const uploadFile = createAsyncThunk(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         )
 
+        if (isNaN(progress)) {
+          throw new Error("firebase upload error")
+        }
+
         dispatch(setProgress(progress))
       })
 

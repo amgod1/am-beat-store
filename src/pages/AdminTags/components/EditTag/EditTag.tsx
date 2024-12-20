@@ -72,11 +72,13 @@ export const EditTag: FC = () => {
         onChange={onChangeHandler}
         className="bg-dark h-11 p-2 placeholder-green-800 outline-none border border-primary disabled:opacity-50 cursor-pointer"
       >
-        {allTagsArray.map(({ id, value }) => (
-          <option className="cursor-pointer" key={id} value={id}>
-            {value}
-          </option>
-        ))}
+        {allTagsArray
+          .sort((a, b) => a.value.localeCompare(b.value))
+          .map(({ id, value }) => (
+            <option className="cursor-pointer" key={id} value={id}>
+              {value}
+            </option>
+          ))}
       </select>
       <p>to:</p>
       <Input
