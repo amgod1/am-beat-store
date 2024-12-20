@@ -4,11 +4,13 @@ import storage from "redux-persist/lib/storage"
 import { userReducer } from "@/modules/Auth"
 import { profileReducer } from "@/modules/Profile"
 import { tagsReducer } from "@/modules/Tags"
+import { beatsReducer } from "@/modules/Beats"
 
 const rootReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
   tags: tagsReducer,
+  beats: beatsReducer,
 })
 
 const persistConfig = {

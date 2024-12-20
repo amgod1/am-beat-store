@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from "react"
+import { FC, ChangeEvent, useState } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import {
@@ -13,12 +13,12 @@ import { Button, Input } from "@/components"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 
 export const EditTag: FC = () => {
-  const tagsInfo = useAppSelector(selectTagsInfo)
-  const tags = Object.entries(tagsInfo).map(
-    ([id, value]): { id: string; value: string } => ({ id, value })
-  )
+  const { allTagsArray, allTagsObject } = useAppSelector(selectTagsInfo)
+
   const { loading } = useAppSelector(selectTagsStatus)
-  const [selectedOption, setSelectedOption] = useState<string>(tags[0].id)
+  const [selectedOption, setSelectedOption] = useState<string>(
+    allTagsArray[0]?.id
+  )
 
   const dispatch = useAppDispatch()
 
@@ -30,15 +30,18 @@ export const EditTag: FC = () => {
     setValue,
   } = useForm<TagForm>({
     defaultValues: {
-      tag: tags[0].value,
+      tag: allTagsArray[0]?.value,
     },
     mode: "onChange",
-    resolver: yupResolver(tagSchema(tagsInfo)),
+    resolver: yupResolver(tagSchema(allTagsObject)),
   })
 
   const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(e.target.value)
-    setValue("tag", tags.find((tag) => tag.id === e.target.value)!.value)
+    setValue(
+      "tag",
+      allTagsArray.find((tag) => tag.id === e.target.value)!.value
+    )
   }
 
   const onSubmitHandler = () => {
@@ -52,7 +55,7 @@ export const EditTag: FC = () => {
   const deleteHandler = async () => {
     await dispatch(deleteTag(selectedOption))
 
-    const firstTag = tags[0]
+    const firstTag = allTagsArray[0]
     setSelectedOption(firstTag.id)
     setValue("tag", firstTag.value)
   }
@@ -69,7 +72,7 @@ export const EditTag: FC = () => {
         onChange={onChangeHandler}
         className="bg-dark h-11 p-2 placeholder-green-800 outline-none border border-primary disabled:opacity-50 cursor-pointer"
       >
-        {tags.map(({ id, value }) => (
+        {allTagsArray.map(({ id, value }) => (
           <option className="cursor-pointer" key={id} value={id}>
             {value}
           </option>

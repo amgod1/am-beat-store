@@ -12,7 +12,7 @@ import { Button, Input } from "@/components"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 
 export const AddTag: FC = () => {
-  const tags = useAppSelector(selectTagsInfo)
+  const { allTagsObject: tags } = useAppSelector(selectTagsInfo)
   const { loading } = useAppSelector(selectTagsStatus)
   const dispatch = useAppDispatch()
 
