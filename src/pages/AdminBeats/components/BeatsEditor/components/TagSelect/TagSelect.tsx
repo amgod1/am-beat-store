@@ -9,11 +9,10 @@ import {
 import { selectTagsInfo } from "@/modules/Tags"
 
 export const TagSelect: FC = () => {
+  const dispatch = useAppDispatch()
   const { tagIds } = useAppSelector(selectBeatsInfo)
   const { loading } = useAppSelector(selectBeatsStatus)
   const { allTagsObject, allTagsArray } = useAppSelector(selectTagsInfo)
-
-  const dispatch = useAppDispatch()
 
   const addBeatTag = (event: ChangeEvent<HTMLSelectElement>) => {
     dispatch(addTag(event.target.value))
@@ -36,6 +35,7 @@ export const TagSelect: FC = () => {
         </option>
         {allTagsArray
           ?.filter((tag) => !tagIds.includes(tag.id))
+          ?.sort((a, b) => a.value.localeCompare(b.value))
           ?.map(({ id, value }) => (
             <option key={id} value={id}>
               {value}
