@@ -5,12 +5,14 @@ import { userReducer } from "@/modules/Auth"
 import { profileReducer } from "@/modules/Profile"
 import { tagsReducer } from "@/modules/Tags"
 import { beatsReducer } from "@/modules/Beats"
+import { playerReducer } from "@/modules/Player"
 
 const rootReducer = combineReducers({
   user: userReducer,
   profile: profileReducer,
   tags: tagsReducer,
   beats: beatsReducer,
+  player: playerReducer,
 })
 
 const persistConfig = {

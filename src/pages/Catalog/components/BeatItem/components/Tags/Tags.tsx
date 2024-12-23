@@ -13,7 +13,7 @@ export const Tags: FC<TagsInterface> = ({ tagIds }) => {
   return loading ? (
     <Loader />
   ) : (
-    <div className="flex gap-2 xl:flex-row flex-wrap justify-start flex-col p-3">
+    <div className="flex gap-2 lg:flex-row flex-wrap justify-start flex-col p-3">
       {tagIds.slice(0, TAGS_BREAKPOINT).map((tag) => (
         <p
           key={tag}

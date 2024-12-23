@@ -12,6 +12,7 @@ const initialState: InitialState = {
     bpm: 0,
     createdAt: 0,
     tagIds: [],
+    url: "",
   },
   status: {
     progress: 0,
@@ -34,6 +35,7 @@ const beatsSlice = createSlice({
       state.info.title = ""
       state.info.bpm = 0
       state.info.tagIds = []
+      state.info.url = ""
     },
     addTag: (state, { payload: tagId }: PayloadAction<string>) => {
       state.info.tagIds.push(tagId)
@@ -44,30 +46,6 @@ const beatsSlice = createSlice({
     setProgress: (state, { payload: progress }: PayloadAction<number>) => {
       state.status.progress = progress
     },
-    // decryptTagsIds: (state, { payload: tags }: PayloadAction<TagsData>) => {
-    //   const allBeats = state.beats
-    //   const map: Record<string, string> = {}
-
-    //   for (const tagGroup in tags) {
-    //     for (const tag of tags[tagGroup]) {
-    //       map[tag.id] = tag.tag
-    //     }
-    //   }
-
-    //   for (const beat of allBeats) {
-    //     beat.decryptedTags = {}
-
-    //     for (const tagName in beat.tags) {
-    //       beat.decryptedTags[tagName] = beat.tags[tagName].reduce(
-    //         (acc, tagId) => {
-    //           acc[tagId] = map[tagId]
-    //           return acc
-    //         },
-    //         {} as Record<string, string>
-    //       )
-    //     }
-    //   }
-    // },
   },
   extraReducers(builder) {
     builder.addCase(getBeats.pending, (state) => {
@@ -121,6 +99,7 @@ const beatsSlice = createSlice({
         state.info.bpm = 0
         state.info.createdAt = 0
         state.info.tagIds = []
+        state.info.url = ""
 
         state.status.progress = 0
         state.status.loading = false
@@ -145,5 +124,4 @@ export const {
   addTag,
   removeTag,
   setProgress,
-  // decryptTagsIds,
 } = beatsSlice.actions

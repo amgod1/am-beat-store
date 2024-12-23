@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { ref, uploadBytesResumable } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { db, storage } from "@/app/firebase.config"
-import { BeatInfo } from "./InitialState.interface"
+import { BeatFileInfo, BeatInfo } from "./InitialState.interface"
 import {
   collection,
   doc,
@@ -36,7 +36,7 @@ export const getBeats = createAsyncThunk(
 
 export const uploadFile = createAsyncThunk(
   "beats/uploadFile",
-  async (beat: BeatInfo, { dispatch, rejectWithValue }) => {
+  async (beat: BeatFileInfo, { dispatch, rejectWithValue }) => {
     try {
       const id = nanoid()
       const storageRef = ref(storage, `beats/${id}`)
@@ -57,10 +57,18 @@ export const uploadFile = createAsyncThunk(
         dispatch(setProgress(progress))
       })
 
-      await uploadTask.then(() => {
-        const info = JSON.parse(JSON.stringify(beat)) as BeatInfo
+      uploadTask.then(async () => {
+        const url = await getDownloadURL(storageRef)
 
-        info.id = id
+        const info: BeatInfo = {
+          title: beat.title,
+          bpm: beat.bpm,
+          id,
+          url,
+          tagIds: beat.tagIds,
+          createdAt: Date.now(),
+        }
+
         dispatch(uploadInfo(info))
       })
     } catch (error: Error | unknown) {
@@ -77,8 +85,6 @@ export const uploadInfo = createAsyncThunk(
   "beats/uploadInfo",
   async (info: BeatInfo, { fulfillWithValue, rejectWithValue }) => {
     try {
-      info.createdAt = Date.now()
-
       const docRef = doc(db, "beats", info.id!)
       await setDoc(docRef, info)
 

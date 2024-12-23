@@ -9,5 +9,6 @@ export {
   selectAllBeats,
   selectBeatsInfo,
   selectBeatsStatus,
+  selectBeatsDLL,
 } from "./store"
 export type { BeatInfo } from "./store"

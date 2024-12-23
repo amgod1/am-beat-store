@@ -6,6 +6,10 @@ export {
   removeFileFromEditor,
   addTag,
   removeTag,
-  // decryptTagsIds,
 } from "./slice"
-export { selectAllBeats, selectBeatsInfo, selectBeatsStatus } from "./selectors"
+export {
+  selectAllBeats,
+  selectBeatsInfo,
+  selectBeatsStatus,
+  selectBeatsDLL,
+} from "./selectors"

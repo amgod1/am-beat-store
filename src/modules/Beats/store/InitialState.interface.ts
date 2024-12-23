@@ -2,17 +2,21 @@ import { LoadingStatus } from "@/interfaces"
 
 export interface InitialState {
   beats: BeatInfo[]
-  info: BeatInfo
+  info: BeatFileInfo
   status: UploadLoadingStatus
 }
 
 export interface BeatInfo {
-  file: File | null
   id: string | null
   title: string
   bpm: number
   tagIds: string[]
   createdAt: number
+  url: string
+}
+
+export interface BeatFileInfo extends BeatInfo {
+  file: File | null
 }
 
 interface UploadLoadingStatus extends LoadingStatus {

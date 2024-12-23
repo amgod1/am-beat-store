@@ -1,3 +1,4 @@
+import { FC } from "react"
 import { Button, Loader } from "@/components"
 import { useAppSelector } from "@/hooks"
 import {
@@ -5,7 +6,6 @@ import {
   selectProfileInfo,
   selectProfileStatus,
 } from "@/modules/Profile"
-import { FC } from "react"
 
 export const ProfilePage: FC = () => {
   const { email } = useAppSelector(selectProfileInfo)
