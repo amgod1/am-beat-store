@@ -7,9 +7,4 @@ export {
   addTag,
   removeTag,
 } from "./slice"
-export {
-  selectAllBeats,
-  selectBeatsInfo,
-  selectBeatsStatus,
-  selectBeatsDLL,
-} from "./selectors"
+export { selectAllBeats, selectBeatsInfo, selectBeatsStatus } from "./selectors"

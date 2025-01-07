@@ -7,7 +7,7 @@ export const BeatItem: FC<BeatItemInterface> = ({ beat }) => {
     <tr className="border border-primary hover:bg-accent cursor-pointer text-xs sm:text-base">
       <td>
         <div className="flex items-center gap-5 p-3 sm:p-5">
-          <Play />
+          <Play url={beat.url} />
           <p>{beat.title}</p>
         </div>
       </td>
