@@ -1,13 +1,7 @@
-import { LoadingStatus } from "@/interfaces"
-
 export interface InitialState {
-  info: PlayerInfo
-  status: LoadingStatus
-}
-
-interface PlayerInfo {
+  id: string | null
   title: string | null
   src: string | null
-  show: boolean
+  showPlayer: boolean
   isPlaying: boolean
 }

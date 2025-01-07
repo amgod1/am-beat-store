@@ -1,8 +1,8 @@
+import { FC } from "react"
 import { useAppSelector } from "@/hooks"
 import { selectAllBeats, selectBeatsStatus } from "@/modules/Beats"
-import { FC } from "react"
-import { BeatItem } from "./components"
 import { Loader } from "@/components"
+import { BeatItem } from "./components"
 
 export const CatalogPage: FC = () => {
   const beats = useAppSelector(selectAllBeats)
