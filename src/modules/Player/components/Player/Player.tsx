@@ -19,21 +19,29 @@ export const Player: FC = () => {
   const closeHandler = () => dispatch(closePlayer())
 
   return (
-    <div className="my-8 h-8 grid grid-cols-3 justify-items-center items-center">
-      <h2>{info.title}</h2>
+    <div className="my-8 h-8 grid grid-cols-2 sm:grid-cols-3 justify-items-stretch items-center">
+      <h2 className="text-base sm:text-xl">{info.title}</h2>
       {info.isPlaying ? (
-        <button onClick={pauseHandler} className="hover:text-warning">
+        <button
+          onClick={pauseHandler}
+          className="hover:text-warning justify-self-end sm:justify-self-center"
+        >
           <FaRegCirclePause size="2rem" />
         </button>
       ) : (
-        <button onClick={continueHandler} className="hover:text-warning">
+        <button
+          onClick={continueHandler}
+          className="hover:text-warning justify-self-end sm:justify-self-center"
+        >
           <FaRegCirclePlay size="2rem" />
         </button>
       )}
-      <button onClick={closeHandler} className="hover:text-warning">
+      <button
+        onClick={closeHandler}
+        className="hover:text-warning hidden sm:block justify-self-end"
+      >
         <IoIosCloseCircleOutline size="2.5rem" />
       </button>
-      {/* </div> */}
     </div>
   )
 }
