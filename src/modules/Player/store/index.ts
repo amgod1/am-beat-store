@@ -5,4 +5,5 @@ export {
   continuePlaying,
   closePlayer,
   playerReducer,
+  setAudioProgress,
 } from "./slice"

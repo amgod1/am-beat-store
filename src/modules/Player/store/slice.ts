@@ -8,6 +8,7 @@ const initialState: InitialState = {
   src: null,
   showPlayer: false,
   isPlaying: false,
+  progress: 0,
 }
 
 const playerSlice = createSlice({
@@ -37,10 +38,22 @@ const playerSlice = createSlice({
       state.src = null
       state.showPlayer = false
       state.isPlaying = false
+      state.progress = 0
+    },
+    setAudioProgress: (
+      state,
+      { payload: newProgress }: PayloadAction<number>
+    ) => {
+      state.progress = newProgress
     },
   },
 })
 
-export const { playAudio, pausePlaying, continuePlaying, closePlayer } =
-  playerSlice.actions
+export const {
+  playAudio,
+  pausePlaying,
+  continuePlaying,
+  closePlayer,
+  setAudioProgress,
+} = playerSlice.actions
 export const playerReducer = playerSlice.reducer

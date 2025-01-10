@@ -4,4 +4,5 @@ export interface InitialState {
   src: string | null
   showPlayer: boolean
   isPlaying: boolean
+  progress: number
 }
