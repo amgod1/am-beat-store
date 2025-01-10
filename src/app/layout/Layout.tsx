@@ -5,10 +5,12 @@ import { Header } from "./Header"
 import { Footer } from "./Footer"
 import { useAppSelector } from "@/hooks"
 import { Player, selectPlayerStatus } from "@/modules/Player"
+import { selectLicenseInfo, LicenseModal } from "@/modules/License"
 
 export const Layout: FC = () => {
   const { pathname } = useLocation()
   const showPlayer = useAppSelector(selectPlayerStatus)
+  const { show: showModal } = useAppSelector(selectLicenseInfo)
 
   if (pathname === ROUTES.Home) {
     return <Navigate to={ROUTES.Catalog} />
@@ -20,6 +22,7 @@ export const Layout: FC = () => {
       <main className="flex flex-grow items-center flex-col">
         <Outlet />
       </main>
+      {showModal && <LicenseModal />}
       {showPlayer ? <Player /> : <Footer />}
     </>
   )

@@ -24,7 +24,7 @@ export const BeatItem: FC<BeatItemInterface> = ({ beat }) => {
         <Tags tagIds={beat.tagIds} />
       </td>
       <td>
-        <AddToCart />
+        <AddToCart id={beat.id!} />
       </td>
     </tr>
   )
