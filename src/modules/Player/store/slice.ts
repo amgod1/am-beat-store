@@ -15,11 +15,15 @@ const playerSlice = createSlice({
   initialState,
   reducers: {
     playAudio: (state, { payload: beat }: PayloadAction<BeatInfo>) => {
-      state.id = beat.id
-      state.title = beat.title
-      state.src = beat.url
-      state.showPlayer = true
-      state.isPlaying = true
+      if (state.id === beat.id && state.isPlaying) {
+        state.isPlaying = false
+      } else {
+        state.isPlaying = true
+        state.id = beat.id
+        state.title = beat.title
+        state.src = beat.url
+        state.showPlayer = true
+      }
     },
     pausePlaying: (state) => {
       state.isPlaying = false

@@ -1,2 +1,7 @@
 export { Player } from "./components"
-export { playAudio, selectPlayerStatus, playerReducer } from "./store"
+export {
+  playAudio,
+  selectPlayerInfo,
+  selectPlayerStatus,
+  playerReducer,
+} from "./store"
