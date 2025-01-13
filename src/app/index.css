@@ -32,3 +32,19 @@ body > div {
   line-height: 1.6;
   font-size: 18px;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #160d0c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #32f697;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5d57ba;
+}

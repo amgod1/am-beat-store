@@ -16,11 +16,7 @@ export const Button: FC<ButtonInterface> = ({
     onClick={onClick}
     className={`flex items-center justify-center gap-2 bg-dark border border-primary h-11 p-2 transition-all duration-200 hover:text-dark 
     ${fullWidth && "w-full"}
-    ${
-      danger
-        ? "hover:bg-danger hover:border-danger"
-        : "hover:bg-warning hover:border-warning"
-    }`}
+    ${danger ? "hover:bg-danger" : "hover:bg-warning"}`}
   >
     {loading ? <Loader /> : children}
   </button>

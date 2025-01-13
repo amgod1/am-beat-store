@@ -28,15 +28,14 @@ export const Header = () => {
       <div className="flex items-center gap-4">
         {auth ? (
           <>
-            {admin ? (
+            {admin && (
               <IconLink
                 Icon={MdAdminPanelSettings}
                 navigation={ROUTES.Admin}
                 size="2rem"
               />
-            ) : (
-              <IconLink Icon={IoCart} navigation={ROUTES.Cart} size="2rem" />
             )}
+            <IconLink Icon={IoCart} navigation={ROUTES.Cart} size="2rem" />
             <IconLink Icon={FaUser} navigation={ROUTES.Profile} />
             <IconLink Icon={MdLogout} callback={logOutHandler} size="2rem" />
           </>
