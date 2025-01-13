@@ -3,6 +3,7 @@ export {
   getUserProfile,
   clearProfile,
   addToCart,
+  removeFromCart,
   selectAdminStatus,
   selectProfileInfo,
   selectProfileStatus,

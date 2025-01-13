@@ -91,3 +91,30 @@ export const addToCart = createAsyncThunk(
     }
   }
 )
+
+export const removeFromCart = createAsyncThunk(
+  "user/removeFromCart",
+  async (beatId: string, { getState, fulfillWithValue, rejectWithValue }) => {
+    try {
+      const userId = (getState() as RootState).profile.info.id as string
+      const cart = (getState() as RootState).profile.info.cart
+
+      let updatedCart: CartItem[] = JSON.parse(JSON.stringify(cart))
+      updatedCart = updatedCart.filter((el) => el.beatId !== beatId)
+
+      const userDocRef = doc(db, "users", userId)
+
+      await updateDoc(userDocRef, {
+        cart: updatedCart,
+      })
+
+      return fulfillWithValue(updatedCart)
+    } catch (error: Error | unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+
+      return rejectWithValue(error)
+    }
+  }
+)

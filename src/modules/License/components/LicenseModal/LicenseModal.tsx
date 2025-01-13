@@ -7,6 +7,7 @@ import { LeaseInfo, LeaseItem } from "./components"
 import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
 import {
   addToCart,
+  removeFromCart,
   selectProfileInfo,
   selectProfileStatus,
 } from "@/modules/Profile"
@@ -45,6 +46,11 @@ export const LicenseModal: FC = () => {
     hideModalHandler()
   }
 
+  const removeFromCartHandler = async () => {
+    await dispatch(removeFromCart(beatId!))
+    hideModalHandler()
+  }
+
   return (
     <div
       onClick={hideModalHandler}
@@ -72,24 +78,29 @@ export const LicenseModal: FC = () => {
             </Fragment>
           ))}
         </div>
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <p className="text-xs sm:text-base">total:</p>
-            <p className="text-base">{price}$</p>
-          </div>
-          <div className="flex gap-4 w-60">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full items-center">
+          <h3 className="w-full text-lg">{`total: ${price}$`}</h3>
+          <Button
+            disabled={disableButton}
+            onClick={addToCartHandler}
+            loading={loading}
+            fullWidth={true}
+          >
+            {alreadyAdded ? "update" : "add"}
+          </Button>
+          {alreadyAdded && (
             <Button
-              disabled={disableButton}
-              onClick={addToCartHandler}
+              onClick={removeFromCartHandler}
+              danger={true}
               loading={loading}
               fullWidth={true}
             >
-              {alreadyAdded ? "update" : "add"}
+              remove
             </Button>
-            <Button onClick={hideModalHandler} danger={true} fullWidth={true}>
-              close
-            </Button>
-          </div>
+          )}
+          <Button onClick={hideModalHandler} danger={true} fullWidth={true}>
+            close
+          </Button>
         </div>
       </section>
     </div>

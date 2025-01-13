@@ -1,4 +1,9 @@
-export { getUserProfile, createUserProfile, addToCart } from "./thunks"
+export {
+  getUserProfile,
+  createUserProfile,
+  addToCart,
+  removeFromCart,
+} from "./thunks"
 export {
   selectAdminStatus,
   selectProfileInfo,

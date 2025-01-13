@@ -18,7 +18,7 @@ export const Button: FC<ButtonInterface> = ({
     className={`flex items-center justify-center gap-2 bg-dark border border-primary h-11 p-2 transition-all duration-200 hover:text-dark 
     ${fullWidth && "w-full"}
     ${danger ? "hover:bg-danger" : "hover:bg-warning"}
-    ${disabled && "opacity-70 hover:bg-dark hover:text-primary"}
+    ${(disabled || loading) && "opacity-70 hover:bg-dark hover:text-primary"}
     `}
   >
     {loading ? <Loader /> : children}

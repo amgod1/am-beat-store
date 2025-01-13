@@ -1,6 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { CartItem, InitialState, ProfileInfo } from "./InitialState.interface"
-import { addToCart, createUserProfile, getUserProfile } from "./thunks"
+import {
+  addToCart,
+  createUserProfile,
+  getUserProfile,
+  removeFromCart,
+} from "./thunks"
 import { ShortUserInfo } from "@/modules/Auth"
 
 const initialState: InitialState = {
@@ -88,6 +93,25 @@ const profileSlice = createSlice({
     )
     builder.addCase(
       addToCart.rejected,
+      (state, { payload: error }: PayloadAction<string | unknown>) => {
+        state.status.loading = false
+        state.status.error = typeof error === "string" ? error : "unknown error"
+      }
+    )
+    builder.addCase(removeFromCart.pending, (state) => {
+      state.status.loading = true
+      state.status.error = null
+    })
+    builder.addCase(
+      removeFromCart.fulfilled,
+      (state, { payload: updatedCart }: PayloadAction<CartItem[]>) => {
+        state.info.cart = updatedCart
+        state.status.loading = false
+        state.status.error = null
+      }
+    )
+    builder.addCase(
+      removeFromCart.rejected,
       (state, { payload: error }: PayloadAction<string | unknown>) => {
         state.status.loading = false
         state.status.error = typeof error === "string" ? error : "unknown error"
