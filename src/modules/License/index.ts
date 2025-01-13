@@ -1,8 +1,8 @@
 export {
   showModal,
   hideModal,
-  selectLicenseInfo,
-  selectLicenseStatus,
+  updateLeasePlanId,
+  selectShowLicenseModal,
   licenseReducer,
 } from "./store"
 export { LicenseModal } from "./components"

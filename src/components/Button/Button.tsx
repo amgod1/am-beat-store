@@ -4,6 +4,7 @@ import { Loader } from "../Loader"
 
 export const Button: FC<ButtonInterface> = ({
   type = "button",
+  disabled = false,
   danger = false,
   loading = false,
   fullWidth = false,
@@ -12,11 +13,13 @@ export const Button: FC<ButtonInterface> = ({
 }) => (
   <button
     type={type}
-    disabled={loading}
+    disabled={disabled || loading}
     onClick={onClick}
     className={`flex items-center justify-center gap-2 bg-dark border border-primary h-11 p-2 transition-all duration-200 hover:text-dark 
     ${fullWidth && "w-full"}
-    ${danger ? "hover:bg-danger" : "hover:bg-warning"}`}
+    ${danger ? "hover:bg-danger" : "hover:bg-warning"}
+    ${disabled && "opacity-70 hover:bg-dark hover:text-primary"}
+    `}
   >
     {loading ? <Loader /> : children}
   </button>

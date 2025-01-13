@@ -1,2 +1,7 @@
-export { showModal, hideModal, licenseReducer } from "./slice"
-export { selectLicenseInfo, selectLicenseStatus } from "./selectors"
+export {
+  showModal,
+  hideModal,
+  updateLeasePlanId,
+  licenseReducer,
+} from "./slice"
+export { selectShowLicenseModal, selectCartItem } from "./selectors"

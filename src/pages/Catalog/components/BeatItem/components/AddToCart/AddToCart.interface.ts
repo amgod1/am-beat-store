@@ -1,3 +1,3 @@
 export interface AddToCartInterface {
-  id: string
+  beatId: string
 }

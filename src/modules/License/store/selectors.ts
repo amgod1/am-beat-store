@@ -3,12 +3,12 @@ import { createSelector } from "@reduxjs/toolkit"
 
 const selectLicense = (state: RootState) => state.license
 
-export const selectLicenseInfo = createSelector(
+export const selectShowLicenseModal = createSelector(
   [selectLicense],
-  (license) => license.info
+  (license) => license.show
 )
 
-export const selectLicenseStatus = createSelector(
-  [selectLicense],
-  (license) => license.status
-)
+export const selectCartItem = createSelector([selectLicense], (license) => ({
+  beatId: license.selectedBeatId,
+  leasePlanId: license.selectedLeasePlanId,
+}))

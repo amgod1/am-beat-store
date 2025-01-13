@@ -1,31 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { InitialState } from "./initialState.interface"
+import { CartItem } from "@/modules/Profile"
 
 const initialState: InitialState = {
-  info: {
-    show: false,
-    selectedBeatId: null,
-  },
-  status: {
-    loading: false,
-    error: null,
-  },
+  show: false,
+  selectedBeatId: null,
+  selectedLeasePlanId: 1,
 }
 
 const licenseSlice = createSlice({
   name: "license",
   initialState,
   reducers: {
-    showModal: (state, { payload: id }: PayloadAction<string>) => {
-      state.info.show = true
-      state.info.selectedBeatId = id
+    showModal: (state, { payload: info }: PayloadAction<CartItem>) => {
+      state.show = true
+      state.selectedBeatId = info.beatId
+      state.selectedLeasePlanId = info.leasePlanId
     },
     hideModal: (state) => {
-      state.info.show = false
-      state.info.selectedBeatId = null
+      state.show = false
+      state.selectedBeatId = null
+      state.selectedLeasePlanId = 1
+    },
+    updateLeasePlanId: (state, { payload: id }: PayloadAction<number>) => {
+      state.selectedLeasePlanId = id
     },
   },
 })
 
-export const { showModal, hideModal } = licenseSlice.actions
+export const { showModal, hideModal, updateLeasePlanId } = licenseSlice.actions
 export const licenseReducer = licenseSlice.reducer

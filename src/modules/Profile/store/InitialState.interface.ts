@@ -9,6 +9,10 @@ export interface ProfileInfo {
   id: string | null
   email: string | null
   admin: false
-  cart: number[]
-  likes: number[]
+  cart: CartItem[]
+}
+
+export interface CartItem {
+  beatId: string
+  leasePlanId: number
 }

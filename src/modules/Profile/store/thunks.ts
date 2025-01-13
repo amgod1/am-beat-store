@@ -1,9 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { doc, getDoc, setDoc } from "firebase/firestore"
+import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/app/firebase.config"
 import { ShortUserInfo } from "@/modules/Auth"
 import { generateUserProfile } from "../helpers"
-import { ProfileInfo } from "./InitialState.interface"
+import { CartItem, ProfileInfo } from "./InitialState.interface"
+import { RootState } from "@/store"
 
 export const getUserProfile = createAsyncThunk(
   "user/getUserProfile",
@@ -40,6 +41,47 @@ export const createUserProfile = createAsyncThunk(
       await setDoc(docRef, generateUserProfile(shortInfo))
 
       return fulfillWithValue(shortInfo)
+    } catch (error: Error | unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const addToCart = createAsyncThunk(
+  "user/addToCart",
+  async (
+    newCartItem: CartItem,
+    { getState, fulfillWithValue, rejectWithValue }
+  ) => {
+    try {
+      const userId = (getState() as RootState).profile.info.id as string
+      const cart = (getState() as RootState).profile.info.cart
+
+      const userDocRef = doc(db, "users", userId)
+
+      const updateIndex = cart.findIndex(
+        (el) => el.beatId === newCartItem.beatId
+      )
+      if (updateIndex >= 0) {
+        const updatedCart = JSON.parse(JSON.stringify(cart))
+        updatedCart[updateIndex].leasePlanId = newCartItem.leasePlanId
+
+        await updateDoc(userDocRef, {
+          cart: updatedCart,
+        })
+
+        return fulfillWithValue(updatedCart)
+      } else {
+        await updateDoc(userDocRef, {
+          cart: arrayUnion(newCartItem),
+        })
+
+        return fulfillWithValue([...cart, newCartItem])
+      }
     } catch (error: Error | unknown) {
       if (error instanceof Error) {
         return rejectWithValue(error.message)

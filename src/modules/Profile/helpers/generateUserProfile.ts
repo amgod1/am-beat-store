@@ -5,5 +5,4 @@ export const generateUserProfile = (shortInfo: ShortUserInfo): ProfileInfo => ({
   ...shortInfo,
   admin: false,
   cart: [],
-  likes: [],
 })

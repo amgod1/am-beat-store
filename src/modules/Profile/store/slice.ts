@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { InitialState, ProfileInfo } from "./InitialState.interface"
-import { createUserProfile, getUserProfile } from "./thunks"
+import { CartItem, InitialState, ProfileInfo } from "./InitialState.interface"
+import { addToCart, createUserProfile, getUserProfile } from "./thunks"
 import { ShortUserInfo } from "@/modules/Auth"
 
 const initialState: InitialState = {
@@ -9,7 +9,6 @@ const initialState: InitialState = {
     email: null,
     admin: false,
     cart: [],
-    likes: [],
   },
   status: {
     loading: false,
@@ -26,7 +25,6 @@ const profileSlice = createSlice({
       state.info.email = null
       state.info.admin = false
       state.info.cart = []
-      state.info.likes = []
     },
   },
   extraReducers(builder) {
@@ -42,7 +40,6 @@ const profileSlice = createSlice({
           state.info.email = profile.email
           state.info.admin = profile.admin
           state.info.cart = profile.cart
-          state.info.likes = profile.likes
         }
 
         state.status.loading = false
@@ -72,6 +69,25 @@ const profileSlice = createSlice({
     )
     builder.addCase(
       createUserProfile.rejected,
+      (state, { payload: error }: PayloadAction<string | unknown>) => {
+        state.status.loading = false
+        state.status.error = typeof error === "string" ? error : "unknown error"
+      }
+    )
+    builder.addCase(addToCart.pending, (state) => {
+      state.status.loading = true
+      state.status.error = null
+    })
+    builder.addCase(
+      addToCart.fulfilled,
+      (state, { payload: updatedCart }: PayloadAction<CartItem[]>) => {
+        state.info.cart = updatedCart
+        state.status.loading = false
+        state.status.error = null
+      }
+    )
+    builder.addCase(
+      addToCart.rejected,
       (state, { payload: error }: PayloadAction<string | unknown>) => {
         state.status.loading = false
         state.status.error = typeof error === "string" ? error : "unknown error"
