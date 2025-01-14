@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { LEASES } from "@/constants/Leases"
+import { LEASES } from "@/modules/License"
 import { useAppSelector } from "@/hooks"
 import { selectProfileInfo, selectProfileStatus } from "@/modules/Profile"
 import { Button } from "@/components"

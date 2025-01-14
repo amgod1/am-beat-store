@@ -9,7 +9,7 @@ import {
 import { selectAllBeats } from "@/modules/Beats"
 import { PlayButton } from "@/modules/Player"
 import { showModal } from "@/modules/License"
-import { LEASES } from "@/constants/Leases"
+import { LEASES } from "@/modules/License"
 
 export const CartItems: FC = () => {
   const { cart } = useAppSelector(selectProfileInfo)

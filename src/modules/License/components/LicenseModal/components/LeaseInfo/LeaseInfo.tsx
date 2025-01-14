@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { LEASES } from "@/constants/Leases"
+import { LEASES } from "@/modules/License/constants"
 import { LeaseInfoInterface } from "./LeaseInfo.interface"
 import { LeaseInfoIcon } from "../LeaseInfoIcon"
 

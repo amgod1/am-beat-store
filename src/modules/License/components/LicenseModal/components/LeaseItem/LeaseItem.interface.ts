@@ -1,4 +1,4 @@
-import { LEASES } from "@/constants/Leases"
+import { LEASES } from "@/modules/License/constants"
 
 export interface LeaseItemInterface {
   lease: (typeof LEASES)[number]

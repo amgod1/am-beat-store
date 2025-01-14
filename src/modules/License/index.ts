@@ -6,3 +6,4 @@ export {
   licenseReducer,
 } from "./store"
 export { LicenseModal } from "./components"
+export { LEASES } from "./constants"

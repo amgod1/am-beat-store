@@ -1,7 +1,7 @@
 import { FC, Fragment, MouseEvent, TouchEvent } from "react"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { MdClose } from "react-icons/md"
-import { LEASES } from "@/constants/Leases"
+import { LEASES } from "@/modules/License/constants"
 import { Button } from "@/components"
 import { LeaseInfo, LeaseItem } from "./components"
 import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
