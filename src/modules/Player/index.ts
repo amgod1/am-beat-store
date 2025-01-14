@@ -5,4 +5,3 @@ export {
   selectPlayerStatus,
   playerReducer,
 } from "./store"
-export type { BeatItem } from "./interfaces"

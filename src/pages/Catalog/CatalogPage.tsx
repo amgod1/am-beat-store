@@ -2,7 +2,7 @@ import { FC } from "react"
 import { useAppSelector } from "@/hooks"
 import { selectAllBeats, selectBeatsStatus } from "@/modules/Beats"
 import { Loader } from "@/components"
-import { BeatItem } from "./components"
+import { CatalogItem } from "./components"
 
 export const CatalogPage: FC = () => {
   const beats = useAppSelector(selectAllBeats)
@@ -14,7 +14,7 @@ export const CatalogPage: FC = () => {
     <table className="table-auto w-full text-base">
       <tbody>
         {beats.map((beat) => (
-          <BeatItem key={beat.id} beat={beat} />
+          <CatalogItem key={beat.id} beat={beat} />
         ))}
       </tbody>
     </table>

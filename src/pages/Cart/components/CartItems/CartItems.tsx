@@ -1,4 +1,5 @@
-import { FC } from "react"
+import { FC, MouseEvent } from "react"
+import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
 import {
@@ -10,10 +11,12 @@ import { selectAllBeats } from "@/modules/Beats"
 import { PlayButton } from "@/modules/Player"
 import { showModal } from "@/modules/License"
 import { LEASES } from "@/modules/License"
+import { ROUTES } from "@/constants/Routes"
 
 export const CartItems: FC = () => {
   const { cart } = useAppSelector(selectProfileInfo)
   const { loading } = useAppSelector(selectProfileStatus)
+  const navigate = useNavigate()
 
   const allBeats = useAppSelector(selectAllBeats)
   const dispatch = useAppDispatch()
@@ -33,12 +36,21 @@ export const CartItems: FC = () => {
     dispatch(removeFromCart(beatId))
   }
 
+  const openBeatPage = (id: string) => (event: MouseEvent) => {
+    if ((event.target as HTMLElement).closest("button")) {
+      return
+    }
+
+    navigate(`${ROUTES.Beat}/${id}`)
+  }
+
   return (
     <div className="flex flex-col w-full lg:w-2/3">
       {decodedCart.map((cartItem) => (
         <div
           key={cartItem.beat.id}
           className="flex flex-col sm:grid sm:grid-rows-1 sm:grid-cols-6 gap-2 sm:gap-4 sm:items-center border border-primary hover:bg-accent cursor-pointer p-4"
+          onClick={openBeatPage(cartItem.beat.id!)}
         >
           <PlayButton beat={cartItem.beat} />
           <p className="col-span-2">{cartItem.beat.title}</p>

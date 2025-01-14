@@ -22,25 +22,21 @@ export const AddToCart: FC<AddToCartInterface> = ({ beatId }) => {
     dispatch(showModal({ beatId, leasePlanId: leasePlanId || 1 }))
   }
 
-  return (
-    <div className="flex justify-end sm:justify-center p-3 sm:p-5">
-      {!auth ? (
-        <Link to={ROUTES.Login}>
-          <Button>
-            <IoCart size="1.5rem" />
-            <p className="hidden sm:block">add</p>
-          </Button>
-        </Link>
+  return !auth ? (
+    <Link to={ROUTES.Login}>
+      <Button>
+        <IoCart size="1.5rem" />
+        <p className="hidden sm:block">add</p>
+      </Button>
+    </Link>
+  ) : (
+    <Button onClick={addToCartHandler}>
+      {leasePlanId ? (
+        <MdOutlineUpdate size="1.5rem" />
       ) : (
-        <Button onClick={addToCartHandler}>
-          {leasePlanId ? (
-            <MdOutlineUpdate size="1.5rem" />
-          ) : (
-            <IoCart size="1.5rem" />
-          )}
-          <p className="hidden sm:block">{leasePlanId ? "update" : "add"}</p>
-        </Button>
+        <IoCart size="1.5rem" />
       )}
-    </div>
+      <p className="hidden sm:block">{leasePlanId ? "update" : "add"}</p>
+    </Button>
   )
 }
