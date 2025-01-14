@@ -1,11 +1,10 @@
 import { FC } from "react"
-import { FaRegCirclePause, FaRegCirclePlay } from "react-icons/fa6"
-import { BeatItemInterface } from "../../BeatItem.interface"
-import { playAudio } from "@/modules/Player"
 import { useAppDispatch, useAppSelector } from "@/hooks"
-import { selectPlayerInfo } from "@/modules/Player/store"
+import { playAudio, selectPlayerInfo } from "../../store"
+import { FaRegCirclePause, FaRegCirclePlay } from "react-icons/fa6"
+import { BeatItem } from "../../interfaces"
 
-export const Play: FC<BeatItemInterface> = ({ beat }) => {
+export const PlayButton: FC<BeatItem> = ({ beat }) => {
   const dispatch = useAppDispatch()
   const { isPlaying, id: playingAudioId } = useAppSelector(selectPlayerInfo)
 

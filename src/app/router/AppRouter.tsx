@@ -5,7 +5,6 @@ import { Layout } from "../layout"
 import { ROUTES } from "@/constants/Routes"
 import { AuthRedirect, LoginPage, SignUpPage } from "@/pages/Auth"
 import { CatalogPage } from "@/pages/Catalog"
-import { ProfilePage } from "@/pages/Profile"
 import { AdminPage } from "@/pages/Admin"
 import { AdminBeatsPage } from "@/pages/AdminBeats"
 import { AdminTagsPage } from "@/pages/AdminTags"
@@ -23,7 +22,6 @@ export const AppRouter: FC = () => (
           </Route>
         </Route>
         <Route element={<PrivateRoute />}>
-          <Route path={ROUTES.Profile} element={<ProfilePage />} />
           <Route path={ROUTES.Cart} element={<CartPage />} />
         </Route>
         <Route element={<AdminRoute />}>

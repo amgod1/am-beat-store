@@ -81,9 +81,9 @@ export const LicenseModal: FC = () => {
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full items-center">
           <h3 className="w-full text-lg">{`total: ${price}$`}</h3>
           <Button
-            disabled={disableButton}
+            // disabled={disableButton}
             onClick={addToCartHandler}
-            loading={loading}
+            loading={disableButton || loading}
             fullWidth={true}
           >
             {alreadyAdded ? "update" : "add"}

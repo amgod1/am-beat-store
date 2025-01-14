@@ -5,7 +5,6 @@ export enum ROUTES {
   SignUp = "/auth/signup",
   Catalog = "/catalog",
   Beat = "/beat/",
-  Profile = "/profile",
   Admin = "/admin",
   AdminBeats = "/admin/beats",
   AdminTags = "/admin/tags",

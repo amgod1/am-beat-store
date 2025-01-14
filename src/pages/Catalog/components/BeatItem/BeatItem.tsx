@@ -1,8 +1,11 @@
 import { FC } from "react"
-import { BeatItemInterface } from "./BeatItem.interface"
-import { AddToCart, Play, Tags } from "./components"
+import { AddToCart, Tags } from "./components"
 import { useAppSelector } from "@/hooks"
-import { selectPlayerInfo } from "@/modules/Player"
+import {
+  selectPlayerInfo,
+  PlayButton,
+  BeatItem as BeatItemInterface,
+} from "@/modules/Player"
 
 export const BeatItem: FC<BeatItemInterface> = ({ beat }) => {
   const { id: playingAudioId } = useAppSelector(selectPlayerInfo)
@@ -15,7 +18,7 @@ export const BeatItem: FC<BeatItemInterface> = ({ beat }) => {
     >
       <td>
         <div className="flex items-center gap-5 p-3 sm:p-5">
-          <Play beat={beat} />
+          <PlayButton beat={beat} />
           <p>{beat.title}</p>
         </div>
       </td>
