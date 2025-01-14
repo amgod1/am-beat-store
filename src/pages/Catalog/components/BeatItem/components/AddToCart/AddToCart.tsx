@@ -28,6 +28,7 @@ export const AddToCart: FC<AddToCartInterface> = ({ beatId }) => {
         <Link to={ROUTES.Login}>
           <Button>
             <IoCart size="1.5rem" />
+            <p className="hidden sm:block">add</p>
           </Button>
         </Link>
       ) : (
