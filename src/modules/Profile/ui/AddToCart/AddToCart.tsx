@@ -10,7 +10,7 @@ import { selectProfileInfo } from "@/modules/Profile"
 import { showModal } from "@/modules/License"
 import { selectUserAuth } from "@/modules/Auth"
 
-export const AddToCart: FC<AddToCartInterface> = ({ beatId }) => {
+export const AddToCart: FC<AddToCartInterface> = ({ beatId, hide = true }) => {
   const auth = useAppSelector(selectUserAuth)
   const { cart } = useAppSelector(selectProfileInfo)
 
@@ -36,7 +36,9 @@ export const AddToCart: FC<AddToCartInterface> = ({ beatId }) => {
       ) : (
         <IoCart size="1.5rem" />
       )}
-      <p className="hidden sm:block">{leasePlanId ? "update" : "add"}</p>
+      <p className={`${hide && "hidden sm:block"}`}>
+        {leasePlanId ? "update" : "add"}
+      </p>
     </Button>
   )
 }

@@ -1,0 +1,1 @@
+export { BeatsCatalog } from "./BeatsCatalog"

@@ -5,5 +5,5 @@ export {
   selectShowLicenseModal,
   licenseReducer,
 } from "./store"
-export { LicenseModal } from "./components"
+export { LicenseModal } from "./ui"
 export { LEASES } from "./constants"

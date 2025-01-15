@@ -1,4 +1,4 @@
-export { PlayButton, Player } from "./components"
+export { PlayButton, Player } from "./ui"
 export {
   playAudio,
   selectPlayerInfo,

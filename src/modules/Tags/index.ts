@@ -9,3 +9,4 @@ export {
   selectTagsInfo,
   selectTagsStatus,
 } from "./store"
+export { TagsList } from "./ui"

@@ -1,12 +1,10 @@
 import { FC } from "react"
-import { TagsInterface } from "./Tags.interface"
 import { useAppSelector } from "@/hooks"
-import { selectTagsInfo, selectTagsStatus } from "@/modules/Tags"
 import { Loader } from "@/components"
+import { selectTagsInfo, selectTagsStatus } from "@/modules/Tags"
+import { TagsListInterface } from "./TagsList.interface"
 
-export const Tags: FC<TagsInterface> = ({ tagIds }) => {
-  const TAGS_BREAKPOINT = 2
-
+export const TagsList: FC<TagsListInterface> = ({ tagIds, breakpoint = 2 }) => {
   const { allTagsObject } = useAppSelector(selectTagsInfo)
   const { loading } = useAppSelector(selectTagsStatus)
 
@@ -14,7 +12,7 @@ export const Tags: FC<TagsInterface> = ({ tagIds }) => {
     <Loader />
   ) : (
     <div className="flex gap-2 lg:flex-row flex-wrap justify-start flex-col p-3">
-      {tagIds.slice(0, TAGS_BREAKPOINT).map((tag) => (
+      {tagIds.slice(0, breakpoint).map((tag) => (
         <p
           key={tag}
           className="text-nowrap border border-primary p-2 bg-dark hover:bg-info"
@@ -22,9 +20,11 @@ export const Tags: FC<TagsInterface> = ({ tagIds }) => {
           {allTagsObject[tag]}
         </p>
       ))}
-      <p className="text-nowrap border border-primary p-2 bg-dark hover:bg-info">{`${
-        tagIds.length - TAGS_BREAKPOINT
-      } more`}</p>
+      {tagIds.length > breakpoint && (
+        <p className="text-nowrap border border-primary p-2 bg-dark hover:bg-info">{`${
+          tagIds.length - breakpoint
+        } more`}</p>
+      )}
     </div>
   )
 }

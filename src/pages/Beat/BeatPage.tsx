@@ -1,9 +1,9 @@
+import { FC } from "react"
+import { useParams } from "react-router-dom"
 import { useAppSelector } from "@/hooks"
 import { selectAllBeats } from "@/modules/Beats"
 import { PlayButton } from "@/modules/Player"
 import { AddToCart } from "@/modules/Profile"
-import { FC } from "react"
-import { useParams } from "react-router-dom"
 
 export const BeatPage: FC = () => {
   const { id } = useParams()
@@ -15,7 +15,7 @@ export const BeatPage: FC = () => {
       <div className="flex flex-col gap-2">
         <h2 className="text:xl sm:text-2xl">{beat.title}</h2>
         <p className="text-base">{beat.bpm}bpm</p>
-        <AddToCart beatId={id!} />
+        <AddToCart beatId={id!} hide={false} />
       </div>
     </div>
   )
