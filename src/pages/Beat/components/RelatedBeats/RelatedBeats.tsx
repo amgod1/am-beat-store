@@ -5,9 +5,9 @@ import { BeatsCatalog, selectAllBeats } from "@/modules/Beats"
 
 export const RelatedBeats: FC = () => {
   const { id } = useParams()
-  const beats = useAppSelector(selectAllBeats)
+  const { allBeats } = useAppSelector(selectAllBeats)
 
-  const relatedBeats = beats.filter((beat) => beat.id !== id)
+  const relatedBeats = allBeats.filter((beat) => beat.id !== id)
 
   return (
     <div className="flex flex-col gap-4">

@@ -9,7 +9,9 @@ import { RelatedBeats } from "./components"
 
 export const BeatPage: FC = () => {
   const { id } = useParams()
-  const beat = useAppSelector(selectAllBeats).find((beat) => beat.id === id)!
+  const beat = useAppSelector(selectAllBeats).allBeats.find(
+    (beat) => beat.id === id
+  )!
 
   return (
     <section className="flex flex-col gap-8">

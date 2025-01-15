@@ -104,7 +104,7 @@ export const searchBeatsByTag = createAsyncThunk(
   "beats/searchBeatsByTag",
   async (tagId: string, { getState, fulfillWithValue }) => {
     const filteredBeats: BeatInfo[] = await new Promise((resolve) => {
-      const allBeats = (getState() as RootState).beats.beats
+      const allBeats = (getState() as RootState).beats.allBeats
 
       const filteredBeats = allBeats.filter((beat) =>
         beat.tagIds.includes(tagId)

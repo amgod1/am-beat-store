@@ -5,7 +5,7 @@ import { getBeats, uploadInfo, uploadFile, searchBeatsByTag } from "./thunks"
 
 const initialState: InitialState = {
   filteredBeats: [],
-  beats: [],
+  allBeats: [],
   info: {
     file: null,
     id: null,
@@ -59,7 +59,7 @@ const beatsSlice = createSlice({
     builder.addCase(
       getBeats.fulfilled,
       (state, { payload: beats }: PayloadAction<BeatInfo[]>) => {
-        state.beats = beats
+        state.allBeats = beats
         state.status.loading = false
         state.status.error = null
       }
@@ -95,7 +95,7 @@ const beatsSlice = createSlice({
     builder.addCase(
       uploadInfo.fulfilled,
       (state, { payload: uploadedBeatInfo }: PayloadAction<BeatInfo>) => {
-        state.beats.push(uploadedBeatInfo)
+        state.allBeats.push(uploadedBeatInfo)
 
         state.info.file = null
         state.info.id = null

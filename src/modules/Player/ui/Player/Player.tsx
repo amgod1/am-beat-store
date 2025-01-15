@@ -15,7 +15,7 @@ import { selectAllBeats } from "@/modules/Beats"
 
 export const Player: FC = () => {
   const info = useAppSelector(selectPlayerInfo)
-  const allBeats = useAppSelector(selectAllBeats)
+  const { allBeats } = useAppSelector(selectAllBeats)
   const currentAudio = useRef<HTMLAudioElement>(null)
   const dispatch = useAppDispatch()
 

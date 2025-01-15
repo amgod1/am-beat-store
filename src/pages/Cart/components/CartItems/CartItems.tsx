@@ -18,7 +18,7 @@ export const CartItems: FC = () => {
   const { loading } = useAppSelector(selectProfileStatus)
   const navigate = useNavigate()
 
-  const allBeats = useAppSelector(selectAllBeats)
+  const { allBeats } = useAppSelector(selectAllBeats)
   const dispatch = useAppDispatch()
 
   const decodedCart = cart.map((cartItem) => {

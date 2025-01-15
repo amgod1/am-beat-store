@@ -2,11 +2,16 @@ import { ChangeEvent, FC, useEffect, useRef, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { selectTagsInfo } from "@/modules/Tags"
-import { clearFilteredBeats, searchBeatsByTag } from "@/modules/Beats"
+import {
+  clearFilteredBeats,
+  searchBeatsByTag,
+  selectAllBeats,
+} from "@/modules/Beats"
 
 export const BeatSearch: FC = () => {
   const [filteredTag, setFilteredTag] = useState<string>("")
   const { allTagsArray } = useAppSelector(selectTagsInfo)
+  const { filteredBeats } = useAppSelector(selectAllBeats)
   const [searchParams, setSearchParams] = useSearchParams({ q: "" })
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const dispatch = useAppDispatch()
@@ -27,7 +32,7 @@ export const BeatSearch: FC = () => {
     }
 
     timeoutRef.current = setTimeout(() => {
-      startSearching(e.target.value)
+      startSearching(e.target.value.trim())
     }, 500)
   }
 
@@ -62,7 +67,7 @@ export const BeatSearch: FC = () => {
         className="bg-accent h-20 w-2/3 p-4 placeholder-green-800 outline-none border border-primary disabled:opacity-50"
       />
       <p className="h-6 w-2/3">
-        {q && filteredTag
+        {q && filteredBeats.length
           ? `selected type: ${filteredTag}`
           : q
           ? `nothing found`

@@ -5,12 +5,12 @@ import { BeatsCatalog } from "@/modules/Beats"
 import { BeatSearch } from "./components"
 
 export const CatalogPage: FC = () => {
-  const beats = useAppSelector(selectAllBeats)
+  const { filteredBeats, allBeats } = useAppSelector(selectAllBeats)
 
   return (
     <section className="flex flex-col w-full">
       <BeatSearch />
-      <BeatsCatalog beats={beats} />
+      <BeatsCatalog beats={filteredBeats.length ? filteredBeats : allBeats} />
     </section>
   )
 }
