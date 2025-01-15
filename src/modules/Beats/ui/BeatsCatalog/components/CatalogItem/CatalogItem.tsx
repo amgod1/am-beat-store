@@ -34,7 +34,9 @@ export const CatalogItem: FC<CatalogItemInterface> = ({ beat }) => {
       </td>
       <td className="w-32 text-center hidden sm:table-cell">{`${beat.bpm}bpm`}</td>
       <td className="hidden md:table-cell">
-        <TagsList tagIds={beat.tagIds} />
+        <div className="flex gap-2 lg:flex-row flex-wrap justify-start flex-col p-3">
+          <TagsList tagIds={beat.tagIds} breakpoint={2} />
+        </div>
       </td>
       <td>
         <div className="flex justify-end sm:justify-center p-3 sm:p-5">

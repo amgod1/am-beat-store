@@ -37,7 +37,7 @@ export const AddToCart: FC<AddToCartInterface> = ({ beatId, hide = true }) => {
         <IoCart size="1.5rem" />
       )}
       <p className={`${hide && "hidden sm:block"}`}>
-        {leasePlanId ? "update" : "add"}
+        {leasePlanId ? "upd" : "add"}
       </p>
     </Button>
   )
