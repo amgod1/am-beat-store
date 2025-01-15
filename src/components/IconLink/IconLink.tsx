@@ -13,7 +13,7 @@ export const IconLink: FC<IconLinkInterface> = ({
 
   if (href) {
     return (
-      <a href={href} target="_blank">
+      <a href={href} target="_blank" tabIndex={-1}>
         <Icon className={iconClasses} size={size} />
       </a>
     )
@@ -21,7 +21,7 @@ export const IconLink: FC<IconLinkInterface> = ({
 
   if (navigation) {
     return (
-      <Link to={navigation}>
+      <Link to={navigation} tabIndex={-1}>
         <Icon className={iconClasses} size={size} />
       </Link>
     )
@@ -29,7 +29,7 @@ export const IconLink: FC<IconLinkInterface> = ({
 
   if (callback) {
     return (
-      <button onClick={callback}>
+      <button onClick={callback} tabIndex={-1}>
         <Icon className={iconClasses} size={size} />
       </button>
     )

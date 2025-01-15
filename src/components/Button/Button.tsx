@@ -23,6 +23,7 @@ export const Button: FC<ButtonInterface> = ({
         : "hover:bg-warning"
     }
     `}
+    tabIndex={-1}
   >
     {children}
   </button>

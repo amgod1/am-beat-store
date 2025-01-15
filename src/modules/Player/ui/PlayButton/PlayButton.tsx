@@ -16,7 +16,7 @@ export const PlayButton: FC<PlayButtonInterface> = ({
   const buttonSize = classicSize ? "2rem" : "5rem"
 
   return (
-    <button onClick={playAudioHandler}>
+    <button onClick={playAudioHandler} tabIndex={-1}>
       {beat.id === playingAudioId && isPlaying ? (
         <FaRegCirclePause className="hover:text-warning" size={buttonSize} />
       ) : (
