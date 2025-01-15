@@ -1,6 +1,7 @@
 import { LoadingStatus } from "@/interfaces"
 
 export interface InitialState {
+  filteredBeats: BeatInfo[]
   beats: BeatInfo[]
   info: BeatFileInfo
   status: UploadLoadingStatus

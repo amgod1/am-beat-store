@@ -3,9 +3,8 @@ import { RootState } from "../../../store"
 
 const selectBeats = (state: RootState) => state.beats
 
-export const selectAllBeats = createSelector(
-  [selectBeats],
-  (beats) => beats.beats
+export const selectAllBeats = createSelector([selectBeats], (beats) =>
+  beats.filteredBeats.length ? beats.filteredBeats : beats.beats
 )
 
 export const selectBeatsInfo = createSelector(

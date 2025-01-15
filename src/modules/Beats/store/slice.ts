@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { BeatInfo, InitialState } from "./InitialState.interface"
 import { getTitleAndBpm } from "../helpers"
-import { getBeats, uploadInfo, uploadFile } from "./thunks"
+import { getBeats, uploadInfo, uploadFile, searchBeatsByTag } from "./thunks"
 
 const initialState: InitialState = {
+  filteredBeats: [],
   beats: [],
   info: {
     file: null,
@@ -45,6 +46,9 @@ const beatsSlice = createSlice({
     },
     setProgress: (state, { payload: progress }: PayloadAction<number>) => {
       state.status.progress = progress
+    },
+    clearFilteredBeats: (state) => {
+      state.filteredBeats = []
     },
   },
   extraReducers(builder) {
@@ -114,6 +118,18 @@ const beatsSlice = createSlice({
         state.status.error = typeof error === "string" ? error : "unknown error"
       }
     )
+    builder.addCase(searchBeatsByTag.pending, (state) => {
+      state.status.loading = true
+      state.status.error = null
+    })
+    builder.addCase(
+      searchBeatsByTag.fulfilled,
+      (state, { payload: beats }: PayloadAction<BeatInfo[]>) => {
+        state.filteredBeats = beats
+        state.status.loading = false
+        state.status.error = null
+      }
+    )
   },
 })
 
@@ -124,4 +140,5 @@ export const {
   addTag,
   removeTag,
   setProgress,
+  clearFilteredBeats,
 } = beatsSlice.actions

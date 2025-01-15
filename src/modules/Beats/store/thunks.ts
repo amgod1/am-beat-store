@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore"
 import { setProgress } from "./slice"
 import { nanoid } from "nanoid"
+import { RootState } from "@/store"
 
 export const getBeats = createAsyncThunk(
   "beats/getBeats",
@@ -96,5 +97,22 @@ export const uploadInfo = createAsyncThunk(
 
       return rejectWithValue(error)
     }
+  }
+)
+
+export const searchBeatsByTag = createAsyncThunk(
+  "beats/searchBeatsByTag",
+  async (tagId: string, { getState, fulfillWithValue }) => {
+    const filteredBeats: BeatInfo[] = await new Promise((resolve) => {
+      const allBeats = (getState() as RootState).beats.beats
+
+      const filteredBeats = allBeats.filter((beat) =>
+        beat.tagIds.includes(tagId)
+      )
+
+      resolve(filteredBeats)
+    })
+
+    return fulfillWithValue(filteredBeats)
   }
 )
