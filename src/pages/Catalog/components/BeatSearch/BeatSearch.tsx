@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react"
+import { ChangeEvent, FC, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { selectTagsInfo } from "@/modules/Tags"
@@ -14,7 +14,6 @@ export const BeatSearch: FC = () => {
   const { allTagsArray } = useAppSelector(selectTagsInfo)
   const { filteredBeats } = useAppSelector(selectAllBeats)
   const [searchParams, setSearchParams] = useSearchParams({ q: "" })
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const dispatch = useAppDispatch()
 
   const q = (searchParams.get("q") as string) || ""
@@ -28,13 +27,7 @@ export const BeatSearch: FC = () => {
       { replace: true }
     )
 
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current)
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      startSearching(e.target.value.trim())
-    }, 500)
+    startSearching(e.target.value.trim())
   }
 
   const startSearching = (searchValue: string) => {
@@ -58,9 +51,9 @@ export const BeatSearch: FC = () => {
   }
 
   useEffect(() => {
-    if (q.trim() && !timeoutRef.current) {
+    if (q.trim()) {
       startSearching(q)
-    } else if (q.trim() === "") {
+    } else {
       dispatch(clearFilteredBeats())
       setFilteredTagIds([])
     }
