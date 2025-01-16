@@ -61,7 +61,7 @@ export const BeatSearch: FC = () => {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="flex flex-col justify-center items-center w-full h-80">
+      <div className="flex flex-col gap-1 justify-center items-center w-full h-80">
         <div className="flex flex-row w-2/3">
           <input
             value={q}
