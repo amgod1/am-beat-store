@@ -67,12 +67,12 @@ export const BeatSearch: FC = () => {
             value={q}
             onChange={updateSearchValue}
             placeholder="what type of track are you looking for?"
-            className="bg-accent h-20 w-full p-4 placeholder-green-800 outline-none border-t-2 border-b-2 border-l-2 border-primary disabled:opacity-50"
+            className="bg-accent h-16 sm:h-20 w-full py-4 pl-4 text-base sm:text-lg placeholder-green-800 outline-none border-t-2 border-b-2 border-l-2 border-primary disabled:opacity-50"
           />
           <button
             tabIndex={-1}
             onClick={clearAllFilters}
-            className="border-t-2 border-b-2 border-r-2 border-primary bg-accent p-4 hover:text-warning"
+            className="border-t-2 border-b-2 border-r-2 border-primary bg-accent h-16 sm:h-20 p-4 hover:text-warning flex justify-center items-center"
           >
             <MdClose size="2.5rem" />
           </button>
