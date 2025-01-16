@@ -1,8 +1,8 @@
 import { FC } from "react"
-import { TabsInterface } from "./Tabs.interface"
+import { Tabs as TabsProps } from "./Tabs.interface"
 import { Link, useLocation } from "react-router-dom"
 
-export const Tabs: FC<TabsInterface> = ({ tabsInfo = [] }) => {
+export const Tabs: FC<TabsProps> = ({ tabsInfo = [] }) => {
   const { pathname } = useLocation()
 
   return (

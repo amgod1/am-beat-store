@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 
-export interface ButtonInterface extends PropsWithChildren {
+export interface Button extends PropsWithChildren {
   type?: "button" | "submit"
   loading?: boolean
   danger?: boolean

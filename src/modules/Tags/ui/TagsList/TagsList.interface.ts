@@ -1,4 +1,4 @@
-export interface TagsListInterface {
+export interface TagsList {
   tagIds: string[]
   breakpoint?: number
 }

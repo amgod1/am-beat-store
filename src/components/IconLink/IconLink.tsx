@@ -1,8 +1,8 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import { IconLinkInterface } from "./IconLink.interface"
+import { IconLink as IconLinkProps } from "./IconLink.interface"
 
-export const IconLink: FC<IconLinkInterface> = ({
+export const IconLink: FC<IconLinkProps> = ({
   Icon,
   href,
   navigation,

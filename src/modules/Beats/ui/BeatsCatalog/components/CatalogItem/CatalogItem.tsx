@@ -5,9 +5,9 @@ import { AddToCart } from "@/modules/Profile"
 import { selectPlayerInfo, PlayButton } from "@/modules/Player"
 import { ROUTES } from "@/constants/Routes"
 import { TagsList } from "@/modules/Tags"
-import { CatalogItemInterface } from "./CatalogItem.interface"
+import { CatalogItem as CatalogItemProps } from "./CatalogItem.interface"
 
-export const CatalogItem: FC<CatalogItemInterface> = ({ beat }) => {
+export const CatalogItem: FC<CatalogItemProps> = ({ beat }) => {
   const navigate = useNavigate()
   const { id: playingAudioId } = useAppSelector(selectPlayerInfo)
 

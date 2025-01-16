@@ -1,5 +1,5 @@
-import { BeatInfo } from "@/modules/Beats"
+import { BeatInfo } from "@/modules/Beats/store"
 
-export interface CatalogItemInterface {
+export interface CatalogItem {
   beat: BeatInfo
 }

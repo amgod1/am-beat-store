@@ -1,9 +1,9 @@
 import { FC } from "react"
 import { LEASES } from "@/modules/License/constants"
-import { LeaseInfoInterface } from "./LeaseInfo.interface"
+import { LeaseInfo as LeaseInfoProps } from "./LeaseInfo.interface"
 import { LeaseInfoIcon } from "../LeaseInfoIcon"
 
-export const LeaseInfo: FC<LeaseInfoInterface> = ({ id }) => {
+export const LeaseInfo: FC<LeaseInfoProps> = ({ id }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
       {LEASES.find((lease) => lease.id === id)?.info.map((info) => (

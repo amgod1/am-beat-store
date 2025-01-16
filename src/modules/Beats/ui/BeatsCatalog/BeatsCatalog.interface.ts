@@ -1,5 +1,5 @@
 import { BeatInfo } from "../../store"
 
-export interface BeatsCatalogInterface {
+export interface BeatsCatalog {
   beats: BeatInfo[]
 }

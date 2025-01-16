@@ -1,3 +1,3 @@
-export interface AuthHeadingInterface {
+export interface AuthHeading {
   isLogin: boolean
 }

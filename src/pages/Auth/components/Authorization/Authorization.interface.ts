@@ -1,6 +1,6 @@
 import { AuthorizationForm } from "@/modules/Auth"
 
-export interface AuthorizationInterface {
+export interface Authorization {
   isLogin: boolean
   submitCallback: (formInput: AuthorizationForm) => void
 }

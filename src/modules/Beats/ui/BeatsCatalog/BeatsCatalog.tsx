@@ -1,11 +1,11 @@
 import { FC } from "react"
+import { BeatsCatalog as BeatsCatalogProps } from "./BeatsCatalog.interface"
 import { useAppSelector } from "@/hooks"
-import { selectBeatsStatus } from "@/modules/Beats"
 import { Loader } from "@/components"
+import { selectBeatsStatus } from "@/modules/Beats"
 import { CatalogItem } from "./components"
-import { BeatsCatalogInterface } from "./BeatsCatalog.interface"
 
-export const BeatsCatalog: FC<BeatsCatalogInterface> = ({ beats }) => {
+export const BeatsCatalog: FC<BeatsCatalogProps> = ({ beats }) => {
   const { loading } = useAppSelector(selectBeatsStatus)
 
   return loading ? (

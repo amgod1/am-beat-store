@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Link } from "react-router-dom"
 import { IoCart } from "react-icons/io5"
 import { MdOutlineUpdate } from "react-icons/md"
-import { AddToCartInterface } from "./AddToCart.interface"
+import { AddToCart as AddToCartProps } from "./AddToCart.interface"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
 import { ROUTES } from "@/constants/Routes"
@@ -10,7 +10,7 @@ import { selectProfileInfo } from "@/modules/Profile"
 import { showModal } from "@/modules/License"
 import { selectUserAuth } from "@/modules/Auth"
 
-export const AddToCart: FC<AddToCartInterface> = ({ beatId, hide = true }) => {
+export const AddToCart: FC<AddToCartProps> = ({ beatId, hide = true }) => {
   const auth = useAppSelector(selectUserAuth)
   const { cart } = useAppSelector(selectProfileInfo)
 

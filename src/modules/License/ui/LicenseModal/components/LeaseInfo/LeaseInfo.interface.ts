@@ -1,3 +1,3 @@
-export interface LeaseInfoInterface {
+export interface LeaseInfo {
   id: number
 }

@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { SwitchInterface } from "./Switch.interface"
+import { Switch as SwitchProps } from "./Switch.interface"
 
-export const Switch: FC<SwitchInterface> = ({ isChecked, onChange }) => (
+export const Switch: FC<SwitchProps> = ({ isChecked, onChange }) => (
   <div className="flex items-center gap-4">
     <p>edit</p>
     <label className="relative inline-flex items-center cursor-pointer">

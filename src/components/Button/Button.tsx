@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { ButtonInterface } from "./Button.interface"
+import { Button as ButtonProps } from "./Button.interface"
 
-export const Button: FC<ButtonInterface> = ({
+export const Button: FC<ButtonProps> = ({
   type = "button",
   danger = false,
   loading = false,

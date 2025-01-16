@@ -1,4 +1,4 @@
-export interface AddToCartInterface {
+export interface AddToCart {
   beatId: string
   hide?: boolean
 }

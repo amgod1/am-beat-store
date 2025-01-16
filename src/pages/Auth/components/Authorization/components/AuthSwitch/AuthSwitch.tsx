@@ -1,9 +1,9 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import { ROUTES } from "@/constants/Routes"
-import { AuthSwitchInterface } from "./AuthSwitch.interface"
+import { AuthSwitch as AuthSwitchProps } from "./AuthSwitch.interface"
 
-export const AuthSwitch: FC<AuthSwitchInterface> = ({ isLogin }) => {
+export const AuthSwitch: FC<AuthSwitchProps> = ({ isLogin }) => {
   const text = isLogin ? "don't have an account?" : "already have an account?"
 
   return (

@@ -1,11 +1,11 @@
 import { FC } from "react"
 import { useAppSelector } from "@/hooks"
 import { selectTagsInfo } from "@/modules/Tags"
-import { TagsListInterface } from "./TagsList.interface"
+import { TagsList as TagsListProps } from "./TagsList.interface"
 import { useNavigate } from "react-router-dom"
 import { ROUTES } from "@/constants/Routes"
 
-export const TagsList: FC<TagsListInterface> = ({ tagIds, breakpoint = 0 }) => {
+export const TagsList: FC<TagsListProps> = ({ tagIds, breakpoint = 0 }) => {
   const navigate = useNavigate()
   const { allTagsObject } = useAppSelector(selectTagsInfo)
 
@@ -20,6 +20,7 @@ export const TagsList: FC<TagsListInterface> = ({ tagIds, breakpoint = 0 }) => {
           key={tag}
           tabIndex={-1}
           onClick={searchByTag(allTagsObject[tag])}
+          className="text-left"
         >
           <p className="text-nowrap border border-primary p-2 bg-dark hover:bg-info cursor-pointer">
             {allTagsObject[tag]}

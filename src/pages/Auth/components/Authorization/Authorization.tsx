@@ -10,9 +10,9 @@ import {
 } from "@/modules/Auth"
 import { AUTH_TITLES } from "@/constants/AuthTitles"
 import { AuthButton, AuthHeading, AuthSwitch } from "./components"
-import { AuthorizationInterface } from "./Authorization.interface"
+import { Authorization as AuthorizationProps } from "./Authorization.interface"
 
-export const Authorization: FC<AuthorizationInterface> = ({
+export const Authorization: FC<AuthorizationProps> = ({
   isLogin,
   submitCallback,
 }) => {

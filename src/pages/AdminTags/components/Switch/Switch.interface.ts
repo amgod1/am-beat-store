@@ -1,4 +1,4 @@
-export interface SwitchInterface {
+export interface Switch {
   isChecked: boolean
   onChange: () => void
 }

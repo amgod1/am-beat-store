@@ -1,3 +1,3 @@
-export interface AuthSwitchInterface {
+export interface AuthSwitch {
   isLogin: boolean
 }

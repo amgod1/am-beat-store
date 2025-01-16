@@ -2,9 +2,9 @@ import { FC } from "react"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { playAudio, selectPlayerInfo } from "../../store"
 import { FaRegCirclePause, FaRegCirclePlay } from "react-icons/fa6"
-import { PlayButtonInterface } from "./PlayButton.interface"
+import { PlayButton as PlayButtonProps } from "./PlayButton.interface"
 
-export const PlayButton: FC<PlayButtonInterface> = ({
+export const PlayButton: FC<PlayButtonProps> = ({
   beat,
   classicSize = true,
 }) => {

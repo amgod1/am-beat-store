@@ -1,4 +1,4 @@
-export interface AuthButtonInterface {
+export interface AuthButton {
   isLogin: boolean
   loading: boolean
 }

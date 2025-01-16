@@ -1,4 +1,4 @@
-import { InputInterface } from "./Input.interface"
+import { Input as InputProps } from "./Input.interface"
 import { FieldValues, Path } from "react-hook-form"
 
 export const Input = <T extends FieldValues>({
@@ -7,7 +7,7 @@ export const Input = <T extends FieldValues>({
   disabled,
   register,
   errors,
-}: InputInterface<T>) => (
+}: InputProps<T>) => (
   <>
     <input
       type={type}

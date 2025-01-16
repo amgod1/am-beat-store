@@ -1,11 +1,7 @@
 import { FC } from "react"
-import { LeaseItemInterface } from "./LeaseItem.interface"
+import { LeaseItem as LeaseItemProps } from "./LeaseItem.interface"
 
-export const LeaseItem: FC<LeaseItemInterface> = ({
-  lease,
-  selected,
-  onClick,
-}) => (
+export const LeaseItem: FC<LeaseItemProps> = ({ lease, selected, onClick }) => (
   <div
     key={lease.id}
     onClick={onClick}

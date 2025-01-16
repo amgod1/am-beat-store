@@ -1,4 +1,4 @@
-export interface TabsInterface {
+export interface Tabs {
   tabsInfo: TabItem[]
 }
 

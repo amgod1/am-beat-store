@@ -1,6 +1,6 @@
 import { IconType } from "react-icons"
 
-export interface IconLinkInterface {
+export interface IconLink {
   Icon: IconType
   href?: string
   navigation?: string

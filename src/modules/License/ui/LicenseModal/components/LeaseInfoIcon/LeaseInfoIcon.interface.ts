@@ -1,5 +1,5 @@
 import { IconType } from "react-icons"
 
-export interface LeaseInfoItemInterface {
+export interface LeaseInfoItem {
   icon: IconType
 }
