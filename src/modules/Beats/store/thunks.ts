@@ -10,16 +10,19 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
 } from "firebase/firestore"
 import { nanoid } from "nanoid"
 import { setProgress } from "./slice"
 import { RootState } from "@/store"
 
+const COLLECTION_NAME = "beats"
+
 export const getBeats = createAsyncThunk(
   "beats/getBeats",
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const beatsRef = collection(db, "beats")
+      const beatsRef = collection(db, COLLECTION_NAME)
       const q = query(beatsRef, limit(10), orderBy("createdAt"))
       const querySnapshot = await getDocs(q)
 
@@ -40,7 +43,7 @@ export const uploadFile = createAsyncThunk(
   async (beat: BeatFileInfo, { dispatch, rejectWithValue }) => {
     try {
       const id = nanoid()
-      const storageRef = ref(storage, `beats/${id}`)
+      const storageRef = ref(storage, `${COLLECTION_NAME}/${id}`)
 
       const uploadTask = uploadBytesResumable(storageRef, beat.file!, {
         contentType: "audio/mpeg",
@@ -86,10 +89,32 @@ export const uploadInfo = createAsyncThunk(
   "beats/uploadInfo",
   async (info: BeatInfo, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const docRef = doc(db, "beats", info.id!)
+      const docRef = doc(db, COLLECTION_NAME, info.id!)
       await setDoc(docRef, info)
 
       return fulfillWithValue(info)
+    } catch (error: Error | unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const updateBeatInfo = createAsyncThunk(
+  "beats/updateBeatInfo",
+  async (id: string, { getState, fulfillWithValue, rejectWithValue }) => {
+    try {
+      const { tagIds } = (getState() as RootState).beats.info
+
+      const docRef = doc(db, COLLECTION_NAME, id)
+      await updateDoc(docRef, {
+        tagIds,
+      })
+
+      return fulfillWithValue({ id, tagIds })
     } catch (error: Error | unknown) {
       if (error instanceof Error) {
         return rejectWithValue(error.message)

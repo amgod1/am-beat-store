@@ -1,7 +1,14 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { BeatInfo, InitialState } from "./InitialState.interface"
 import { getTitleAndBpm } from "../helpers"
-import { getBeats, uploadInfo, uploadFile, searchBeatsByTags } from "./thunks"
+import {
+  getBeats,
+  uploadInfo,
+  uploadFile,
+  searchBeatsByTags,
+  updateBeatInfo,
+} from "./thunks"
+import { BeatEditInfo } from "../interfaces"
 
 const initialState: InitialState = {
   filteredBeats: [],
@@ -46,6 +53,14 @@ const beatsSlice = createSlice({
     },
     setProgress: (state, { payload: progress }: PayloadAction<number>) => {
       state.status.progress = progress
+    },
+    setEditorInfo: (state, { payload: beat }: PayloadAction<BeatInfo>) => {
+      state.info.id = beat.id
+      state.info.title = beat.title
+      state.info.bpm = beat.bpm
+      state.info.createdAt = beat.createdAt
+      state.info.tagIds = beat.tagIds
+      state.info.url = beat.url
     },
     clearFilteredBeats: (state) => {
       state.filteredBeats = []
@@ -118,6 +133,38 @@ const beatsSlice = createSlice({
         state.status.error = typeof error === "string" ? error : "unknown error"
       }
     )
+    builder.addCase(updateBeatInfo.pending, (state) => {
+      state.status.progress = 0
+      state.status.loading = true
+      state.status.error = null
+    })
+    builder.addCase(
+      updateBeatInfo.fulfilled,
+      (state, { payload: updatedBeatInfo }: PayloadAction<BeatEditInfo>) => {
+        state.allBeats.find((beat) => (beat.id = updatedBeatInfo.id!))!.tagIds =
+          updatedBeatInfo.tagIds!
+
+        state.info.file = null
+        state.info.id = null
+        state.info.title = ""
+        state.info.bpm = 0
+        state.info.createdAt = 0
+        state.info.tagIds = []
+        state.info.url = ""
+
+        state.status.progress = 0
+        state.status.loading = false
+        state.status.error = null
+      }
+    )
+    builder.addCase(
+      updateBeatInfo.rejected,
+      (state, { payload: error }: PayloadAction<string | unknown>) => {
+        state.status.progress = 0
+        state.status.loading = false
+        state.status.error = typeof error === "string" ? error : "unknown error"
+      }
+    )
     builder.addCase(searchBeatsByTags.pending, (state) => {
       state.status.loading = true
       state.status.error = null
@@ -140,5 +187,6 @@ export const {
   addTag,
   removeTag,
   setProgress,
+  setEditorInfo,
   clearFilteredBeats,
 } = beatsSlice.actions

@@ -10,6 +10,7 @@ import { AdminBeatsPage } from "@/pages/AdminBeats"
 import { AdminTagsPage } from "@/pages/AdminTags"
 import { CartPage } from "@/pages/Cart"
 import { BeatPage } from "@/pages/Beat"
+import { EditBeatPage } from "@/pages/EditBeat"
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
@@ -25,6 +26,7 @@ export const AppRouter: FC = () => (
         <Route element={<PrivateRoute />}>
           <Route path={ROUTES.Cart} element={<CartPage />} />
           <Route path={ROUTES.DynamicBeat} element={<BeatPage />} />
+          <Route path={ROUTES.DynamicBeatEdit} element={<EditBeatPage />} />
         </Route>
         <Route element={<AdminRoute />}>
           <Route path={ROUTES.Admin} element={<AdminPage />}>
