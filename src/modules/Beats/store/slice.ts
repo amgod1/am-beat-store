@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { BeatInfo, InitialState } from "./InitialState.interface"
 import { getTitleAndBpm } from "../helpers"
-import { getBeats, uploadInfo, uploadFile, searchBeatsByTag } from "./thunks"
+import { getBeats, uploadInfo, uploadFile, searchBeatsByTags } from "./thunks"
 
 const initialState: InitialState = {
   filteredBeats: [],
@@ -118,12 +118,12 @@ const beatsSlice = createSlice({
         state.status.error = typeof error === "string" ? error : "unknown error"
       }
     )
-    builder.addCase(searchBeatsByTag.pending, (state) => {
+    builder.addCase(searchBeatsByTags.pending, (state) => {
       state.status.loading = true
       state.status.error = null
     })
     builder.addCase(
-      searchBeatsByTag.fulfilled,
+      searchBeatsByTags.fulfilled,
       (state, { payload: beats }: PayloadAction<BeatInfo[]>) => {
         state.filteredBeats = beats
         state.status.loading = false

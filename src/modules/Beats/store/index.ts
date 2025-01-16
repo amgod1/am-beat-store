@@ -1,5 +1,5 @@
 export type { BeatInfo } from "./InitialState.interface"
-export { getBeats, uploadFile, searchBeatsByTag } from "./thunks"
+export { getBeats, uploadFile, searchBeatsByTags } from "./thunks"
 export {
   beatsReducer,
   uploadFileToEditor,

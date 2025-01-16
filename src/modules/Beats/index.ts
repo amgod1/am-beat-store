@@ -7,7 +7,7 @@ export {
   removeTag,
   clearFilteredBeats,
   uploadFile,
-  searchBeatsByTag,
+  searchBeatsByTags,
   selectAllBeats,
   selectBeatsInfo,
   selectBeatsStatus,

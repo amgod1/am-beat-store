@@ -11,8 +11,8 @@ import {
   query,
   setDoc,
 } from "firebase/firestore"
-import { setProgress } from "./slice"
 import { nanoid } from "nanoid"
+import { setProgress } from "./slice"
 import { RootState } from "@/store"
 
 export const getBeats = createAsyncThunk(
@@ -100,14 +100,14 @@ export const uploadInfo = createAsyncThunk(
   }
 )
 
-export const searchBeatsByTag = createAsyncThunk(
+export const searchBeatsByTags = createAsyncThunk(
   "beats/searchBeatsByTag",
-  async (tagId: string, { getState, fulfillWithValue }) => {
+  async (filterTagIds: string[], { getState, fulfillWithValue }) => {
     const filteredBeats: BeatInfo[] = await new Promise((resolve) => {
       const allBeats = (getState() as RootState).beats.allBeats
 
       const filteredBeats = allBeats.filter((beat) =>
-        beat.tagIds.includes(tagId)
+        beat.tagIds.some((id) => filterTagIds.includes(id))
       )
 
       resolve(filteredBeats)
