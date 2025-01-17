@@ -32,7 +32,7 @@ export const Authorization: FC<AuthorizationProps> = ({
   const { loading } = useAppSelector(selectUserStatus)
 
   return (
-    <section className="flex items-center">
+    <section className="flex items-center flex-grow">
       <form
         onSubmit={handleSubmit(submitCallback)}
         className="flex flex-col gap-2"

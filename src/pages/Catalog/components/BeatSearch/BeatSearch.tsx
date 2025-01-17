@@ -37,7 +37,6 @@ export const BeatSearch: FC = () => {
         .map((tag) => tag.id)
 
       if (filterTagIds.length) {
-        console.log(filterTagIds.map((tag) => allTagsObject[tag]))
         setFilteredTagIds(filterTagIds)
         dispatch(searchBeatsByTags(filterTagIds))
       } else {
