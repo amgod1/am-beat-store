@@ -9,5 +9,5 @@ export {
   selectProfileInfo,
   selectProfileStatus,
 } from "./selectors"
-export { profileReducer, clearProfile } from "./slice"
+export { profileReducer, clearProfile, setAvailableBeats } from "./slice"
 export type { ProfileInfo, CartItem } from "./InitialState.interface"

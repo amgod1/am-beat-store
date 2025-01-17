@@ -1,6 +1,6 @@
+import { FC } from "react"
 import { useAppSelector } from "@/hooks"
 import { selectProfileInfo } from "@/modules/Profile"
-import { FC } from "react"
 import { CartCheckout, CartItems, EmptyCart, Profile } from "./components"
 
 export const CartPage: FC = () => {

@@ -1,19 +1,17 @@
 import { FC } from "react"
-import { LEASES } from "@/modules/License"
 import { useAppSelector } from "@/hooks"
-import { selectProfileInfo, selectProfileStatus } from "@/modules/Profile"
 import { Button } from "@/components"
+import {
+  selectProfileInfo,
+  selectProfileStatus,
+  calculateTotalPrice,
+} from "@/modules/Profile"
 
 export const CartCheckout: FC = () => {
   const { cart } = useAppSelector(selectProfileInfo)
   const { loading } = useAppSelector(selectProfileStatus)
 
-  const totalPrice = cart.reduce(
-    (price, cartItem) =>
-      (price += LEASES.find((lease) => lease.id === cartItem.leasePlanId)
-        ?.price!),
-    0
-  )
+  const totalPrice = calculateTotalPrice(cart)
 
   return (
     <div className="flex flex-col gap-4 w-full lg:w-1/3 border border-primary bg-accent p-4 h-fit">

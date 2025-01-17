@@ -10,14 +10,30 @@ export const getUserProfile = createAsyncThunk(
   "user/getUserProfile",
   async (
     shortInfo: ShortUserInfo,
-    { dispatch, fulfillWithValue, rejectWithValue }
+    { getState, dispatch, fulfillWithValue, rejectWithValue }
   ) => {
     try {
-      const docRef = doc(db, "users", shortInfo.id)
-      const docSnap = await getDoc(docRef)
+      const userDocRef = doc(db, "users", shortInfo.id)
+      const docSnap = await getDoc(userDocRef)
 
       if (docSnap.exists()) {
-        return fulfillWithValue(docSnap.data() as ProfileInfo)
+        const profileInfo = docSnap.data() as ProfileInfo
+        const { cart } = profileInfo
+        const { allBeats } = (getState() as RootState).beats
+
+        const availableCart = cart.filter((cartItem) =>
+          allBeats.find((beat) => beat.id === cartItem.beatId)
+        )
+
+        if (cart.length !== availableCart.length) {
+          await updateDoc(userDocRef, {
+            cart: availableCart,
+          })
+        }
+
+        profileInfo.cart = availableCart
+
+        return fulfillWithValue(profileInfo)
       } else {
         dispatch(createUserProfile(shortInfo))
 

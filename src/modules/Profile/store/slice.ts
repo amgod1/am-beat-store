@@ -31,6 +31,12 @@ const profileSlice = createSlice({
       state.info.admin = false
       state.info.cart = []
     },
+    setAvailableBeats: (
+      state,
+      { payload: availableBeatsInCart }: PayloadAction<CartItem[]>
+    ) => {
+      state.info.cart = availableBeatsInCart
+    },
   },
   extraReducers(builder) {
     builder.addCase(getUserProfile.pending, (state) => {
@@ -120,5 +126,5 @@ const profileSlice = createSlice({
   },
 })
 
-export const { clearProfile } = profileSlice.actions
+export const { clearProfile, setAvailableBeats } = profileSlice.actions
 export const profileReducer = profileSlice.reducer
