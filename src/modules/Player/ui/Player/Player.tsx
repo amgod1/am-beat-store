@@ -74,12 +74,12 @@ export const Player: FC = () => {
   }, [info.isPlaying, info.src])
 
   return (
-    <>
+    <div className="w-full sticky bottom-0 left-0 px-5 bg-dark border-t-2 border-primary">
       <input
         type="range"
         value={info.progress}
         onChange={handleAudioProgress}
-        className="cursor-pointer h-1 mt-4 accent-primary"
+        className="w-full cursor-pointer h-1 mt-4 accent-primary"
       />
       <div className="my-8 h-8 grid grid-cols-2 sm:grid-cols-3 justify-items-stretch items-center">
         <audio
@@ -114,6 +114,6 @@ export const Player: FC = () => {
           <IoIosCloseCircleOutline size="2.5rem" />
         </button>
       </div>
-    </>
+    </div>
   )
 }
