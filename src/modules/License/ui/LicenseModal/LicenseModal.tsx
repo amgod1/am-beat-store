@@ -54,7 +54,7 @@ export const LicenseModal: FC = () => {
   return (
     <div
       onClick={hideModalHandler}
-      className="w-screen h-screen bg-dark bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      className="w-full h-full bg-dark bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
     >
       <section
         onClick={preventPropagation}
