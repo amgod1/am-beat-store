@@ -11,6 +11,7 @@ import {
   setEditorInfo,
   selectAllBeats,
   BeatInfo,
+  deleteBeatInfoAndFile,
 } from "@/modules/Beats"
 import { ROUTES } from "@/constants/Routes"
 import { TagSelect } from "./components"
@@ -27,7 +28,12 @@ export const BeatEditor: FC<{ id: string }> = ({ id = "" }) => {
   }
 
   const removeFileHandler = () => {
-    dispatch(removeFileFromEditor())
+    if (id) {
+      dispatch(deleteBeatInfoAndFile(id))
+      navigate(ROUTES.Catalog)
+    } else {
+      dispatch(removeFileFromEditor())
+    }
   }
 
   const updateBeatInfoHandler = async () => {
@@ -41,6 +47,7 @@ export const BeatEditor: FC<{ id: string }> = ({ id = "" }) => {
       dispatch(
         setEditorInfo(allBeats.find((beat) => beat.id === id) as BeatInfo)
       )
+
       return () => {
         dispatch(removeFileFromEditor())
       }
@@ -64,16 +71,14 @@ export const BeatEditor: FC<{ id: string }> = ({ id = "" }) => {
           >
             {id ? "update" : "upload"}
           </Button>
-          {!id && (
-            <Button
-              loading={loading}
-              onClick={removeFileHandler}
-              danger={true}
-              fullWidth={true}
-            >
-              delete
-            </Button>
-          )}
+          <Button
+            loading={loading}
+            onClick={removeFileHandler}
+            danger={true}
+            fullWidth={true}
+          >
+            delete
+          </Button>
         </div>
       )}
     </div>

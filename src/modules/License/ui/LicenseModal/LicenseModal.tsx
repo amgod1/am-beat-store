@@ -1,16 +1,16 @@
-import { FC, Fragment, MouseEvent, TouchEvent } from "react"
+import { FC, Fragment, MouseEvent, TouchEvent, useEffect } from "react"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { MdClose } from "react-icons/md"
-import { LEASES } from "@/modules/License/constants"
 import { Button } from "@/components"
-import { LeaseInfo, LeaseItem } from "./components"
-import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
+import { LEASES } from "@/modules/License/constants"
 import {
   addToCart,
   removeFromCart,
   selectProfileInfo,
   selectProfileStatus,
 } from "@/modules/Profile"
+import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
+import { LeaseInfo, LeaseItem } from "./components"
 
 export const LicenseModal: FC = () => {
   const { cart } = useAppSelector(selectProfileInfo)
@@ -51,10 +51,20 @@ export const LicenseModal: FC = () => {
     hideModalHandler()
   }
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      document.body.style.overflow = "unset"
+    }
+  }, [])
+
   return (
     <div
       onClick={hideModalHandler}
-      className="w-full h-full bg-dark bg-opacity-75 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      className="w-full h-screen bg-dark bg-opacity-75 absolute left-1/2 transform -translate-x-1/2 z-10"
     >
       <section
         onClick={preventPropagation}

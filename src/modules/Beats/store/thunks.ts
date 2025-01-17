@@ -1,9 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage"
 import { db, storage } from "@/app/firebase.config"
 import { BeatFileInfo, BeatInfo } from "./InitialState.interface"
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   limit,
@@ -15,6 +21,7 @@ import {
 import { nanoid } from "nanoid"
 import { setProgress } from "./slice"
 import { RootState } from "@/store"
+import { removeFromCart } from "@/modules/Profile"
 
 const COLLECTION_NAME = "beats"
 
@@ -115,6 +122,42 @@ export const updateBeatInfo = createAsyncThunk(
       })
 
       return fulfillWithValue({ id, tagIds })
+    } catch (error: Error | unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const deleteBeatInfoAndFile = createAsyncThunk(
+  "beats/deleteBeatInfoAndFile",
+  async (
+    id: string,
+    { getState, dispatch, fulfillWithValue, rejectWithValue }
+  ) => {
+    try {
+      const beatInfoRef = doc(db, COLLECTION_NAME, id)
+      const beatFileRef = ref(storage, `${COLLECTION_NAME}/${id}`)
+
+      await Promise.all([deleteDoc(beatInfoRef), deleteObject(beatFileRef)])
+
+      const availableBeats = (getState() as RootState).beats.allBeats.filter(
+        (beat) => beat.id !== id
+      )
+
+      const { cart } = (getState() as RootState).profile.info
+      const availableCart = cart.filter((cartItem) =>
+        availableBeats.find((beat) => beat.id === cartItem.beatId)
+      )
+
+      if (availableCart.length !== cart.length) {
+        dispatch(removeFromCart(id))
+      }
+
+      return fulfillWithValue(availableBeats)
     } catch (error: Error | unknown) {
       if (error instanceof Error) {
         return rejectWithValue(error.message)

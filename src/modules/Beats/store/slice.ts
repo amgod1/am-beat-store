@@ -7,6 +7,7 @@ import {
   uploadFile,
   searchBeatsByTags,
   updateBeatInfo,
+  deleteBeatInfoAndFile,
 } from "./thunks"
 import { BeatEditInfo } from "../interfaces"
 
@@ -159,6 +160,27 @@ const beatsSlice = createSlice({
     )
     builder.addCase(
       updateBeatInfo.rejected,
+      (state, { payload: error }: PayloadAction<string | unknown>) => {
+        state.status.progress = 0
+        state.status.loading = false
+        state.status.error = typeof error === "string" ? error : "unknown error"
+      }
+    )
+    builder.addCase(deleteBeatInfoAndFile.pending, (state) => {
+      state.status.loading = true
+      state.status.error = null
+    })
+    builder.addCase(
+      deleteBeatInfoAndFile.fulfilled,
+      (state, { payload: availableBeats }: PayloadAction<BeatInfo[]>) => {
+        state.allBeats = availableBeats
+
+        state.status.loading = false
+        state.status.error = null
+      }
+    )
+    builder.addCase(
+      deleteBeatInfoAndFile.rejected,
       (state, { payload: error }: PayloadAction<string | unknown>) => {
         state.status.progress = 0
         state.status.loading = false

@@ -1,5 +1,4 @@
 import { BsFillMusicPlayerFill } from "react-icons/bs"
-import { FaUser } from "react-icons/fa"
 import { MdAdminPanelSettings, MdLogout } from "react-icons/md"
 import { TbLogin2 } from "react-icons/tb"
 import { IoCart } from "react-icons/io5"
@@ -36,7 +35,6 @@ export const Header = () => {
               />
             )}
             <IconLink Icon={IoCart} navigation={ROUTES.Cart} size="2rem" />
-            <IconLink Icon={FaUser} navigation={ROUTES.Profile} />
             <IconLink Icon={MdLogout} callback={logOutHandler} size="2rem" />
           </>
         ) : (

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { IoCart } from "react-icons/io5"
 import { MdOutlineUpdate } from "react-icons/md"
 import { AddToCart as AddToCartProps } from "./AddToCart.interface"
@@ -10,25 +10,36 @@ import { selectProfileInfo } from "@/modules/Profile"
 import { showModal } from "@/modules/License"
 import { selectUserAuth } from "@/modules/Auth"
 
-export const AddToCart: FC<AddToCartProps> = ({ beatId, hide = true }) => {
+export const AddToCart: FC<AddToCartProps> = ({
+  beatId,
+  adaptiveText = true,
+  onlyIcon = false,
+}) => {
   const auth = useAppSelector(selectUserAuth)
   const { cart } = useAppSelector(selectProfileInfo)
+  const navigate = useNavigate()
 
   const leasePlanId = cart?.find((el) => el.beatId === beatId)?.leasePlanId
 
   const dispatch = useAppDispatch()
 
   const addToCartHandler = () => {
+    if (!auth) {
+      navigate(ROUTES.Login)
+      return
+    }
+
     dispatch(showModal({ beatId, leasePlanId: leasePlanId || 1 }))
   }
 
-  return !auth ? (
-    <Link to={ROUTES.Login}>
-      <Button>
-        <IoCart size="1.5rem" />
-        <p className="hidden sm:block">add</p>
-      </Button>
-    </Link>
+  return onlyIcon ? (
+    <button
+      onClick={addToCartHandler}
+      className="hover:text-warning"
+      tabIndex={-1}
+    >
+      {leasePlanId ? <MdOutlineUpdate size="2.5rem" /> : <IoCart size="2rem" />}
+    </button>
   ) : (
     <Button onClick={addToCartHandler}>
       {leasePlanId ? (
@@ -36,7 +47,7 @@ export const AddToCart: FC<AddToCartProps> = ({ beatId, hide = true }) => {
       ) : (
         <IoCart size="1.5rem" />
       )}
-      <p className={`${hide && "hidden sm:block"}`}>
+      <p className={`${adaptiveText && "hidden sm:block"}`}>
         {leasePlanId ? "upd" : "add"}
       </p>
     </Button>

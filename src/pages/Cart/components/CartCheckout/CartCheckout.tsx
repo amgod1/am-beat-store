@@ -20,7 +20,7 @@ export const CartCheckout: FC = () => {
         <p>{totalPrice}$</p>
       </div>
       <Button loading={loading || !cart.length} fullWidth={true}>
-        proceed to checout
+        proceed to checkout
       </Button>
     </div>
   )

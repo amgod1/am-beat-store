@@ -9,6 +9,7 @@ export {
   clearFilteredBeats,
   uploadFile,
   updateBeatInfo,
+  deleteBeatInfoAndFile,
   searchBeatsByTags,
   selectAllBeats,
   selectBeatsInfo,

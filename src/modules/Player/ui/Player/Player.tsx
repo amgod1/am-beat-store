@@ -1,8 +1,8 @@
 import { FC, useEffect, useRef, ChangeEvent } from "react"
-import { useAppDispatch, useAppSelector } from "@/hooks"
 import { FaRegCirclePause, FaRegCirclePlay } from "react-icons/fa6"
 import { IoIosCloseCircleOutline } from "react-icons/io"
 import { BiSkipPreviousCircle, BiSkipNextCircle } from "react-icons/bi"
+import { useAppDispatch, useAppSelector } from "@/hooks"
 import {
   pausePlaying,
   continuePlaying,
@@ -12,6 +12,7 @@ import {
   setAudioProgress,
 } from "../../store"
 import { selectAllBeats } from "@/modules/Beats"
+import { AddToCart } from "@/modules/Profile"
 
 export const Player: FC = () => {
   const info = useAppSelector(selectPlayerInfo)
@@ -74,7 +75,7 @@ export const Player: FC = () => {
   }, [info.isPlaying, info.src])
 
   return (
-    <div className="w-full sticky bottom-0 left-0 px-5 bg-dark border-t-2 border-primary">
+    <div className="w-full sticky bottom-0 left-0 bg-dark border-t-2 border-primary">
       <input
         type="range"
         value={info.progress}
@@ -107,12 +108,12 @@ export const Player: FC = () => {
             <BiSkipNextCircle className="hover:text-warning" size="2.4rem" />
           </button>
         </div>
-        <button
-          onClick={closeHandler}
-          className="hover:text-warning hidden sm:block justify-self-end"
-        >
-          <IoIosCloseCircleOutline size="2.5rem" />
-        </button>
+        <div className="hidden sm:flex flex-row justify-end gap-2">
+          <AddToCart beatId={info.id!} onlyIcon={true} />
+          <button onClick={closeHandler} className="hover:text-warning">
+            <IoIosCloseCircleOutline size="2.5rem" />
+          </button>
+        </div>
       </div>
     </div>
   )

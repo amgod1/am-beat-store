@@ -3,7 +3,6 @@ export {
   profileReducer,
   getUserProfile,
   clearProfile,
-  setAvailableBeats,
   addToCart,
   removeFromCart,
   selectAdminStatus,

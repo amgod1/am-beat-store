@@ -1,4 +1,5 @@
 export interface AddToCart {
   beatId: string
-  hide?: boolean
+  adaptiveText?: boolean
+  onlyIcon?: boolean
 }

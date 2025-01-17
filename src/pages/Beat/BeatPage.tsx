@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { useAppSelector } from "@/hooks"
 import { Button } from "@/components"
@@ -22,6 +22,10 @@ export const BeatPage: FC = () => {
     navigate(`${ROUTES.Beat}/${beat.id}/edit`)
   }
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+  }, [id])
+
   return (
     <section className="flex flex-col gap-8 w-full">
       <div className="bg-accent border border-primary p-8 flex flex-col lg:flex-row justify-between gap-8 items-center w-full min-h-40">
@@ -30,7 +34,7 @@ export const BeatPage: FC = () => {
           <div className="flex flex-col gap-2">
             <h2 className="text:xl sm:text-2xl">{beat.title}</h2>
             <p className="text-base">{beat.bpm}bpm</p>
-            <AddToCart beatId={id!} hide={false} />
+            <AddToCart beatId={id!} adaptiveText={false} />
             {isAdmin && <Button onClick={navigateToEditPage}>edit</Button>}
           </div>
         </div>
