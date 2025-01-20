@@ -10,7 +10,7 @@ export const CatalogPage: FC = () => {
   return (
     <section className="flex flex-col w-full">
       <BeatSearch />
-      <BeatsCatalog beats={filteredBeats.length ? filteredBeats : allBeats} />
+      <BeatsCatalog beats={filteredBeats?.length ? filteredBeats : allBeats} />
     </section>
   )
 }

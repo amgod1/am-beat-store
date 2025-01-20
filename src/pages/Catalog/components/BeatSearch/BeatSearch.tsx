@@ -11,7 +11,7 @@ import { MdClose } from "react-icons/md"
 
 export const BeatSearch: FC = () => {
   const [filteredTagIds, setFilteredTagIds] = useState<string[]>([])
-  const { allTagsObject, allTagsArray } = useAppSelector(selectTagsInfo)
+  const { allTagsArray } = useAppSelector(selectTagsInfo)
   const { filteredBeats } = useAppSelector(selectAllBeats)
   const [searchParams, setSearchParams] = useSearchParams({ q: "" })
   const dispatch = useAppDispatch()
@@ -87,7 +87,7 @@ export const BeatSearch: FC = () => {
             : ""}
         </p>
         <p className="h-5 w-2/3 text-sm">
-          {filteredBeats.length
+          {filteredBeats?.length
             ? `found ${filteredBeats.length} beats`
             : q
             ? "no beats found with this tags"

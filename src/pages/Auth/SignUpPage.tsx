@@ -1,7 +1,6 @@
 import { FC } from "react"
 import { useAppDispatch } from "@/hooks"
-import { AuthorizationForm, signUp } from "@/modules/Auth"
-import { Authorization } from "@/modules/Auth"
+import { Authorization, AuthorizationForm, signUp } from "@/modules/Auth"
 
 export const SignUpPage: FC = () => {
   const dispatch = useAppDispatch()

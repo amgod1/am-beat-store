@@ -1,7 +1,7 @@
 import { FC, useState } from "react"
 import { AddTag, EditTag, Switch } from "./components"
 
-export const AdminTagsPage: FC = () => {
+export const UploadTagsPage: FC = () => {
   const [add, setAdd] = useState(false)
 
   const onSwitchChange = () => {

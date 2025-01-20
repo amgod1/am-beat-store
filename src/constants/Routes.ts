@@ -7,8 +7,8 @@ export enum ROUTES {
   Beat = "/beat",
   DynamicBeat = "/beat/:id",
   DynamicBeatEdit = "/beat/:id/edit",
-  Admin = "/admin",
-  AdminBeats = "/admin/beats",
-  AdminTags = "/admin/tags",
+  Upload = "/upload",
+  UploadBeats = "/upload/beats",
+  UploadTags = "/upload/tags",
   Cart = "/cart",
 }

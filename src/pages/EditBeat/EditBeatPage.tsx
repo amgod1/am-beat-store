@@ -3,7 +3,7 @@ import { Navigate, useLocation } from "react-router-dom"
 import { useAppSelector } from "@/hooks"
 import { ROUTES } from "@/constants/Routes"
 import { selectAdminStatus } from "@/modules/Profile"
-import { BeatEditor } from "../AdminBeats/components"
+import { BeatEditor } from "../UploadBeats/components"
 
 export const EditBeatPage: FC = () => {
   const isAdmin = useAppSelector(selectAdminStatus)

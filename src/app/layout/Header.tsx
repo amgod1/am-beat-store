@@ -30,7 +30,7 @@ export const Header = () => {
             {admin && (
               <IconLink
                 Icon={MdAdminPanelSettings}
-                navigation={ROUTES.Admin}
+                navigation={ROUTES.Upload}
                 size="2rem"
               />
             )}
