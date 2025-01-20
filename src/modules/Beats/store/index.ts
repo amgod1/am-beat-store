@@ -12,6 +12,7 @@ export {
   removeFileFromEditor,
   addTag,
   removeTag,
+  setBeatFileLinks,
   setEditorInfo,
   clearFilteredBeats,
 } from "./slice"

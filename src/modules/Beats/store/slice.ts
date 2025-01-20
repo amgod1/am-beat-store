@@ -10,6 +10,7 @@ import {
   deleteBeatInfoAndFile,
 } from "./thunks"
 import { BeatEditInfo } from "../interfaces"
+import { FileLink } from "../interfaces/FileLinks.interface"
 
 const initialState: InitialState = {
   filteredBeats: [],
@@ -22,6 +23,11 @@ const initialState: InitialState = {
     createdAt: 0,
     tagIds: [],
     url: "",
+    available: true,
+    fileLinks: {
+      classic: "",
+      exclusive: "",
+    },
   },
   status: {
     progress: 0,
@@ -45,6 +51,11 @@ const beatsSlice = createSlice({
       state.info.bpm = 0
       state.info.tagIds = []
       state.info.url = ""
+      state.info.available = true
+      state.info.fileLinks = {
+        classic: "",
+        exclusive: "",
+      }
     },
     addTag: (state, { payload: tagId }: PayloadAction<string>) => {
       state.info.tagIds.push(tagId)
@@ -62,9 +73,16 @@ const beatsSlice = createSlice({
       state.info.createdAt = beat.createdAt
       state.info.tagIds = beat.tagIds
       state.info.url = beat.url
+      state.info.fileLinks = beat.fileLinks
     },
     clearFilteredBeats: (state) => {
       state.filteredBeats = []
+    },
+    setBeatFileLinks: (
+      state,
+      { payload: newFileLinkInfo }: PayloadAction<FileLink>
+    ) => {
+      Object.assign(state.info.fileLinks, newFileLinkInfo)
     },
   },
   extraReducers(builder) {
@@ -120,6 +138,11 @@ const beatsSlice = createSlice({
         state.info.createdAt = 0
         state.info.tagIds = []
         state.info.url = ""
+        state.info.available = true
+        state.info.fileLinks = {
+          classic: "",
+          exclusive: "",
+        }
 
         state.status.progress = 0
         state.status.loading = false
@@ -142,8 +165,12 @@ const beatsSlice = createSlice({
     builder.addCase(
       updateBeatInfo.fulfilled,
       (state, { payload: updatedBeatInfo }: PayloadAction<BeatEditInfo>) => {
-        state.allBeats.find((beat) => (beat.id = updatedBeatInfo.id!))!.tagIds =
-          updatedBeatInfo.tagIds!
+        const updatedBeat = state.allBeats.find(
+          (beat) => (beat.id = updatedBeatInfo.id!)
+        )!
+
+        updatedBeat.tagIds = updatedBeatInfo.tagIds
+        updatedBeat.fileLinks = updatedBeatInfo.fileLinks
 
         state.info.file = null
         state.info.id = null
@@ -152,6 +179,11 @@ const beatsSlice = createSlice({
         state.info.createdAt = 0
         state.info.tagIds = []
         state.info.url = ""
+        state.info.available = true
+        state.info.fileLinks = {
+          classic: "",
+          exclusive: "",
+        }
 
         state.status.progress = 0
         state.status.loading = false
@@ -208,6 +240,7 @@ export const {
   removeFileFromEditor,
   addTag,
   removeTag,
+  setBeatFileLinks,
   setProgress,
   setEditorInfo,
   clearFilteredBeats,

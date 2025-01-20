@@ -6,6 +6,7 @@ export const tagSchema = (allTags: Tag) =>
     .object({
       tag: yup
         .string()
+        .required("tag is required")
         .test(
           "tag-exist",
           "tag is already exist",

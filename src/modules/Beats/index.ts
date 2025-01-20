@@ -2,18 +2,14 @@ export {
   beatsReducer,
   getBeats,
   uploadFileToEditor,
-  removeFileFromEditor,
   addTag,
   removeTag,
-  setEditorInfo,
+  setBeatFileLinks,
   clearFilteredBeats,
-  uploadFile,
-  updateBeatInfo,
-  deleteBeatInfoAndFile,
   searchBeatsByTags,
   selectAllBeats,
   selectBeatsInfo,
   selectBeatsStatus,
 } from "./store"
-export type { BeatInfo } from "./store"
-export { BeatsCatalog } from "./ui"
+export type { FileLinks } from "./interfaces"
+export { BeatEditor, BeatsCatalog } from "./ui"

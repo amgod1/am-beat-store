@@ -78,6 +78,8 @@ export const uploadFile = createAsyncThunk(
           url,
           tagIds: beat.tagIds,
           createdAt: Date.now(),
+          available: beat.available,
+          fileLinks: beat.fileLinks,
         }
 
         dispatch(uploadInfo(info))
@@ -114,14 +116,15 @@ export const updateBeatInfo = createAsyncThunk(
   "beats/updateBeatInfo",
   async (id: string, { getState, fulfillWithValue, rejectWithValue }) => {
     try {
-      const { tagIds } = (getState() as RootState).beats.info
+      const { tagIds, fileLinks } = (getState() as RootState).beats.info
 
       const docRef = doc(db, COLLECTION_NAME, id)
       await updateDoc(docRef, {
         tagIds,
+        fileLinks,
       })
 
-      return fulfillWithValue({ id, tagIds })
+      return fulfillWithValue({ id, tagIds, fileLinks })
     } catch (error: Error | unknown) {
       if (error instanceof Error) {
         return rejectWithValue(error.message)

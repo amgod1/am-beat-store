@@ -1,4 +1,5 @@
 import { LoadingStatus } from "@/interfaces"
+import { FileLinks } from "../interfaces"
 
 export interface InitialState {
   filteredBeats: BeatInfo[]
@@ -14,6 +15,8 @@ export interface BeatInfo {
   tagIds: string[]
   createdAt: number
   url: string
+  available: boolean
+  fileLinks: FileLinks
 }
 
 export interface BeatFileInfo extends BeatInfo {

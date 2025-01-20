@@ -1,27 +1,28 @@
 import { FC, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
+import { ROUTES } from "@/constants/Routes"
+import { InputLink, TagSelect } from "./components"
 import {
-  uploadFile,
-  removeFileFromEditor,
-  selectBeatsInfo,
-  selectBeatsStatus,
-  updateBeatInfo,
-  setEditorInfo,
-  selectAllBeats,
   BeatInfo,
   deleteBeatInfoAndFile,
-} from "@/modules/Beats"
-import { ROUTES } from "@/constants/Routes"
-import { TagSelect } from "./components"
+  removeFileFromEditor,
+  selectAllBeats,
+  selectBeatsInfo,
+  selectBeatsStatus,
+  setEditorInfo,
+  updateBeatInfo,
+  uploadFile,
+} from "../../store"
 
-export const BeatEditor: FC<{ id: string }> = ({ id = "" }) => {
+export const BeatEditor: FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const beat = useAppSelector(selectBeatsInfo)
   const { loading, progress } = useAppSelector(selectBeatsStatus)
   const { allBeats } = useAppSelector(selectAllBeats)
+  const id = useLocation().pathname.split("/")[2]
 
   const uploadFileHandler = () => {
     beat.file && dispatch(uploadFile(beat))
@@ -55,9 +56,11 @@ export const BeatEditor: FC<{ id: string }> = ({ id = "" }) => {
   }, [id])
 
   return (
-    <div className="bg-accent border border-primary p-8 flex flex-col gap-4 w-full">
+    <div className="bg-accent border border-primary p-8 w-full flex flex-col gap-4">
       <h3 className="text-2xl">{`${beat.title}_${beat.bpm}`}</h3>
       <TagSelect />
+      <InputLink title="classic" disabled={loading} />
+      <InputLink title="exclusive" disabled={loading} />
       {loading && !id ? (
         <div className="flex items-center justify-center gap-2 bg-dark border border-primary p-4">
           <p>{`Uploaded ${progress}%`}</p>
@@ -65,8 +68,9 @@ export const BeatEditor: FC<{ id: string }> = ({ id = "" }) => {
       ) : (
         <div className="flex justify-between gap-2 sm:flex-row flex-col">
           <Button
-            loading={loading}
+            type="submit"
             onClick={id ? updateBeatInfoHandler : uploadFileHandler}
+            loading={loading}
             fullWidth={true}
           >
             {id ? "update" : "upload"}

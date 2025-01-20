@@ -18,16 +18,16 @@ export const BeatSearch: FC = () => {
 
   const q = (searchParams.get("q") as string) || ""
 
-  const updateSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
+  const updateSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchParams(
       (prev) => {
-        prev.set("q", e.target.value)
+        prev.set("q", event.target.value)
         return prev
       },
       { replace: true }
     )
 
-    startSearching(e.target.value.trim())
+    startSearching(event.target.value.trim())
   }
 
   const startSearching = (searchValue: string) => {
