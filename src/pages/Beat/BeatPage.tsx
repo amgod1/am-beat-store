@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { Navigate, useNavigate, useParams } from "react-router-dom"
 import { useAppSelector } from "@/hooks"
 import { Button } from "@/components"
 import { AddToCart, selectAdminStatus } from "@/modules/Profile"
@@ -16,7 +16,11 @@ export const BeatPage: FC = () => {
 
   const beat = useAppSelector(selectAllBeats).allBeats.find(
     (beat) => beat.id === id
-  )!
+  )
+
+  if (!beat) {
+    return <Navigate to={ROUTES.Catalog} />
+  }
 
   const navigateToEditPage = () => {
     navigate(`${ROUTES.Beat}/${beat.id}/edit`)

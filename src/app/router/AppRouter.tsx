@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes"
 import { Layout } from "../layout"
 import { ROUTES } from "@/constants/Routes"
@@ -16,6 +16,10 @@ export const AppRouter: FC = () => (
   <BrowserRouter>
     <Routes>
       <Route path={ROUTES.Home} element={<Layout />}>
+        <Route
+          path={ROUTES.Invalid}
+          element={<Navigate to={ROUTES.Catalog} />}
+        />
         <Route path={ROUTES.Catalog} element={<CatalogPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path={ROUTES.Login} element={<LoginPage />} />

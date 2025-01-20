@@ -11,4 +11,5 @@ export enum ROUTES {
   UploadBeats = "/upload/beats",
   UploadTags = "/upload/tags",
   Cart = "/cart",
+  Invalid = "*",
 }
