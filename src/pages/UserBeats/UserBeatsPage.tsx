@@ -2,7 +2,11 @@ import { FC, MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
-import { selectProfileInfo, selectProfileStatus } from "@/modules/Profile"
+import {
+  EmptyRedirect,
+  selectProfileInfo,
+  selectProfileStatus,
+} from "@/modules/Profile"
 import { selectAllBeats } from "@/modules/Beats"
 import { PlayButton } from "@/modules/Player"
 import { showModal } from "@/modules/License"
@@ -46,7 +50,9 @@ export const UserBeatsPage: FC = () => {
     )
   }
 
-  return (
+  return !decodedBeats.length ? (
+    <EmptyRedirect title="beats" />
+  ) : (
     <div className="flex flex-col w-full lg:w-2/3">
       {decodedBeats.map((beatItem) => (
         <div
