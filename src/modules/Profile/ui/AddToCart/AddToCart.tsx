@@ -16,7 +16,7 @@ export const AddToCart: FC<AddToCartProps> = ({
   onlyIcon = false,
 }) => {
   const auth = useAppSelector(selectUserAuth)
-  const { cart } = useAppSelector(selectProfileInfo)
+  const { cart, beats: purchasedBeats } = useAppSelector(selectProfileInfo)
   const navigate = useNavigate()
 
   const leasePlanId = cart?.find((el) => el.beatId === beatId)?.leasePlanId
@@ -29,7 +29,18 @@ export const AddToCart: FC<AddToCartProps> = ({
       return
     }
 
-    dispatch(showModal({ beatId, leasePlanId: leasePlanId || 1 }))
+    const alreadyPurchasedLeaseId = purchasedBeats.find(
+      (beat) => beat.beatId === beatId
+    )?.leasePlanId
+
+    dispatch(
+      showModal({
+        beatId,
+        leasePlanId: alreadyPurchasedLeaseId
+          ? alreadyPurchasedLeaseId + 1
+          : leasePlanId || 1,
+      })
+    )
   }
 
   return onlyIcon ? (

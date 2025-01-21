@@ -13,11 +13,14 @@ import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
 import { LeaseInfo, LeaseItem } from "./components"
 
 export const LicenseModal: FC = () => {
-  const { cart } = useAppSelector(selectProfileInfo)
+  const { cart, beats: purchasedBeats } = useAppSelector(selectProfileInfo)
   const { beatId, leasePlanId } = useAppSelector(selectCartItem)
   const { loading } = useAppSelector(selectProfileStatus)
   const dispatch = useAppDispatch()
 
+  const alreadyPurchasedLeaseId = purchasedBeats.find(
+    (beat) => beat.beatId === beatId
+  )?.leasePlanId
   const alreadyAdded = cart.find((el) => el.beatId === beatId)
   const disableButton = alreadyAdded?.leasePlanId === leasePlanId
   const price = LEASES.find((lease) => lease.id === leasePlanId)?.price
@@ -82,6 +85,10 @@ export const LicenseModal: FC = () => {
                 key={lease.id}
                 lease={lease}
                 selected={lease.id === leasePlanId}
+                disabled={
+                  !!alreadyPurchasedLeaseId &&
+                  lease.id <= alreadyPurchasedLeaseId
+                }
                 onClick={updateLeasePlan(lease.id)}
               />
               {lease.id === leasePlanId && <LeaseInfo id={leasePlanId} />}

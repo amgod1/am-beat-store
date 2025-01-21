@@ -1,17 +1,23 @@
 import { FC } from "react"
-import { useAppSelector } from "@/hooks"
+import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
 import {
   selectProfileInfo,
   selectProfileStatus,
   calculateTotalPrice,
+  purchaseBeats,
 } from "@/modules/Profile"
 
 export const CartCheckout: FC = () => {
   const { cart } = useAppSelector(selectProfileInfo)
   const { loading } = useAppSelector(selectProfileStatus)
+  const dispath = useAppDispatch()
 
   const totalPrice = calculateTotalPrice(cart)
+
+  const checkoutHandler = () => {
+    dispath(purchaseBeats())
+  }
 
   return (
     <div className="flex flex-col gap-4 w-full lg:w-1/3 border border-primary bg-accent p-4 h-fit">
@@ -19,7 +25,11 @@ export const CartCheckout: FC = () => {
         <p>total:</p>
         <p>{totalPrice}$</p>
       </div>
-      <Button loading={loading || !cart.length} fullWidth={true}>
+      <Button
+        onClick={checkoutHandler}
+        loading={loading || !cart.length}
+        fullWidth={true}
+      >
         proceed to checkout
       </Button>
     </div>

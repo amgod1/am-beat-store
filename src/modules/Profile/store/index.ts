@@ -3,6 +3,7 @@ export {
   createUserProfile,
   addToCart,
   removeFromCart,
+  purchaseBeats,
 } from "./thunks"
 export {
   selectAdminStatus,

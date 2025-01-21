@@ -4,6 +4,7 @@ import {
   addToCart,
   createUserProfile,
   getUserProfile,
+  purchaseBeats,
   removeFromCart,
 } from "./thunks"
 import { ShortUserInfo } from "@/modules/Auth"
@@ -14,6 +15,7 @@ const initialState: InitialState = {
     email: null,
     admin: false,
     cart: [],
+    beats: [],
   },
   status: {
     loading: false,
@@ -30,6 +32,7 @@ const profileSlice = createSlice({
       state.info.email = null
       state.info.admin = false
       state.info.cart = []
+      state.info.beats = []
     },
   },
   extraReducers(builder) {
@@ -45,6 +48,7 @@ const profileSlice = createSlice({
           state.info.email = profile.email
           state.info.admin = profile.admin
           state.info.cart = profile.cart
+          state.info.beats = profile.beats
         }
 
         state.status.loading = false
@@ -112,6 +116,27 @@ const profileSlice = createSlice({
     )
     builder.addCase(
       removeFromCart.rejected,
+      (state, { payload: error }: PayloadAction<string | unknown>) => {
+        state.status.loading = false
+        state.status.error = typeof error === "string" ? error : "unknown error"
+      }
+    )
+    builder.addCase(purchaseBeats.pending, (state) => {
+      state.status.loading = true
+      state.status.error = null
+    })
+    builder.addCase(
+      purchaseBeats.fulfilled,
+      (state, { payload: updatedBeats }: PayloadAction<CartItem[]>) => {
+        state.info.beats = updatedBeats
+        state.info.cart = []
+
+        state.status.loading = false
+        state.status.error = null
+      }
+    )
+    builder.addCase(
+      purchaseBeats.rejected,
       (state, { payload: error }: PayloadAction<string | unknown>) => {
         state.status.loading = false
         state.status.error = typeof error === "string" ? error : "unknown error"

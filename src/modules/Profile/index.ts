@@ -5,6 +5,7 @@ export {
   clearProfile,
   addToCart,
   removeFromCart,
+  purchaseBeats,
   selectAdminStatus,
   selectProfileInfo,
   selectProfileStatus,

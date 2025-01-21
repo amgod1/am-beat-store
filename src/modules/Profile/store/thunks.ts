@@ -2,9 +2,11 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/app/firebase.config"
 import { ShortUserInfo } from "@/modules/Auth"
-import { generateUserProfile } from "../helpers"
+import { generateUserProfile, getUpdatedProfileBeats } from "../helpers"
 import { CartItem, ProfileInfo } from "./InitialState.interface"
 import { RootState } from "@/store"
+
+const COLLECTION_NAME = "users"
 
 export const getUserProfile = createAsyncThunk(
   "user/getUserProfile",
@@ -13,7 +15,7 @@ export const getUserProfile = createAsyncThunk(
     { getState, dispatch, fulfillWithValue, rejectWithValue }
   ) => {
     try {
-      const userDocRef = doc(db, "users", shortInfo.id)
+      const userDocRef = doc(db, COLLECTION_NAME, shortInfo.id)
       const docSnap = await getDoc(userDocRef)
 
       if (docSnap.exists()) {
@@ -53,7 +55,7 @@ export const createUserProfile = createAsyncThunk(
   "user/createUserProfile",
   async (shortInfo: ShortUserInfo, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const docRef = doc(db, "users", shortInfo.id)
+      const docRef = doc(db, COLLECTION_NAME, shortInfo.id)
       await setDoc(docRef, generateUserProfile(shortInfo))
 
       return fulfillWithValue(shortInfo)
@@ -77,7 +79,7 @@ export const addToCart = createAsyncThunk(
       const userId = (getState() as RootState).profile.info.id as string
       const cart = (getState() as RootState).profile.info.cart
 
-      const userDocRef = doc(db, "users", userId)
+      const userDocRef = doc(db, COLLECTION_NAME, userId)
 
       const updateIndex = cart.findIndex(
         (el) => el.beatId === newCartItem.beatId
@@ -118,13 +120,40 @@ export const removeFromCart = createAsyncThunk(
       let updatedCart: CartItem[] = JSON.parse(JSON.stringify(cart))
       updatedCart = updatedCart.filter((el) => el.beatId !== beatId)
 
-      const userDocRef = doc(db, "users", userId)
+      const userDocRef = doc(db, COLLECTION_NAME, userId)
 
       await updateDoc(userDocRef, {
         cart: updatedCart,
       })
 
       return fulfillWithValue(updatedCart)
+    } catch (error: Error | unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+
+      return rejectWithValue(error)
+    }
+  }
+)
+
+export const purchaseBeats = createAsyncThunk(
+  "user/purchaseBeats",
+  async (_, { getState, fulfillWithValue, rejectWithValue }) => {
+    try {
+      const userId = (getState() as RootState).profile.info.id as string
+      const { cart, beats } = (getState() as RootState).profile.info
+
+      const userDocRef = doc(db, COLLECTION_NAME, userId)
+
+      const updatedBeats = getUpdatedProfileBeats(beats, cart)
+
+      await updateDoc(userDocRef, {
+        beats: updatedBeats,
+        cart: [],
+      })
+
+      return fulfillWithValue(updatedBeats)
     } catch (error: Error | unknown) {
       if (error instanceof Error) {
         return rejectWithValue(error.message)

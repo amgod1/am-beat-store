@@ -14,7 +14,7 @@ import { LEASES } from "@/modules/License"
 import { ROUTES } from "@/constants/Routes"
 
 export const CartItems: FC = () => {
-  const { cart } = useAppSelector(selectProfileInfo)
+  const { cart, beats: purchasedBeats } = useAppSelector(selectProfileInfo)
   const { loading } = useAppSelector(selectProfileStatus)
   const navigate = useNavigate()
 
@@ -29,7 +29,18 @@ export const CartItems: FC = () => {
   })
 
   const updateLeseHandler = (beatId: string, leasePlanId: number) => () => {
-    dispatch(showModal({ beatId, leasePlanId }))
+    const alreadyPurchasedLeaseId = purchasedBeats.find(
+      (beat) => beat.beatId === beatId
+    )?.leasePlanId
+
+    dispatch(
+      showModal({
+        beatId,
+        leasePlanId: alreadyPurchasedLeaseId
+          ? alreadyPurchasedLeaseId + 1
+          : leasePlanId || 1,
+      })
+    )
   }
 
   const removeFromCartHandler = (beatId: string) => () => {
