@@ -12,6 +12,7 @@ import { PlayButton } from "@/modules/Player"
 import { showModal } from "@/modules/License"
 import { LEASES } from "@/modules/License"
 import { ROUTES } from "@/constants/Routes"
+import { DownloadButton } from "./components"
 
 export const UserBeatsPage: FC = () => {
   const { purchasedBeats } = useAppSelector(selectProfileInfo)
@@ -73,7 +74,7 @@ export const UserBeatsPage: FC = () => {
           ) : (
             <span></span>
           )}
-          <Button loading={loading}>download</Button>
+          <DownloadButton beat={beatItem.beat} leaseId={beatItem.lease!.id} />
         </div>
       ))}
     </div>

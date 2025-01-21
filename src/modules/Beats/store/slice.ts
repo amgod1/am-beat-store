@@ -26,7 +26,7 @@ const initialState: InitialState = {
     url: "",
     available: true,
     fileLinks: {
-      classic: "",
+      pro: "",
       exclusive: "",
     },
   },
@@ -54,7 +54,7 @@ const beatsSlice = createSlice({
       state.info.url = ""
       state.info.available = true
       state.info.fileLinks = {
-        classic: "",
+        pro: "",
         exclusive: "",
       }
     },
@@ -141,7 +141,7 @@ const beatsSlice = createSlice({
         state.info.url = ""
         state.info.available = true
         state.info.fileLinks = {
-          classic: "",
+          pro: "",
           exclusive: "",
         }
 
@@ -182,7 +182,7 @@ const beatsSlice = createSlice({
         state.info.url = ""
         state.info.available = true
         state.info.fileLinks = {
-          classic: "",
+          pro: "",
           exclusive: "",
         }
 

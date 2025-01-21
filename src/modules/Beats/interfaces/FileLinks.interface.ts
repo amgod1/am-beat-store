@@ -1,5 +1,5 @@
 export interface FileLinks {
-  classic: string
+  pro: string
   exclusive: string
 }
 
