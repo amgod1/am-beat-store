@@ -14,7 +14,7 @@ import { LEASES } from "@/modules/License"
 import { ROUTES } from "@/constants/Routes"
 
 export const CartItems: FC = () => {
-  const { cart, beats: purchasedBeats } = useAppSelector(selectProfileInfo)
+  const { cart, purchasedBeats } = useAppSelector(selectProfileInfo)
   const { loading } = useAppSelector(selectProfileStatus)
   const navigate = useNavigate()
 

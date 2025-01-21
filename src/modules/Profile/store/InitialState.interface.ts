@@ -10,7 +10,7 @@ export interface ProfileInfo {
   email: string | null
   admin: false
   cart: CartItem[]
-  beats: CartItem[]
+  purchasedBeats: CartItem[]
 }
 
 export interface CartItem {

@@ -1,6 +1,8 @@
 import { FC } from "react"
+import { useNavigate } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
+import { ROUTES } from "@/constants/Routes"
 import {
   selectProfileInfo,
   selectProfileStatus,
@@ -12,11 +14,13 @@ export const CartCheckout: FC = () => {
   const { cart } = useAppSelector(selectProfileInfo)
   const { loading } = useAppSelector(selectProfileStatus)
   const dispath = useAppDispatch()
+  const navigate = useNavigate()
 
   const totalPrice = calculateTotalPrice(cart)
 
-  const checkoutHandler = () => {
-    dispath(purchaseBeats())
+  const checkoutHandler = async () => {
+    await dispath(purchaseBeats())
+    navigate(ROUTES.UserBeats)
   }
 
   return (

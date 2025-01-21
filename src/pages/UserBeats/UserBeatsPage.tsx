@@ -10,7 +10,7 @@ import { LEASES } from "@/modules/License"
 import { ROUTES } from "@/constants/Routes"
 
 export const UserBeatsPage: FC = () => {
-  const { beats: purchasedBeats } = useAppSelector(selectProfileInfo)
+  const { purchasedBeats } = useAppSelector(selectProfileInfo)
   const { allBeats } = useAppSelector(selectAllBeats)
   const { loading } = useAppSelector(selectProfileStatus)
   const dispatch = useAppDispatch()
@@ -57,12 +57,16 @@ export const UserBeatsPage: FC = () => {
           <PlayButton beat={beatItem.beat} />
           <p className="col-span-2">{beatItem.beat.title}</p>
           <p className="sm:text-center">{beatItem.lease?.title}</p>
-          <Button
-            onClick={updateLeseHandler(beatItem.beat.id!, beatItem.lease!.id)}
-            loading={loading}
-          >
-            update
-          </Button>
+          {beatItem.beat.available ? (
+            <Button
+              onClick={updateLeseHandler(beatItem.beat.id!, beatItem.lease!.id)}
+              loading={loading}
+            >
+              update
+            </Button>
+          ) : (
+            <span></span>
+          )}
           <Button loading={loading}>download</Button>
         </div>
       ))}

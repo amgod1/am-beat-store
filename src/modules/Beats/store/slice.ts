@@ -8,6 +8,7 @@ import {
   searchBeatsByTags,
   updateBeatInfo,
   deleteBeatInfoAndFile,
+  makeBeatUnavailable,
 } from "./thunks"
 import { BeatEditInfo } from "../interfaces"
 import { FileLink } from "../interfaces/FileLinks.interface"
@@ -219,7 +220,30 @@ const beatsSlice = createSlice({
         state.status.error = typeof error === "string" ? error : "unknown error"
       }
     )
-    builder.addCase(searchBeatsByTags.pending, (state) => {
+    builder.addCase(makeBeatUnavailable.pending, (state) => {
+      state.status.loading = true
+      state.status.error = null
+    })
+
+    builder.addCase(
+      makeBeatUnavailable.fulfilled,
+      (state, { payload: id }: PayloadAction<string>) => {
+        state.allBeats.find((beat) => beat.id === id)!.available = false
+
+        state.status.loading = false
+        state.status.error = null
+      }
+    )
+
+    builder.addCase(
+      makeBeatUnavailable.rejected,
+      (state, { payload: error }: PayloadAction<string | unknown>) => {
+        state.status.progress = 0
+        state.status.loading = false
+        state.status.error = typeof error === "string" ? error : "unknown error"
+      }
+    )
+    builder.addCase(searchBeatsByTags.rejected, (state) => {
       state.status.loading = true
       state.status.error = null
     })

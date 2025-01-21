@@ -171,6 +171,27 @@ export const deleteBeatInfoAndFile = createAsyncThunk(
   }
 )
 
+export const makeBeatUnavailable = createAsyncThunk(
+  "beats/makeBeatUnavailable",
+  async (id: string, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const beatInfoRef = doc(db, COLLECTION_NAME, id)
+
+      await updateDoc(beatInfoRef, {
+        available: false,
+      })
+
+      return fulfillWithValue(id)
+    } catch (error: Error | unknown) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message)
+      }
+
+      return rejectWithValue(error)
+    }
+  }
+)
+
 export const searchBeatsByTags = createAsyncThunk(
   "beats/searchBeatsByTag",
   async (filterTagIds: string[], { getState, fulfillWithValue }) => {

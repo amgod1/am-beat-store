@@ -2,6 +2,7 @@ export {
   beatsReducer,
   getBeats,
   uploadFileToEditor,
+  makeBeatUnavailable,
   addTag,
   removeTag,
   setBeatFileLinks,

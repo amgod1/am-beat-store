@@ -13,7 +13,7 @@ import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
 import { LeaseInfo, LeaseItem } from "./components"
 
 export const LicenseModal: FC = () => {
-  const { cart, beats: purchasedBeats } = useAppSelector(selectProfileInfo)
+  const { cart, purchasedBeats } = useAppSelector(selectProfileInfo)
   const { beatId, leasePlanId } = useAppSelector(selectCartItem)
   const { loading } = useAppSelector(selectProfileStatus)
   const dispatch = useAppDispatch()

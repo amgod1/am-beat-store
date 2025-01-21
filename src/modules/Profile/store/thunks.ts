@@ -5,6 +5,7 @@ import { ShortUserInfo } from "@/modules/Auth"
 import { generateUserProfile, getUpdatedProfileBeats } from "../helpers"
 import { CartItem, ProfileInfo } from "./InitialState.interface"
 import { RootState } from "@/store"
+import { makeBeatUnavailable } from "@/modules/Beats"
 
 const COLLECTION_NAME = "users"
 
@@ -139,19 +140,31 @@ export const removeFromCart = createAsyncThunk(
 
 export const purchaseBeats = createAsyncThunk(
   "user/purchaseBeats",
-  async (_, { getState, fulfillWithValue, rejectWithValue }) => {
+  async (_, { getState, dispatch, fulfillWithValue, rejectWithValue }) => {
     try {
       const userId = (getState() as RootState).profile.info.id as string
-      const { cart, beats } = (getState() as RootState).profile.info
+      const { cart, purchasedBeats } = (getState() as RootState).profile.info
 
       const userDocRef = doc(db, COLLECTION_NAME, userId)
 
-      const updatedBeats = getUpdatedProfileBeats(beats, cart)
+      const updatedBeats = getUpdatedProfileBeats(purchasedBeats, cart)
 
       await updateDoc(userDocRef, {
-        beats: updatedBeats,
+        purchasedBeats: updatedBeats,
         cart: [],
       })
+
+      const exclusiveLeases = cart.filter(
+        (cartItem) => cartItem.leasePlanId === 3
+      )
+
+      if (exclusiveLeases.length) {
+        await Promise.all(
+          exclusiveLeases.map((cartItem) => {
+            dispatch(makeBeatUnavailable(cartItem.beatId))
+          })
+        )
+      }
 
       return fulfillWithValue(updatedBeats)
     } catch (error: Error | unknown) {

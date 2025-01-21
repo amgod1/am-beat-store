@@ -15,7 +15,7 @@ const initialState: InitialState = {
     email: null,
     admin: false,
     cart: [],
-    beats: [],
+    purchasedBeats: [],
   },
   status: {
     loading: false,
@@ -32,7 +32,7 @@ const profileSlice = createSlice({
       state.info.email = null
       state.info.admin = false
       state.info.cart = []
-      state.info.beats = []
+      state.info.purchasedBeats = []
     },
   },
   extraReducers(builder) {
@@ -48,7 +48,7 @@ const profileSlice = createSlice({
           state.info.email = profile.email
           state.info.admin = profile.admin
           state.info.cart = profile.cart
-          state.info.beats = profile.beats
+          state.info.purchasedBeats = profile.purchasedBeats
         }
 
         state.status.loading = false
@@ -128,7 +128,7 @@ const profileSlice = createSlice({
     builder.addCase(
       purchaseBeats.fulfilled,
       (state, { payload: updatedBeats }: PayloadAction<CartItem[]>) => {
-        state.info.beats = updatedBeats
+        state.info.purchasedBeats = updatedBeats
         state.info.cart = []
 
         state.status.loading = false

@@ -38,7 +38,7 @@ export const BeatPage: FC = () => {
           <div className="flex flex-col gap-2">
             <h2 className="text:xl sm:text-2xl">{beat.title}</h2>
             <p className="text-base">{beat.bpm}bpm</p>
-            <AddToCart beatId={id!} adaptiveText={false} />
+            {beat.available && <AddToCart beatId={id!} adaptiveText={false} />}
             {isAdmin && <Button onClick={navigateToEditPage}>edit</Button>}
           </div>
         </div>

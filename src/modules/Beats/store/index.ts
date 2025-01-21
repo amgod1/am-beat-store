@@ -4,6 +4,7 @@ export {
   uploadFile,
   updateBeatInfo,
   deleteBeatInfoAndFile,
+  makeBeatUnavailable,
   searchBeatsByTags,
 } from "./thunks"
 export {

@@ -16,7 +16,7 @@ export const AddToCart: FC<AddToCartProps> = ({
   onlyIcon = false,
 }) => {
   const auth = useAppSelector(selectUserAuth)
-  const { cart, beats: purchasedBeats } = useAppSelector(selectProfileInfo)
+  const { cart, purchasedBeats } = useAppSelector(selectProfileInfo)
   const navigate = useNavigate()
 
   const leasePlanId = cart?.find((el) => el.beatId === beatId)?.leasePlanId
