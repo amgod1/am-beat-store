@@ -13,9 +13,11 @@ export const BeatsCatalog: FC<BeatsCatalogProps> = ({ beats }) => {
   ) : (
     <table className="table-auto w-full text-base">
       <tbody>
-        {beats.map((beat) => (
-          <CatalogItem key={beat.id} beat={beat} />
-        ))}
+        {beats
+          .filter((beat) => beat.available)
+          .map((beat) => (
+            <CatalogItem key={beat.id} beat={beat} />
+          ))}
       </tbody>
     </table>
   )

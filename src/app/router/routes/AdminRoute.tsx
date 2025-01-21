@@ -7,5 +7,5 @@ import { selectAdminStatus } from "@/modules/Profile"
 export const AdminRoute: FC = () => {
   const admin = useAppSelector(selectAdminStatus)
 
-  return !admin ? <Navigate to={ROUTES.Cart} replace /> : <Outlet />
+  return !admin ? <Navigate to={ROUTES.UserCart} replace /> : <Outlet />
 }

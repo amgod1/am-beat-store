@@ -34,7 +34,7 @@ export const Header = () => {
                 size="2rem"
               />
             )}
-            <IconLink Icon={IoCart} navigation={ROUTES.Cart} size="2rem" />
+            <IconLink Icon={IoCart} navigation={ROUTES.UserCart} size="2rem" />
             <IconLink Icon={MdLogout} callback={logOutHandler} size="2rem" />
           </>
         ) : (

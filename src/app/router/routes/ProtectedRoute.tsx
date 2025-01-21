@@ -7,5 +7,5 @@ import { selectUserAuth } from "@/modules/Auth"
 export const ProtectedRoute: FC = () => {
   const auth = useAppSelector(selectUserAuth)
 
-  return auth ? <Navigate to={ROUTES.Cart} replace /> : <Outlet />
+  return auth ? <Navigate to={ROUTES.UserCart} replace /> : <Outlet />
 }

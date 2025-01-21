@@ -10,6 +10,8 @@ export enum ROUTES {
   Upload = "/upload",
   UploadBeats = "/upload/beats",
   UploadTags = "/upload/tags",
-  Cart = "/cart",
+  User = "/user",
+  UserCart = "/user/cart",
+  UserBeats = "/user/beats",
   Invalid = "*",
 }

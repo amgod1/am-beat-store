@@ -8,9 +8,11 @@ import { CatalogPage } from "@/pages/Catalog"
 import { UploadPage } from "@/pages/Upload"
 import { UploadBeatsPage } from "@/pages/UploadBeats"
 import { UploadTagsPage } from "@/pages/UploadTags"
-import { CartPage } from "@/pages/Cart"
 import { BeatPage } from "@/pages/Beat"
 import { EditBeatPage } from "@/pages/EditBeat"
+import { UserPage } from "@/pages/User"
+import { UserCartPage } from "@/pages/UserCart"
+import { UserBeatsPage } from "@/pages/UserBeats"
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
@@ -26,7 +28,10 @@ export const AppRouter: FC = () => (
           <Route path={ROUTES.SignUp} element={<SignUpPage />} />
         </Route>
         <Route element={<PrivateRoute />}>
-          <Route path={ROUTES.Cart} element={<CartPage />} />
+          <Route path={ROUTES.User} element={<UserPage />}>
+            <Route path={ROUTES.UserCart} element={<UserCartPage />} />
+            <Route path={ROUTES.UserBeats} element={<UserBeatsPage />} />
+          </Route>
           <Route path={ROUTES.DynamicBeat} element={<BeatPage />} />
           <Route path={ROUTES.DynamicBeatEdit} element={<EditBeatPage />} />
         </Route>
