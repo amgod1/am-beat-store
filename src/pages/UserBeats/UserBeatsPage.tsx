@@ -54,7 +54,7 @@ export const UserBeatsPage: FC = () => {
   return !decodedBeats.length ? (
     <EmptyRedirect title="beats" />
   ) : (
-    <div className="flex flex-col w-full lg:w-2/3">
+    <div className="flex flex-col w-full">
       {decodedBeats.map((beatItem) => (
         <div
           key={beatItem.beat.id}

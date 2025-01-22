@@ -23,6 +23,7 @@ export const AppRouter: FC = () => (
           element={<Navigate to={ROUTES.Catalog} />}
         />
         <Route path={ROUTES.Catalog} element={<CatalogPage />} />
+        <Route path={ROUTES.DynamicBeat} element={<BeatPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path={ROUTES.Login} element={<LoginPage />} />
           <Route path={ROUTES.SignUp} element={<SignUpPage />} />
@@ -32,7 +33,6 @@ export const AppRouter: FC = () => (
             <Route path={ROUTES.UserCart} element={<UserCartPage />} />
             <Route path={ROUTES.UserBeats} element={<UserBeatsPage />} />
           </Route>
-          <Route path={ROUTES.DynamicBeat} element={<BeatPage />} />
           <Route path={ROUTES.DynamicBeatEdit} element={<EditBeatPage />} />
         </Route>
         <Route element={<AdminRoute />}>
