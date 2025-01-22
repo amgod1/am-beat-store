@@ -1,5 +1,5 @@
 import { FC, useEffect } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
 import { ROUTES } from "@/constants/Routes"
@@ -22,7 +22,7 @@ export const BeatEditor: FC = () => {
   const beat = useAppSelector(selectBeatsInfo)
   const { loading, progress } = useAppSelector(selectBeatsStatus)
   const { allBeats } = useAppSelector(selectAllBeats)
-  const id = useLocation().pathname.split("/")[2]
+  const { id } = useParams()
 
   const uploadFileHandler = () => {
     beat.file && dispatch(uploadFile(beat))
@@ -38,7 +38,7 @@ export const BeatEditor: FC = () => {
   }
 
   const updateBeatInfoHandler = async () => {
-    await dispatch(updateBeatInfo(id))
+    await dispatch(updateBeatInfo(id!))
 
     navigate(`${ROUTES.Beat}/${id}`)
   }
@@ -59,7 +59,7 @@ export const BeatEditor: FC = () => {
     <div className="bg-accent border border-primary p-8 w-full flex flex-col gap-4">
       <h3 className="text-2xl">{`${beat.title}_${beat.bpm}`}</h3>
       <TagSelect />
-      <InputLink title="classic" disabled={loading} />
+      <InputLink title="pro" disabled={loading} />
       <InputLink title="exclusive" disabled={loading} />
       {loading && !id ? (
         <div className="flex items-center justify-center gap-2 bg-dark border border-primary p-4">
@@ -68,9 +68,8 @@ export const BeatEditor: FC = () => {
       ) : (
         <div className="flex justify-between gap-2 sm:flex-row flex-col">
           <Button
-            type="submit"
-            onClick={id ? updateBeatInfoHandler : uploadFileHandler}
             loading={loading}
+            onClick={id ? updateBeatInfoHandler : uploadFileHandler}
             fullWidth={true}
           >
             {id ? "update" : "upload"}
