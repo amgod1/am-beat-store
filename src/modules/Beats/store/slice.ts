@@ -107,12 +107,10 @@ const beatsSlice = createSlice({
       }
     )
     builder.addCase(uploadFile.pending, (state) => {
-      state.status.progress = 1
       state.status.loading = true
       state.status.error = null
     })
     builder.addCase(uploadFile.fulfilled, (state) => {
-      state.status.progress = 100
       state.status.error = null
     })
     builder.addCase(

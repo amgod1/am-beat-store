@@ -12,7 +12,6 @@ import {
   deleteDoc,
   doc,
   getDocs,
-  limit,
   orderBy,
   query,
   setDoc,
@@ -30,7 +29,7 @@ export const getBeats = createAsyncThunk(
   async (_, { fulfillWithValue, rejectWithValue }) => {
     try {
       const beatsRef = collection(db, COLLECTION_NAME)
-      const q = query(beatsRef, limit(10), orderBy("createdAt"))
+      const q = query(beatsRef, orderBy("createdAt"))
       const querySnapshot = await getDocs(q)
 
       const beats = querySnapshot.docs.map((doc) => doc.data()) as BeatInfo[]
