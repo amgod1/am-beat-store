@@ -8,14 +8,14 @@ import { Button } from "@/components"
 import { ROUTES } from "@/constants/Routes"
 import { selectProfileInfo } from "@/modules/Profile"
 import { showModal } from "@/modules/License"
-import { selectUserAuth } from "@/modules/Auth"
+import { useCurrentUserAuth } from "@/modules/Auth"
 
 export const AddToCart: FC<AddToCartProps> = ({
   beatId,
   adaptiveText = true,
   onlyIcon = false,
 }) => {
-  const auth = useAppSelector(selectUserAuth)
+  const { user } = useCurrentUserAuth()
   const { cart, purchasedBeats } = useAppSelector(selectProfileInfo)
   const navigate = useNavigate()
 
@@ -24,7 +24,7 @@ export const AddToCart: FC<AddToCartProps> = ({
   const dispatch = useAppDispatch()
 
   const addToCartHandler = () => {
-    if (!auth) {
+    if (!user) {
       navigate(ROUTES.Login)
       return
     }

@@ -1,11 +1,10 @@
 import { FC } from "react"
 import { Navigate, Outlet } from "react-router-dom"
 import { ROUTES } from "@/constants/Routes"
-import { useAppSelector } from "@/hooks"
-import { selectUserAuth } from "@/modules/Auth"
+import { useCurrentUserAuth } from "@/modules/Auth"
 
 export const PrivateRoute: FC = () => {
-  const auth = useAppSelector(selectUserAuth)
+  const { user } = useCurrentUserAuth()
 
-  return !auth ? <Navigate to={ROUTES.Login} replace /> : <Outlet />
+  return !user ? <Navigate to={ROUTES.Login} replace /> : <Outlet />
 }

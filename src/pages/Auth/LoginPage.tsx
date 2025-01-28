@@ -1,13 +1,19 @@
 import { FC } from "react"
-import { useAppDispatch } from "@/hooks"
-import { Authorization, AuthorizationForm, login } from "@/modules/Auth"
+import { Authorization, AuthorizationForm } from "@/modules/Auth"
+import { useLoginMutation } from "@/modules/Auth/store/api"
 
 export const LoginPage: FC = () => {
-  const dispatch = useAppDispatch()
+  const [login, { isLoading }] = useLoginMutation()
 
   const handleLogin = (formInput: AuthorizationForm) => {
-    dispatch(login(formInput))
+    login(formInput)
   }
 
-  return <Authorization isLogin={true} submitCallback={handleLogin} />
+  return (
+    <Authorization
+      isLogin={true}
+      isLoading={isLoading}
+      submitCallback={handleLogin}
+    />
+  )
 }

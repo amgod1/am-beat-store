@@ -8,8 +8,3 @@ export const selectUserAuth = createSelector(
   [selectUser],
   (user) => !!(user.info.email && user.info.id)
 )
-
-export const selectUserStatus = createSelector(
-  [selectUser],
-  (user) => user.status
-)

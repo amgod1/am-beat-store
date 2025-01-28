@@ -6,11 +6,11 @@ import { getAuth, signOut } from "firebase/auth"
 import { IconLink } from "@/components/IconLink"
 import { ROUTES } from "@/constants/Routes"
 import { useAppSelector } from "@/hooks"
-import { selectUserAuth } from "@/modules/Auth"
+import { useCurrentUserAuth } from "@/modules/Auth"
 import { selectAdminStatus } from "@/modules/Profile"
 
 export const Header = () => {
-  const auth = useAppSelector(selectUserAuth)
+  const { user } = useCurrentUserAuth()
   const admin = useAppSelector(selectAdminStatus)
 
   const logOutHandler = () => {
@@ -25,7 +25,7 @@ export const Header = () => {
         <h1 className="text-2xl hidden sm:block">am beat store</h1>
       </div>
       <div className="flex items-center gap-4">
-        {auth ? (
+        {user ? (
           <>
             {admin && (
               <IconLink

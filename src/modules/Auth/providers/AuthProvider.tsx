@@ -1,9 +1,9 @@
-import { useAppDispatch } from "@/hooks"
-import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { FC, PropsWithChildren, useEffect } from "react"
+import { getAuth, onAuthStateChanged } from "firebase/auth"
+import { getUserProfile, clearProfile } from "@/modules/Profile"
+import { useAppDispatch } from "@/hooks"
 import { checkUserAuth } from "../store"
 import { ShortUserInfo, generateUserInfo } from "../helpers"
-import { getUserProfile, clearProfile } from "@/modules/Profile"
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const auth = getAuth()

@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import { persistStore, persistReducer } from "redux-persist"
-import storage from "redux-persist/lib/storage"
+import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react"
 import { userReducer } from "@/modules/Auth"
 import { profileReducer } from "@/modules/Profile"
 import { tagsReducer } from "@/modules/Tags"
@@ -8,7 +7,14 @@ import { beatsReducer } from "@/modules/Beats"
 import { playerReducer } from "@/modules/Player"
 import { licenseReducer } from "@/modules/License"
 
+export const firebaseApi = createApi({
+  reducerPath: "firebaseApi",
+  baseQuery: fakeBaseQuery(),
+  endpoints: () => ({}),
+})
+
 const rootReducer = combineReducers({
+  [firebaseApi.reducerPath]: firebaseApi.reducer,
   user: userReducer,
   profile: profileReducer,
   tags: tagsReducer,
@@ -17,22 +23,13 @@ const rootReducer = combineReducers({
   license: licenseReducer,
 })
 
-const persistConfig = {
-  key: "root",
-  storage,
-}
-
-const persistedReducer = persistReducer(persistConfig, rootReducer)
-
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }),
+    }).concat(firebaseApi.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
-
-export const persistor = persistStore(store)
