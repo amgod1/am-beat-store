@@ -2,7 +2,6 @@ import { FC, PropsWithChildren, useEffect } from "react"
 import { getAuth, onAuthStateChanged } from "firebase/auth"
 import { getUserProfile, clearProfile } from "@/modules/Profile"
 import { useAppDispatch } from "@/hooks"
-import { checkUserAuth } from "../store"
 import { ShortUserInfo, generateUserInfo } from "../helpers"
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -11,8 +10,6 @@ export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      dispatch(checkUserAuth(user))
-
       if (user) {
         dispatch(
           getUserProfile(

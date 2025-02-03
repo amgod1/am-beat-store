@@ -1,6 +1,5 @@
 export { Authorization } from "./ui"
 export { AuthProvider } from "./providers"
-export { userReducer } from "./store"
 export { useCurrentUserAuth } from "./hooks"
 export type { ShortUserInfo } from "./helpers"
 export type { AuthorizationForm } from "./validation"

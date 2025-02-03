@@ -1,6 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react"
-import { userReducer } from "@/modules/Auth"
 import { profileReducer } from "@/modules/Profile"
 import { tagsReducer } from "@/modules/Tags"
 import { beatsReducer } from "@/modules/Beats"
@@ -15,7 +14,6 @@ export const firebaseApi = createApi({
 
 const rootReducer = combineReducers({
   [firebaseApi.reducerPath]: firebaseApi.reducer,
-  user: userReducer,
   profile: profileReducer,
   tags: tagsReducer,
   beats: beatsReducer,
