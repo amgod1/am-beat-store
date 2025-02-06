@@ -1,26 +1,21 @@
-import { FC, ChangeEvent, useState } from "react"
+import { FC, ChangeEvent, useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { TagForm, tagSchema } from "@/modules/Tags"
+import { Button, Input, Loader } from "@/components"
 import {
-  TagForm,
-  tagSchema,
-  updateTag,
-  deleteTag,
-  selectTagsStatus,
-  selectTagsInfo,
-} from "@/modules/Tags"
-import { Button, Input } from "@/components"
-import { useAppDispatch, useAppSelector } from "@/hooks"
+  useDeleteTagMutation,
+  useGetTagsQuery,
+  useUpdateTagMutation,
+} from "@/modules/Tags/store/api"
 
 export const EditTag: FC = () => {
-  const { allTagsArray, allTagsObject } = useAppSelector(selectTagsInfo)
+  const { data: tags, isLoading } = useGetTagsQuery()
+  const [selectedOption, setSelectedOption] = useState<string | null>(null)
+  const [updateTag, { isLoading: isUpdateLoading }] = useUpdateTagMutation()
+  const [deleteTag, { isLoading: isDeleteLoading }] = useDeleteTagMutation()
 
-  const { loading } = useAppSelector(selectTagsStatus)
-  const [selectedOption, setSelectedOption] = useState<string>(
-    allTagsArray[0]?.id
-  )
-
-  const dispatch = useAppDispatch()
+  const isMutationLoading = isUpdateLoading || isDeleteLoading
 
   const {
     register,
@@ -28,36 +23,46 @@ export const EditTag: FC = () => {
     formState: { errors },
     getValues,
     setValue,
+    reset,
   } = useForm<TagForm>({
-    defaultValues: {
-      tag: allTagsArray[0]?.value,
-    },
+    defaultValues: { tag: "" },
     mode: "onChange",
-    resolver: yupResolver(tagSchema(allTagsObject)),
+    resolver: yupResolver(tagSchema(tags?.tagsObject || {})),
   })
 
-  const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedOption(e.target.value)
-    setValue(
-      "tag",
-      allTagsArray.find((tag) => tag.id === e.target.value)!.value
+  useEffect(() => {
+    if (tags?.tagsArray.length) {
+      const firstTag = tags.tagsArray[0]
+
+      setSelectedOption(firstTag.id)
+      reset({ tag: firstTag.value })
+    }
+  }, [tags])
+
+  const onChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
+    const selectedTag = tags?.tagsArray.find(
+      (tag) => tag.id === event.target.value
     )
+    setSelectedOption(event.target.value)
+    setValue("tag", selectedTag?.value || "")
   }
 
-  const onSubmitHandler = () => {
-    dispatch(
-      updateTag({
-        [selectedOption]: getValues("tag"),
-      })
-    )
+  const onSubmitHandler = async () => {
+    await updateTag({ [selectedOption!]: getValues("tag") })
   }
 
   const deleteHandler = async () => {
-    await dispatch(deleteTag(selectedOption))
+    if (tags?.tagsArray.length) {
+      await deleteTag(selectedOption!)
 
-    const firstTag = allTagsArray[0]
-    setSelectedOption(firstTag.id)
-    setValue("tag", firstTag.value)
+      const firstTag = tags.tagsArray[0]
+      setSelectedOption(firstTag.id)
+      setValue("tag", firstTag.value)
+    }
+  }
+
+  if (isLoading || !tags) {
+    return <Loader />
   }
 
   return (
@@ -66,36 +71,36 @@ export const EditTag: FC = () => {
       className="w-full flex flex-col gap-2"
     >
       <p>from:</p>
-      <select
-        value={selectedOption}
-        disabled={loading}
-        onChange={onChangeHandler}
-        className="bg-dark h-11 p-2 placeholder-green-800 outline-none border border-primary disabled:opacity-50 cursor-pointer"
-      >
-        {allTagsArray
-          .sort((a, b) => a.value.localeCompare(b.value))
-          .map(({ id, value }) => (
+      {tags && selectedOption && (
+        <select
+          value={selectedOption}
+          disabled={isMutationLoading}
+          onChange={onChangeHandler}
+          className="bg-dark h-11 p-2 placeholder-green-800 outline-none border border-primary disabled:opacity-50 cursor-pointer"
+        >
+          {tags?.tagsArray.map(({ id, value }) => (
             <option className="cursor-pointer" key={id} value={id}>
               {value}
             </option>
           ))}
-      </select>
+        </select>
+      )}
       <p>to:</p>
       <Input
         type="text"
         title="tag"
-        disabled={loading}
+        disabled={isMutationLoading}
         register={register}
         errors={errors}
       />
       <div className="flex justify-between gap-2 sm:flex-row flex-col">
-        <Button type="submit" loading={loading} fullWidth={true}>
+        <Button type="submit" loading={isMutationLoading} fullWidth={true}>
           save
         </Button>
         <Button
           onClick={deleteHandler}
           danger={true}
-          loading={loading}
+          loading={isMutationLoading}
           fullWidth={true}
         >
           delete

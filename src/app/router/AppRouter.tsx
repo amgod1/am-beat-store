@@ -1,18 +1,22 @@
-import { FC } from "react"
+import { FC, lazy, Suspense } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes"
 import { Layout } from "../layout"
 import { ROUTES } from "@/constants/Routes"
-import { LoginPage, SignUpPage } from "@/pages/Auth"
-import { CatalogPage } from "@/pages/Catalog"
-import { UploadPage } from "@/pages/Upload"
-import { UploadBeatsPage } from "@/pages/UploadBeats"
-import { UploadTagsPage } from "@/pages/UploadTags"
-import { BeatPage } from "@/pages/Beat"
-import { EditBeatPage } from "@/pages/EditBeat"
-import { UserPage } from "@/pages/User"
-import { UserCartPage } from "@/pages/UserCart"
-import { UserBeatsPage } from "@/pages/UserBeats"
+import { Loader } from "@/components"
+
+import LoginPage from "@/pages/Auth/LoginPage"
+import SignUpPage from "@/pages/Auth/SignUpPage"
+import BeatPage from "@/pages/Beat"
+import CatalogPage from "@/pages/Catalog"
+import UserPage from "@/pages/User"
+import UserBeatsPage from "@/pages/UserBeats"
+import UserCartPage from "@/pages/UserCart"
+
+const EditBeatPage = lazy(() => import("@/pages/EditBeat"))
+const UploadPage = lazy(() => import("@/pages/Upload"))
+const UploadBeatsPage = lazy(() => import("@/pages/UploadBeats"))
+const UploadTagsPage = lazy(() => import("@/pages/UploadTags"))
 
 export const AppRouter: FC = () => (
   <BrowserRouter>
@@ -33,12 +37,40 @@ export const AppRouter: FC = () => (
             <Route path={ROUTES.UserCart} element={<UserCartPage />} />
             <Route path={ROUTES.UserBeats} element={<UserBeatsPage />} />
           </Route>
-          <Route path={ROUTES.DynamicBeatEdit} element={<EditBeatPage />} />
+          <Route
+            path={ROUTES.DynamicBeatEdit}
+            element={
+              <Suspense fallback={<Loader />}>
+                <EditBeatPage />
+              </Suspense>
+            }
+          />
         </Route>
         <Route element={<AdminRoute />}>
-          <Route path={ROUTES.Upload} element={<UploadPage />}>
-            <Route path={ROUTES.UploadBeats} element={<UploadBeatsPage />} />
-            <Route path={ROUTES.UploadTags} element={<UploadTagsPage />} />
+          <Route
+            path={ROUTES.Upload}
+            element={
+              <Suspense fallback={<Loader />}>
+                <UploadPage />
+              </Suspense>
+            }
+          >
+            <Route
+              path={ROUTES.UploadBeats}
+              element={
+                <Suspense fallback={<Loader />}>
+                  <UploadBeatsPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path={ROUTES.UploadTags}
+              element={
+                <Suspense fallback={<Loader />}>
+                  <UploadTagsPage />
+                </Suspense>
+              }
+            />
           </Route>
         </Route>
       </Route>

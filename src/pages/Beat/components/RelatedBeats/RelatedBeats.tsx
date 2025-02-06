@@ -1,13 +1,18 @@
 import { FC } from "react"
 import { useParams } from "react-router-dom"
-import { useAppSelector } from "@/hooks"
-import { BeatsCatalog, selectAllBeats } from "@/modules/Beats"
+import { BeatsCatalog } from "@/modules/Beats"
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import { Loader } from "@/components"
 
 export const RelatedBeats: FC = () => {
   const { id } = useParams()
-  const { allBeats } = useAppSelector(selectAllBeats)
+  const { data: allBeats, isLoading } = useGetBeatsQuery()
 
-  const relatedBeats = allBeats.filter((beat) => beat.id !== id)
+  const relatedBeats = (allBeats || []).filter((beat) => beat.id !== id)
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <div className="flex flex-col gap-4">

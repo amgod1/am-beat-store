@@ -1,4 +1,4 @@
-import { RootState } from "@/store"
+import { RootState } from "@/app/store"
 import { createSelector } from "@reduxjs/toolkit"
 
 const selectLicense = (state: RootState) => state.license

@@ -1,1 +1,1 @@
-export { UploadTagsPage } from "./UploadTagsPage"
+export { default } from "./UploadTagsPage"

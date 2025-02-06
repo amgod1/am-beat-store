@@ -1,1 +1,1 @@
-export { UserCartPage } from "./UserCartPage"
+export { default } from "./UserCartPage"

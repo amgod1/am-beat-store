@@ -5,13 +5,12 @@ import { IoCart } from "react-icons/io5"
 import { getAuth, signOut } from "firebase/auth"
 import { IconLink } from "@/components/IconLink"
 import { ROUTES } from "@/constants/Routes"
-import { useAppSelector } from "@/hooks"
 import { useCurrentUserAuth } from "@/modules/Auth"
-import { selectAdminStatus } from "@/modules/Profile"
+import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
 
 export const Header = () => {
   const { user } = useCurrentUserAuth()
-  const admin = useAppSelector(selectAdminStatus)
+  const { data: profile } = useGetUserProfileQuery()
 
   const logOutHandler = () => {
     const auth = getAuth()
@@ -27,7 +26,7 @@ export const Header = () => {
       <div className="flex items-center gap-4">
         {user ? (
           <>
-            {admin && (
+            {profile?.admin && (
               <IconLink
                 Icon={MdAdminPanelSettings}
                 navigation={ROUTES.Upload}

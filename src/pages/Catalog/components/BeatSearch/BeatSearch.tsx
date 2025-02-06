@@ -1,18 +1,14 @@
 import { ChangeEvent, FC, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@/hooks"
-import { selectTagsInfo } from "@/modules/Tags"
-import {
-  clearFilteredBeats,
-  selectAllBeats,
-  searchBeatsByTags,
-} from "@/modules/Beats"
+import { useAppDispatch } from "@/hooks"
+import { clearFilteredBeats, searchBeatsByTags } from "@/modules/Beats"
 import { MdClose } from "react-icons/md"
+import { useGetTagsQuery } from "@/modules/Tags/store/api"
 
 export const BeatSearch: FC = () => {
   const [filteredTagIds, setFilteredTagIds] = useState<string[]>([])
-  const { allTagsArray } = useAppSelector(selectTagsInfo)
-  const { filteredBeats } = useAppSelector(selectAllBeats)
+  const { data: tags } = useGetTagsQuery()
+  const filteredBeats = []
   const [searchParams, setSearchParams] = useSearchParams({ q: "" })
   const dispatch = useAppDispatch()
 
@@ -32,9 +28,10 @@ export const BeatSearch: FC = () => {
 
   const startSearching = (searchValue: string) => {
     if (searchValue && searchValue.trim() !== "") {
-      const filterTagIds = allTagsArray
-        .filter((tag) => tag.value.includes(searchValue.trim()))
-        .map((tag) => tag.id)
+      const filterTagIds =
+        tags?.tagsArray
+          .filter((tag) => tag.value.includes(searchValue.trim()))
+          .map((tag) => tag.id) || []
 
       if (filterTagIds.length) {
         setFilteredTagIds(filterTagIds)

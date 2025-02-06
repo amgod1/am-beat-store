@@ -1,12 +1,12 @@
 import { FC } from "react"
-import { useAppSelector } from "@/hooks"
-import { selectProfileInfo, EmptyRedirect } from "@/modules/Profile"
+import { EmptyRedirect } from "@/modules/Profile"
 import { CartCheckout, CartItems } from "./components"
+import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
 
-export const UserCartPage: FC = () => {
-  const { cart } = useAppSelector(selectProfileInfo)
+const UserCartPage: FC = () => {
+  const { data: profile } = useGetUserProfileQuery()
 
-  return !cart.length ? (
+  return !profile?.cart.length ? (
     <EmptyRedirect title="cart" />
   ) : (
     <div className="flex flex-col lg:flex-row gap-4">
@@ -15,3 +15,5 @@ export const UserCartPage: FC = () => {
     </div>
   )
 }
+
+export default UserCartPage

@@ -1,19 +1,14 @@
 import { createSelector } from "@reduxjs/toolkit"
-import { RootState } from "../../../store"
+import { RootState } from "../../../app/store"
 
 const selectBeats = (state: RootState) => state.beats
-
-export const selectAllBeats = createSelector([selectBeats], (beats) => {
-  const { filteredBeats, allBeats } = beats
-  return { filteredBeats, allBeats }
-})
 
 export const selectBeatsInfo = createSelector(
   [selectBeats],
   (beats) => beats.info
 )
 
-export const selectBeatsStatus = createSelector(
+export const selectUploadProgress = createSelector(
   [selectBeats],
-  (beats) => beats.status
+  (beats) => beats.progress
 )

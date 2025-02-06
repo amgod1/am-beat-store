@@ -1,25 +1,32 @@
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@/hooks"
 import { Button } from "@/components"
 import { ROUTES } from "@/constants/Routes"
+import { calculateTotalPrice } from "@/modules/Profile"
 import {
-  selectProfileInfo,
-  selectProfileStatus,
-  calculateTotalPrice,
-  purchaseBeats,
-} from "@/modules/Profile"
+  useGetUserProfileQuery,
+  usePurchaseBeatsMutation,
+} from "@/modules/Profile/store/api"
+import { useMakeBeatsUnavailableMutation } from "@/modules/Beats/store/api"
 
 export const CartCheckout: FC = () => {
-  const { cart } = useAppSelector(selectProfileInfo)
-  const { loading } = useAppSelector(selectProfileStatus)
-  const dispath = useAppDispatch()
+  const { data: profile, isLoading: isProfileLoading } =
+    useGetUserProfileQuery()
+  const [purchaseBeats, { isLoading: isPurchaseLoading }] =
+    usePurchaseBeatsMutation()
+  const [makeBeatsUnavailable, { isLoading: isMakeUnavaialbeLoading }] =
+    useMakeBeatsUnavailableMutation()
   const navigate = useNavigate()
 
-  const totalPrice = calculateTotalPrice(cart)
+  const totalPrice = calculateTotalPrice(profile?.cart || [])
+  const isLoading =
+    isProfileLoading || isPurchaseLoading || isMakeUnavaialbeLoading
 
   const checkoutHandler = async () => {
-    await dispath(purchaseBeats())
+    const { purchasedBeats, cart } = profile!
+
+    await purchaseBeats({ purchasedBeats, cart })
+    await makeBeatsUnavailable(cart)
     navigate(ROUTES.UserBeats)
   }
 
@@ -31,7 +38,7 @@ export const CartCheckout: FC = () => {
       </div>
       <Button
         onClick={checkoutHandler}
-        loading={loading || !cart.length}
+        loading={isLoading || !profile?.cart.length}
         fullWidth={true}
       >
         proceed to checkout

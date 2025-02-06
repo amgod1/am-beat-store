@@ -1,16 +1,15 @@
 import { FC } from "react"
 import { BeatsCatalog as BeatsCatalogProps } from "./BeatsCatalog.interface"
-import { useAppSelector } from "@/hooks"
 import { Loader } from "@/components"
-import { selectBeatsStatus } from "@/modules/Beats"
 import { CatalogItem } from "./components"
+import { useGetBeatsQuery } from "../../store/api"
 
 export const BeatsCatalog: FC<BeatsCatalogProps> = ({ beats }) => {
-  const { loading } = useAppSelector(selectBeatsStatus)
+  const { isLoading } = useGetBeatsQuery()
 
-  return loading ? (
-    <Loader />
-  ) : (
+  if (isLoading) return <Loader />
+
+  return (
     <table className="table-auto w-full text-base">
       <tbody>
         {beats

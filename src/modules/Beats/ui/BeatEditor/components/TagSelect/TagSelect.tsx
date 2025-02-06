@@ -1,18 +1,13 @@
 import { FC, ChangeEvent } from "react"
 import { useAppDispatch, useAppSelector } from "@/hooks"
-import {
-  addTag,
-  removeTag,
-  selectBeatsInfo,
-  selectBeatsStatus,
-} from "@/modules/Beats"
-import { selectTagsInfo } from "@/modules/Tags"
+import { addTag, removeTag, selectBeatsInfo } from "@/modules/Beats"
+import { useGetTagsQuery } from "@/modules/Tags/store/api"
+import { Loader } from "@/components"
 
 export const TagSelect: FC = () => {
   const dispatch = useAppDispatch()
   const { tagIds } = useAppSelector(selectBeatsInfo)
-  const { loading } = useAppSelector(selectBeatsStatus)
-  const { allTagsObject, allTagsArray } = useAppSelector(selectTagsInfo)
+  const { data: tags, isLoading } = useGetTagsQuery()
 
   const addBeatTag = (event: ChangeEvent<HTMLSelectElement>) => {
     dispatch(addTag(event.target.value))
@@ -22,10 +17,14 @@ export const TagSelect: FC = () => {
     dispatch(removeTag(tagId))
   }
 
+  if (isLoading) {
+    return <Loader />
+  }
+
   return (
     <div className="flex flex-col gap-1">
       <select
-        disabled={loading}
+        disabled={isLoading}
         value={""}
         onChange={addBeatTag}
         className="bg-dark h-11 p-2 placeholder-green-800 outline-none border border-primary disabled:opacity-50 cursor-pointer"
@@ -33,7 +32,7 @@ export const TagSelect: FC = () => {
         <option value={""} disabled className="hidden">
           singer tags
         </option>
-        {allTagsArray
+        {tags?.tagsArray
           ?.filter((tag) => !tagIds.includes(tag.id))
           ?.sort((a, b) => a.value.localeCompare(b.value))
           ?.map(({ id, value }) => (
@@ -46,14 +45,14 @@ export const TagSelect: FC = () => {
         {Object.values(tagIds)?.map((id) => (
           <div
             key={id}
-            onClick={loading ? () => {} : removeBeatTag(id)}
+            onClick={isLoading ? () => {} : removeBeatTag(id)}
             className={`bg-dark border border-primary p-2 ${
-              loading
+              isLoading
                 ? " opacity-50 cursor-default"
                 : "hover:bg-danger cursor-pointer"
             }`}
           >
-            <p>{allTagsObject[id]}</p>
+            <p>{tags?.tagsObject[id]}</p>
           </div>
         ))}
       </div>

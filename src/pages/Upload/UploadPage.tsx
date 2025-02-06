@@ -3,7 +3,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom"
 import { ROUTES } from "@/constants/Routes"
 import { Tabs } from "@/components"
 
-export const UploadPage: FC = () => {
+const UploadPage: FC = () => {
   const { pathname } = useLocation()
 
   const tabsInfo = [
@@ -20,3 +20,5 @@ export const UploadPage: FC = () => {
     </>
   )
 }
+
+export default UploadPage

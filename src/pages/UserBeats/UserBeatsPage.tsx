@@ -1,28 +1,29 @@
 import { FC, MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@/hooks"
-import { Button } from "@/components"
-import {
-  EmptyRedirect,
-  selectProfileInfo,
-  selectProfileStatus,
-} from "@/modules/Profile"
-import { selectAllBeats } from "@/modules/Beats"
+import { useAppDispatch } from "@/hooks"
+import { Button, Loader } from "@/components"
+import { EmptyRedirect } from "@/modules/Profile"
 import { PlayButton } from "@/modules/Player"
 import { showModal } from "@/modules/License"
 import { LEASES } from "@/modules/License"
 import { ROUTES } from "@/constants/Routes"
 import { DownloadButton } from "./components"
+import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
 
-export const UserBeatsPage: FC = () => {
-  const { purchasedBeats } = useAppSelector(selectProfileInfo)
-  const { allBeats } = useAppSelector(selectAllBeats)
-  const { loading } = useAppSelector(selectProfileStatus)
+const UserBeatsPage: FC = () => {
+  const { data: profile, isLoading: isProfileLoading } =
+    useGetUserProfileQuery()
+  const { data: allBeats, isLoading: isBeatsLoading } = useGetBeatsQuery()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const decodedBeats = purchasedBeats.map((cartItem) => {
-    const beat = allBeats.find((beat) => beat.id === cartItem.beatId)!
+  if (isProfileLoading || isBeatsLoading) {
+    return <Loader />
+  }
+
+  const decodedBeats = profile?.purchasedBeats.map((cartItem) => {
+    const beat = allBeats?.find((beat) => beat.id === cartItem.beatId)!
     const lease = LEASES.find((lease) => lease.id === cartItem.leasePlanId)
 
     return { lease, beat }
@@ -37,7 +38,7 @@ export const UserBeatsPage: FC = () => {
   }
 
   const updateLeseHandler = (beatId: string, leasePlanId: number) => () => {
-    const alreadyPurchasedLeaseId = purchasedBeats.find(
+    const alreadyPurchasedLeaseId = profile?.purchasedBeats.find(
       (beat) => beat.beatId === beatId
     )?.leasePlanId
 
@@ -51,7 +52,7 @@ export const UserBeatsPage: FC = () => {
     )
   }
 
-  return !decodedBeats.length ? (
+  return !decodedBeats?.length ? (
     <EmptyRedirect title="beats" />
   ) : (
     <div className="flex flex-col w-full">
@@ -67,7 +68,7 @@ export const UserBeatsPage: FC = () => {
           {beatItem.beat.available ? (
             <Button
               onClick={updateLeseHandler(beatItem.beat.id!, beatItem.lease!.id)}
-              loading={loading}
+              loading={isProfileLoading || isBeatsLoading}
             >
               update
             </Button>
@@ -80,3 +81,5 @@ export const UserBeatsPage: FC = () => {
     </div>
   )
 }
+
+export default UserBeatsPage

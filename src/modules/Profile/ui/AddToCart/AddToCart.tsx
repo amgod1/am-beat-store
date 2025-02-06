@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom"
 import { IoCart } from "react-icons/io5"
 import { MdOutlineUpdate } from "react-icons/md"
 import { AddToCart as AddToCartProps } from "./AddToCart.interface"
-import { useAppDispatch, useAppSelector } from "@/hooks"
+import { useAppDispatch } from "@/hooks"
 import { Button } from "@/components"
 import { ROUTES } from "@/constants/Routes"
-import { selectProfileInfo } from "@/modules/Profile"
 import { showModal } from "@/modules/License"
 import { useCurrentUserAuth } from "@/modules/Auth"
+import { useGetUserProfileQuery } from "../../store/api"
 
 export const AddToCart: FC<AddToCartProps> = ({
   beatId,
@@ -16,12 +16,13 @@ export const AddToCart: FC<AddToCartProps> = ({
   onlyIcon = false,
 }) => {
   const { user } = useCurrentUserAuth()
-  const { cart, purchasedBeats } = useAppSelector(selectProfileInfo)
+  const { data: profile } = useGetUserProfileQuery()
   const navigate = useNavigate()
-
-  const leasePlanId = cart?.find((el) => el.beatId === beatId)?.leasePlanId
-
   const dispatch = useAppDispatch()
+
+  const leasePlanId = profile?.cart?.find(
+    (el) => el.beatId === beatId
+  )?.leasePlanId
 
   const addToCartHandler = () => {
     if (!user) {
@@ -29,7 +30,7 @@ export const AddToCart: FC<AddToCartProps> = ({
       return
     }
 
-    const alreadyPurchasedLeaseId = purchasedBeats.find(
+    const alreadyPurchasedLeaseId = profile?.purchasedBeats.find(
       (beat) => beat.beatId === beatId
     )?.leasePlanId
 

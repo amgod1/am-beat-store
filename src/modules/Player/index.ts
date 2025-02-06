@@ -1,7 +1,7 @@
-export { PlayButton, Player } from "./ui"
+export { PlayButton } from "./ui"
 export {
   playAudio,
   selectPlayerInfo,
-  selectPlayerStatus,
+  selectShowPlayer,
   playerReducer,
 } from "./store"

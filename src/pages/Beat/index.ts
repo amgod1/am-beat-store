@@ -1,1 +1,1 @@
-export { BeatPage } from "./BeatPage"
+export { default } from "./BeatPage"

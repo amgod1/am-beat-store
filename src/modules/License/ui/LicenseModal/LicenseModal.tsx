@@ -3,30 +3,33 @@ import { useAppDispatch, useAppSelector } from "@/hooks"
 import { MdClose } from "react-icons/md"
 import { Button } from "@/components"
 import { LEASES } from "@/modules/License/constants"
-import {
-  addToCart,
-  removeFromCart,
-  selectProfileInfo,
-  selectProfileStatus,
-} from "@/modules/Profile"
 import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
 import { LeaseInfo, LeaseItem } from "./components"
+import {
+  useAddToCartMutation,
+  useGetUserProfileQuery,
+  useRemoveFromCartMutation,
+} from "@/modules/Profile/store/api"
 
-export const LicenseModal: FC = () => {
-  const { cart, purchasedBeats } = useAppSelector(selectProfileInfo)
+const LicenseModal: FC = () => {
+  const { data: profile } = useGetUserProfileQuery()
+  const [addToCart, { isLoading: isAddLoading }] = useAddToCartMutation()
+  const [removeFromCart, { isLoading: isRemoveLoading }] =
+    useRemoveFromCartMutation()
   const { beatId, leasePlanId } = useAppSelector(selectCartItem)
-  const { loading } = useAppSelector(selectProfileStatus)
   const dispatch = useAppDispatch()
 
-  const alreadyPurchasedLeaseId = purchasedBeats.find(
+  const alreadyPurchasedLeaseId = profile?.purchasedBeats.find(
     (beat) => beat.beatId === beatId
   )?.leasePlanId
-  const alreadyAdded = cart.find((el) => el.beatId === beatId)
+
+  const isLoading = isAddLoading && isRemoveLoading
+  const alreadyAdded = profile?.cart.find((el) => el.beatId === beatId)
   const disableButton = alreadyAdded?.leasePlanId === leasePlanId
   const price = LEASES.find((lease) => lease.id === leasePlanId)?.price
 
   const hideModalHandler = () => {
-    if (loading) return
+    if (isLoading) return
     dispatch(hideModal())
   }
 
@@ -35,22 +38,25 @@ export const LicenseModal: FC = () => {
   }
 
   const updateLeasePlan = (id: number) => () => {
-    if (loading) return
+    if (isLoading) return
     dispatch(updateLeasePlanId(id))
   }
 
   const addToCartHandler = async () => {
-    const cartItem = {
+    const newCartItem = {
       leasePlanId,
       beatId: beatId!,
     }
 
-    await dispatch(addToCart(cartItem))
+    await addToCart({ prevCart: profile?.cart || [], newCartItem })
     hideModalHandler()
   }
 
   const removeFromCartHandler = async () => {
-    await dispatch(removeFromCart(beatId!))
+    await removeFromCart({
+      prevCart: profile?.cart || [],
+      deleteBeatId: beatId!,
+    })
     hideModalHandler()
   }
 
@@ -98,9 +104,8 @@ export const LicenseModal: FC = () => {
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full items-center">
           <h3 className="w-full text-lg">{`total: ${price}$`}</h3>
           <Button
-            // disabled={disableButton}
             onClick={addToCartHandler}
-            loading={disableButton || loading}
+            loading={disableButton || isLoading}
             fullWidth={true}
           >
             {alreadyAdded ? "update" : "add"}
@@ -109,7 +114,7 @@ export const LicenseModal: FC = () => {
             <Button
               onClick={removeFromCartHandler}
               danger={true}
-              loading={loading}
+              loading={isLoading}
               fullWidth={true}
             >
               remove
@@ -123,3 +128,5 @@ export const LicenseModal: FC = () => {
     </div>
   )
 }
+
+export default LicenseModal

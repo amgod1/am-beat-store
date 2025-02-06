@@ -1,4 +1,4 @@
-export { selectPlayerInfo, selectPlayerStatus } from "./selectors"
+export { selectPlayerInfo, selectShowPlayer } from "./selectors"
 export {
   playAudio,
   pausePlaying,

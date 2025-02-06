@@ -1,16 +1,17 @@
 import { FC } from "react"
-import { useAppSelector } from "@/hooks"
-import { selectAllBeats } from "@/modules/Beats"
 import { BeatsCatalog } from "@/modules/Beats"
 import { BeatSearch } from "./components"
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
 
-export const CatalogPage: FC = () => {
-  const { filteredBeats, allBeats } = useAppSelector(selectAllBeats)
+const CatalogPage: FC = () => {
+  const { data: allBeats } = useGetBeatsQuery()
 
   return (
     <section className="flex flex-col w-full">
       <BeatSearch />
-      <BeatsCatalog beats={filteredBeats?.length ? filteredBeats : allBeats} />
+      <BeatsCatalog beats={allBeats || []} />
     </section>
   )
 }
+
+export default CatalogPage

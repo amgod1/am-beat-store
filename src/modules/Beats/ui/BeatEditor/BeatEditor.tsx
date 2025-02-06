@@ -6,31 +6,43 @@ import { ROUTES } from "@/constants/Routes"
 import { InputLink, TagSelect } from "./components"
 import {
   BeatInfo,
-  deleteBeatInfoAndFile,
   removeFileFromEditor,
-  selectAllBeats,
   selectBeatsInfo,
-  selectBeatsStatus,
+  selectUploadProgress,
   setEditorInfo,
-  updateBeatInfo,
-  uploadFile,
 } from "../../store"
+import {
+  useGetBeatsQuery,
+  useUploadFileAndInfoMutation,
+  useUpdateBeatInfoMutation,
+  useDeleteBeatFileAndInfoMutation,
+} from "../../store/api"
 
 export const BeatEditor: FC = () => {
+  const { id } = useParams()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const beat = useAppSelector(selectBeatsInfo)
-  const { loading, progress } = useAppSelector(selectBeatsStatus)
-  const { allBeats } = useAppSelector(selectAllBeats)
-  const { id } = useParams()
+  const progress = useAppSelector(selectUploadProgress)
+  const { data: allBeats } = useGetBeatsQuery()
+  const [uploadFileAndInfo, { isLoading: isUploadLoading }] =
+    useUploadFileAndInfoMutation()
+  const [updateBeatInfo, { isLoading: isUpdateLoading }] =
+    useUpdateBeatInfoMutation()
+  const [deleteBeatFileAndInfo, { isLoading: isDeleteLoading }] =
+    useDeleteBeatFileAndInfoMutation()
 
-  const uploadFileHandler = () => {
-    beat.file && dispatch(uploadFile(beat))
+  const isLoading = isUploadLoading || isUpdateLoading || isDeleteLoading
+
+  const uploadFileHandler = async () => {
+    await uploadFileAndInfo(beat)
+    dispatch(removeFileFromEditor())
   }
 
-  const removeFileHandler = () => {
+  const removeFileHandler = async () => {
     if (id) {
-      dispatch(deleteBeatInfoAndFile(id))
+      await deleteBeatFileAndInfo(id)
+
       navigate(ROUTES.Catalog)
     } else {
       dispatch(removeFileFromEditor())
@@ -38,7 +50,15 @@ export const BeatEditor: FC = () => {
   }
 
   const updateBeatInfoHandler = async () => {
-    await dispatch(updateBeatInfo(id!))
+    const updatedBeatInfo = {
+      id: id!,
+      tagIds: beat.tagIds,
+      fileLinks: beat.fileLinks,
+    }
+
+    await updateBeatInfo(updatedBeatInfo)
+
+    dispatch(removeFileFromEditor())
 
     navigate(`${ROUTES.Beat}/${id}`)
   }
@@ -46,7 +66,7 @@ export const BeatEditor: FC = () => {
   useEffect(() => {
     if (id) {
       dispatch(
-        setEditorInfo(allBeats.find((beat) => beat.id === id) as BeatInfo)
+        setEditorInfo(allBeats?.find((beat) => beat.id === id) as BeatInfo)
       )
 
       return () => {
@@ -59,23 +79,23 @@ export const BeatEditor: FC = () => {
     <div className="bg-accent border border-primary p-8 w-full flex flex-col gap-4">
       <h3 className="text-2xl">{`${beat.title}_${beat.bpm}`}</h3>
       <TagSelect />
-      <InputLink title="pro" disabled={loading} />
-      <InputLink title="exclusive" disabled={loading} />
-      {loading && !id ? (
+      <InputLink title="pro" disabled={isLoading} />
+      <InputLink title="exclusive" disabled={isLoading} />
+      {isLoading && !id ? (
         <div className="flex items-center justify-center gap-2 bg-dark border border-primary p-4">
           <p>{`Uploaded ${progress}%`}</p>
         </div>
       ) : (
         <div className="flex justify-between gap-2 sm:flex-row flex-col">
           <Button
-            loading={loading}
+            loading={isLoading}
             onClick={id ? updateBeatInfoHandler : uploadFileHandler}
             fullWidth={true}
           >
             {id ? "update" : "upload"}
           </Button>
           <Button
-            loading={loading}
+            loading={isLoading}
             onClick={removeFileHandler}
             danger={true}
             fullWidth={true}

@@ -1,1 +1,1 @@
-export { UserBeatsPage } from "./UserBeatsPage"
+export { default } from "./UserBeatsPage"

@@ -1,20 +1,13 @@
 import { FC } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import {
-  TagForm,
-  tagSchema,
-  addTag,
-  selectTagsStatus,
-  selectTagsInfo,
-} from "@/modules/Tags"
-import { Button, Input } from "@/components"
-import { useAppDispatch, useAppSelector } from "@/hooks"
+import { TagForm, tagSchema } from "@/modules/Tags"
+import { Button, Input, Loader } from "@/components"
+import { useAddTagMutation, useGetTagsQuery } from "@/modules/Tags/store/api"
 
 export const AddTag: FC = () => {
-  const { allTagsObject: tags } = useAppSelector(selectTagsInfo)
-  const { loading } = useAppSelector(selectTagsStatus)
-  const dispatch = useAppDispatch()
+  const { data: tags, isLoading } = useGetTagsQuery()
+  const [addTag, { isLoading: isAddLoading }] = useAddTagMutation()
 
   const {
     register,
@@ -27,12 +20,16 @@ export const AddTag: FC = () => {
       tag: "",
     },
     mode: "onChange",
-    resolver: yupResolver(tagSchema(tags)),
+    resolver: yupResolver(tagSchema(tags?.tagsObject || {})),
   })
 
   const onSubmitHandler = async () => {
-    await dispatch(addTag(getValues("tag")))
+    addTag(getValues("tag"))
     setValue("tag", "")
+  }
+
+  if (isLoading) {
+    return <Loader />
   }
 
   return (
@@ -43,11 +40,15 @@ export const AddTag: FC = () => {
       <Input
         type="text"
         title="tag"
-        disabled={loading}
+        disabled={isLoading || isAddLoading}
         register={register}
         errors={errors}
       />
-      <Button type="submit" loading={loading} fullWidth={true}>
+      <Button
+        type="submit"
+        loading={isLoading || isAddLoading}
+        fullWidth={true}
+      >
         add
       </Button>
     </form>

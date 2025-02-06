@@ -11,16 +11,17 @@ import {
   playAudio,
   setAudioProgress,
 } from "../../store"
-import { selectAllBeats } from "@/modules/Beats"
 import { AddToCart } from "@/modules/Profile"
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
 
-export const Player: FC = () => {
+const Player: FC = () => {
   const info = useAppSelector(selectPlayerInfo)
-  const { allBeats } = useAppSelector(selectAllBeats)
+  const { data: allBeats } = useGetBeatsQuery()
   const currentAudio = useRef<HTMLAudioElement>(null)
   const dispatch = useAppDispatch()
 
-  const currentBeatIndex = allBeats.findIndex((beat) => beat.id === info.id)
+  const currentBeatIndex =
+    allBeats?.findIndex((beat) => beat.id === info.id) || 0
 
   const handleAudioUpdate = () => {
     if (!currentAudio.current?.duration) {
@@ -51,6 +52,8 @@ export const Player: FC = () => {
   }
 
   const prevHandler = () => {
+    if (!allBeats?.length) return
+
     const prevBeatIndex =
       currentBeatIndex === 0 ? allBeats.length - 1 : currentBeatIndex - 1
 
@@ -58,6 +61,8 @@ export const Player: FC = () => {
   }
 
   const nextHandler = () => {
+    if (!allBeats?.length) return
+
     const nextBeatIndex =
       currentBeatIndex === allBeats.length - 1 ? 0 : currentBeatIndex + 1
 
@@ -118,3 +123,5 @@ export const Player: FC = () => {
     </div>
   )
 }
+
+export default Player

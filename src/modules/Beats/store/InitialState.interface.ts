@@ -1,11 +1,10 @@
-import { LoadingStatus } from "@/interfaces"
 import { FileLinks } from "../interfaces"
 
 export interface InitialState {
   filteredBeats: BeatInfo[]
   allBeats: BeatInfo[]
   info: BeatFileInfo
-  status: UploadLoadingStatus
+  progress: number
 }
 
 export interface BeatInfo {
@@ -21,8 +20,4 @@ export interface BeatInfo {
 
 export interface BeatFileInfo extends BeatInfo {
   file: File | null
-}
-
-interface UploadLoadingStatus extends LoadingStatus {
-  progress: number
 }

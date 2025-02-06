@@ -1,34 +1,39 @@
 import { FC, useEffect } from "react"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
-import { useAppSelector } from "@/hooks"
-import { Button } from "@/components"
-import { AddToCart, selectAdminStatus } from "@/modules/Profile"
-import { selectAllBeats } from "@/modules/Beats"
+import { Button, Loader } from "@/components"
+import { AddToCart } from "@/modules/Profile"
 import { PlayButton } from "@/modules/Player"
 import { TagsList } from "@/modules/Tags"
 import { ROUTES } from "@/constants/Routes"
 import { RelatedBeats } from "./components"
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
+import { useCurrentUserAuth } from "@/modules/Auth"
 
-export const BeatPage: FC = () => {
+const BeatPage: FC = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const isAdmin = useAppSelector(selectAdminStatus)
+  const { user } = useCurrentUserAuth()
+  const { data: profile } = useGetUserProfileQuery()
+  const { data: allBeats, isLoading } = useGetBeatsQuery()
 
-  const beat = useAppSelector(selectAllBeats).allBeats.find(
-    (beat) => beat.id === id
-  )
-
-  if (!beat) {
-    return <Navigate to={ROUTES.Catalog} />
-  }
+  const beat = (allBeats || []).find((beat) => beat.id === id)
 
   const navigateToEditPage = () => {
-    navigate(`${ROUTES.Beat}/${beat.id}/edit`)
+    navigate(`${ROUTES.Beat}/${beat?.id}/edit`)
   }
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }, [id])
+
+  if (!beat) {
+    return <Navigate to={ROUTES.Catalog} />
+  }
+
+  if (isLoading) {
+    return <Loader />
+  }
 
   return (
     <section className="flex flex-col gap-8 w-full">
@@ -39,7 +44,9 @@ export const BeatPage: FC = () => {
             <h2 className="text:xl sm:text-2xl">{beat.title}</h2>
             <p className="text-base">{beat.bpm}bpm</p>
             {beat.available && <AddToCart beatId={id!} adaptiveText={false} />}
-            {isAdmin && <Button onClick={navigateToEditPage}>edit</Button>}
+            {user && profile?.admin && (
+              <Button onClick={navigateToEditPage}>edit</Button>
+            )}
           </div>
         </div>
         <div className="flex flex-wrap justify-between gap-2 w-full lg:w-3/5 text-sm sm:text-base">
@@ -50,3 +57,5 @@ export const BeatPage: FC = () => {
     </section>
   )
 }
+
+export default BeatPage

@@ -1,11 +1,11 @@
-import { CartItem } from "../store"
+import { CartCheckout } from "../interfaces"
 
-export const getUpdatedProfileBeats = (
-  currentBeats: CartItem[],
-  cart: CartItem[]
-) => {
+export const getUpdatedProfileBeats = ({
+  purchasedBeats,
+  cart,
+}: CartCheckout) => {
   const beatMap = new Map(
-    currentBeats.map((beat) => [beat.beatId, { ...beat }])
+    purchasedBeats.map((beat) => [beat.beatId, { ...beat }])
   )
 
   cart.forEach((cartBeat) => {

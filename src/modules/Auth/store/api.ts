@@ -1,4 +1,4 @@
-import { firebaseApi } from "@/store/store"
+import { firebaseApi } from "@/app/store"
 import {
   createUserWithEmailAndPassword,
   getAuth,

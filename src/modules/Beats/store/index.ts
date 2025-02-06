@@ -1,12 +1,5 @@
 export type { BeatInfo } from "./InitialState.interface"
-export {
-  getBeats,
-  uploadFile,
-  updateBeatInfo,
-  deleteBeatInfoAndFile,
-  makeBeatUnavailable,
-  searchBeatsByTags,
-} from "./thunks"
+export { getBeats, searchBeatsByTags } from "./thunks"
 export {
   beatsReducer,
   uploadFileToEditor,
@@ -17,4 +10,4 @@ export {
   setEditorInfo,
   clearFilteredBeats,
 } from "./slice"
-export { selectAllBeats, selectBeatsInfo, selectBeatsStatus } from "./selectors"
+export { selectBeatsInfo, selectUploadProgress } from "./selectors"

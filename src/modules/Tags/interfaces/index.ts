@@ -1,2 +1,1 @@
-export type { FilteredTag } from "./FilteredTag.type"
-export type { Tag } from "./Tag.type"
+export type { Tag, TagInfo } from "./Tag.type"

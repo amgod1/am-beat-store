@@ -12,7 +12,7 @@ export const EmptyRedirect: FC<EmptyRedirectProps> = ({ title }) => {
 
   return (
     <div className="flex flex-col gap-4 justify-center items-center border border-primary p-8">
-      <h2>{TEXT[title]}</h2>
+      <h2 className="text-center">{TEXT[title]}</h2>
       <Link to={ROUTES.Catalog}>
         <Button>return to my music</Button>
       </Link>

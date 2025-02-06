@@ -1,35 +1,40 @@
 import { FC, MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@/hooks"
-import { Button } from "@/components"
-import {
-  removeFromCart,
-  selectProfileInfo,
-  selectProfileStatus,
-} from "@/modules/Profile"
-import { selectAllBeats } from "@/modules/Beats"
+import { useAppDispatch } from "@/hooks"
+import { Button, Loader } from "@/components"
 import { PlayButton } from "@/modules/Player"
 import { showModal } from "@/modules/License"
 import { LEASES } from "@/modules/License"
 import { ROUTES } from "@/constants/Routes"
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import {
+  useGetUserProfileQuery,
+  useRemoveFromCartMutation,
+} from "@/modules/Profile/store/api"
 
 export const CartItems: FC = () => {
-  const { cart, purchasedBeats } = useAppSelector(selectProfileInfo)
-  const { loading } = useAppSelector(selectProfileStatus)
+  const { data: profile, isLoading: isProfileLoading } =
+    useGetUserProfileQuery()
+  const [removeFromCart, { isLoading: isRemoveLoading }] =
+    useRemoveFromCartMutation()
+  const { data: allBeats, isLoading: isBeatsLoading } = useGetBeatsQuery()
   const navigate = useNavigate()
-
-  const { allBeats } = useAppSelector(selectAllBeats)
   const dispatch = useAppDispatch()
 
-  const decodedCart = cart.map((cartItem) => {
-    const beat = allBeats.find((beat) => beat.id === cartItem.beatId)!
+  const isLoading = isProfileLoading || isRemoveLoading || isBeatsLoading
+  if (isLoading) {
+    return <Loader />
+  }
+
+  const decodedCart = profile?.cart.map((cartItem) => {
+    const beat = allBeats?.find((beat) => beat.id === cartItem.beatId)
     const lease = LEASES.find((lease) => lease.id === cartItem.leasePlanId)
 
     return { lease, beat }
   })
 
   const updateLeseHandler = (beatId: string, leasePlanId: number) => () => {
-    const alreadyPurchasedLeaseId = purchasedBeats.find(
+    const alreadyPurchasedLeaseId = profile?.purchasedBeats.find(
       (beat) => beat.beatId === beatId
     )?.leasePlanId
 
@@ -44,7 +49,7 @@ export const CartItems: FC = () => {
   }
 
   const removeFromCartHandler = (beatId: string) => () => {
-    dispatch(removeFromCart(beatId))
+    removeFromCart({ prevCart: profile?.cart || [], deleteBeatId: beatId! })
   }
 
   const openBeatPage = (id: string) => (event: MouseEvent) => {
@@ -57,24 +62,24 @@ export const CartItems: FC = () => {
 
   return (
     <div className="flex flex-col w-full lg:w-2/3">
-      {decodedCart.map((cartItem) => (
+      {decodedCart?.map((cartItem) => (
         <div
-          key={cartItem.beat.id}
+          key={cartItem.beat?.id}
           className="flex flex-col sm:grid sm:grid-rows-1 sm:grid-cols-6 gap-2 sm:gap-4 sm:items-center border border-primary hover:bg-accent cursor-pointer p-4"
-          onClick={openBeatPage(cartItem.beat.id!)}
+          onClick={openBeatPage(cartItem.beat?.id!)}
         >
-          <PlayButton beat={cartItem.beat} />
-          <p className="col-span-2">{cartItem.beat.title}</p>
+          {cartItem?.beat && <PlayButton beat={cartItem.beat} />}
+          <p className="col-span-2">{cartItem.beat?.title}</p>
           <p className="sm:text-center">{cartItem.lease?.price}$</p>
           <Button
-            onClick={updateLeseHandler(cartItem.beat.id!, cartItem.lease!.id)}
-            loading={loading}
+            onClick={updateLeseHandler(cartItem.beat?.id!, cartItem.lease!.id)}
+            loading={isLoading}
           >
             update
           </Button>
           <Button
-            onClick={removeFromCartHandler(cartItem.beat.id!)}
-            loading={loading}
+            onClick={removeFromCartHandler(cartItem?.beat?.id!)}
+            loading={isLoading}
             danger={true}
           >
             remove
