@@ -1,7 +1,9 @@
 import { FC } from "react"
-import { useLocation, Navigate, Outlet } from "react-router-dom"
-import { ROUTES } from "@/constants/Routes"
+import { Navigate, Outlet, useLocation } from "react-router-dom"
+
 import { Tabs } from "@/components/Tabs"
+
+import { ROUTES } from "@/constants/Routes"
 
 const UploadPage: FC = () => {
   const { pathname } = useLocation()

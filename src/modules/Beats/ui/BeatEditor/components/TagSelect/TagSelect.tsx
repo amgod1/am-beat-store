@@ -1,10 +1,13 @@
-import { FC, ChangeEvent } from "react"
+import { ChangeEvent, FC } from "react"
+
+import { selectBeatsInfo } from "@/modules/Beats/store/selectors"
+import { addTag, removeTag } from "@/modules/Beats/store/slice"
+import { useGetTagsQuery } from "@/modules/Tags/store/api"
+
+import { Loader } from "@/components/Loader"
+
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { useAppSelector } from "@/hooks/useAppSelector"
-import { addTag, removeTag } from "@/modules/Beats/store/slice"
-import { selectBeatsInfo } from "@/modules/Beats/store/selectors"
-import { useGetTagsQuery } from "@/modules/Tags/store/api"
-import { Loader } from "@/components/Loader"
 
 export const TagSelect: FC = () => {
   const dispatch = useAppDispatch()

@@ -1,8 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { InitialState } from "./InitialState.interface"
-import { BeatInfo } from "../interfaces/BeatInfo.interface"
+
 import { getTitleAndBpm } from "../helpers/getTitleAndBpm"
+import { BeatInfo } from "../interfaces/BeatInfo.interface"
 import { FileLink } from "../interfaces/FileLinks.interface"
+import { InitialState } from "./InitialState.interface"
 
 const initialState: InitialState = {
   info: {
@@ -63,7 +64,7 @@ const beatsSlice = createSlice({
     },
     setBeatFileLinks: (
       state,
-      { payload: newFileLinkInfo }: PayloadAction<FileLink>
+      { payload: newFileLinkInfo }: PayloadAction<FileLink>,
     ) => {
       Object.assign(state.info.fileLinks, newFileLinkInfo)
     },

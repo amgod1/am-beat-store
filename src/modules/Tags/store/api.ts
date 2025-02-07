@@ -1,5 +1,3 @@
-import { db } from "@/app/firebase.config"
-import { firebaseApi } from "@/app/store/store"
 import {
   collection,
   deleteField,
@@ -7,8 +5,12 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore"
-import { Tag, TagInfo } from "../interfaces/Tag.type"
 import { nanoid } from "nanoid"
+
+import { db } from "@/app/firebase.config"
+import { firebaseApi } from "@/app/store/store"
+
+import { Tag, TagInfo } from "../interfaces/Tag.type"
 
 const COLLECTION_NAME = "tags"
 const DOC_NAME = "singer"
@@ -25,7 +27,7 @@ export const tagsApi = firebaseApi
             const querySnapshot = await getDocs(collection(db, COLLECTION_NAME))
 
             const tagsObject: Tag = querySnapshot.docs.map((doc) =>
-              doc.data()
+              doc.data(),
             )[0] as Tag
 
             const tagsArray: TagInfo[] = Object.entries({ ...tagsObject })

@@ -1,8 +1,10 @@
 import { FC } from "react"
-import { BeatsCatalog as BeatsCatalogProps } from "./BeatsCatalog.interface"
+
 import { Loader } from "@/components/Loader"
-import { CatalogItem } from "./components"
+
 import { useGetBeatsQuery } from "../../store/api"
+import { BeatsCatalog as BeatsCatalogProps } from "./BeatsCatalog.interface"
+import { CatalogItem } from "./components"
 
 export const BeatsCatalog: FC<BeatsCatalogProps> = ({ beats }) => {
   const { isLoading } = useGetBeatsQuery()

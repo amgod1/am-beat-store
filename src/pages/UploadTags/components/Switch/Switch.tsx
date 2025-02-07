@@ -1,4 +1,5 @@
 import { FC } from "react"
+
 import { Switch as SwitchProps } from "./Switch.interface"
 
 export const Switch: FC<SwitchProps> = ({ isChecked, onChange }) => (

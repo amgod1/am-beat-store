@@ -1,16 +1,21 @@
 import { FC, MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch } from "@/hooks/useAppDispatch"
+
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import { LEASES } from "@/modules/License/constants/Leases"
+import { showModal } from "@/modules/License/store/slice"
+import { PlayButton } from "@/modules/Player/ui/PlayButton"
+import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
+import { EmptyRedirect } from "@/modules/Profile/ui/EmptyRedirect"
+
 import { Button } from "@/components/Button"
 import { Loader } from "@/components/Loader"
-import { EmptyRedirect } from "@/modules/Profile/ui/EmptyRedirect"
-import { PlayButton } from "@/modules/Player/ui/PlayButton"
-import { showModal } from "@/modules/License/store/slice"
-import { LEASES } from "@/modules/License/constants/Leases"
+
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+
 import { ROUTES } from "@/constants/Routes"
+
 import { DownloadButton } from "./components/DownloadButton"
-import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
-import { useGetBeatsQuery } from "@/modules/Beats/store/api"
 
 const UserBeatsPage: FC = () => {
   const { data: profile, isLoading: isProfileLoading } =
@@ -40,7 +45,7 @@ const UserBeatsPage: FC = () => {
 
   const updateLeseHandler = (beatId: string, leasePlanId: number) => () => {
     const alreadyPurchasedLeaseId = profile?.purchasedBeats.find(
-      (beat) => beat.beatId === beatId
+      (beat) => beat.beatId === beatId,
     )?.leasePlanId
 
     dispatch(
@@ -49,7 +54,7 @@ const UserBeatsPage: FC = () => {
         leasePlanId: alreadyPurchasedLeaseId
           ? alreadyPurchasedLeaseId + 1
           : leasePlanId || 1,
-      })
+      }),
     )
   }
 

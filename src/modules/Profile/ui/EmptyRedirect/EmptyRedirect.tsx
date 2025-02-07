@@ -1,7 +1,10 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
+
 import { Button } from "@/components/Button"
+
 import { ROUTES } from "@/constants/Routes"
+
 import { EmptyRedirect as EmptyRedirectProps } from "./EmptyRedirect.interface"
 
 export const EmptyRedirect: FC<EmptyRedirectProps> = ({ title }) => {

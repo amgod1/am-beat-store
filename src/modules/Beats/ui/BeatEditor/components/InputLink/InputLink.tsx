@@ -1,10 +1,13 @@
 import { ChangeEvent, FC } from "react"
-import { InputLink as InputLinkProps } from "./InputLink.interface"
+
+import { FileLink } from "@/modules/Beats/interfaces/FileLinks.interface"
+import { selectBeatsInfo } from "@/modules/Beats/store/selectors"
+import { setBeatFileLinks } from "@/modules/Beats/store/slice"
+
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { useAppSelector } from "@/hooks/useAppSelector"
-import { setBeatFileLinks } from "@/modules/Beats/store/slice"
-import { selectBeatsInfo } from "@/modules/Beats/store/selectors"
-import { FileLink } from "@/modules/Beats/interfaces/FileLinks.interface"
+
+import { InputLink as InputLinkProps } from "./InputLink.interface"
 
 export const InputLink: FC<InputLinkProps> = ({ title, disabled }) => {
   const dispatch = useAppDispatch()
@@ -14,7 +17,7 @@ export const InputLink: FC<InputLinkProps> = ({ title, disabled }) => {
     dispatch(
       setBeatFileLinks({
         [title]: event.target.value,
-      } as FileLink)
+      } as FileLink),
     )
   }
 

@@ -1,10 +1,13 @@
 import { FC } from "react"
-import { useLocation, Outlet, Navigate } from "react-router-dom"
-import { Loader } from "@/components/Loader"
-import { Tabs } from "@/components/Tabs"
-import { ROUTES } from "@/constants/Routes"
+import { Navigate, Outlet, useLocation } from "react-router-dom"
+
 import { getUserNameFromEmail } from "@/modules/Profile/helpers/getUserNameFromEmail"
 import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
+
+import { Loader } from "@/components/Loader"
+import { Tabs } from "@/components/Tabs"
+
+import { ROUTES } from "@/constants/Routes"
 
 const UserPage: FC = () => {
   const { data: profile, isLoading } = useGetUserProfileQuery()

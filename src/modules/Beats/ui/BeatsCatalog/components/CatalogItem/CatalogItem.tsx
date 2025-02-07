@@ -1,12 +1,16 @@
 import { FC, MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppSelector } from "@/hooks/useAppSelector"
-import { ROUTES } from "@/constants/Routes"
-import { CatalogItem as CatalogItemProps } from "./CatalogItem.interface"
-import { AddToCart } from "@/modules/Profile/ui/AddToCart"
-import { TagsList } from "@/modules/Tags/ui/TagsList/TagsList"
+
 import { selectPlayerInfo } from "@/modules/Player/store/selectors"
 import { PlayButton } from "@/modules/Player/ui/PlayButton"
+import { AddToCart } from "@/modules/Profile/ui/AddToCart"
+import { TagsList } from "@/modules/Tags/ui/TagsList/TagsList"
+
+import { useAppSelector } from "@/hooks/useAppSelector"
+
+import { ROUTES } from "@/constants/Routes"
+
+import { CatalogItem as CatalogItemProps } from "./CatalogItem.interface"
 
 export const CatalogItem: FC<CatalogItemProps> = ({ beat }) => {
   const navigate = useNavigate()

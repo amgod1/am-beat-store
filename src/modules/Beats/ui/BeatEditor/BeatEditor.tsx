@@ -1,19 +1,23 @@
 import { FC, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+
+import { Button } from "@/components/Button"
+
 import { useAppDispatch } from "@/hooks/useAppDispatch"
 import { useAppSelector } from "@/hooks/useAppSelector"
-import { Button } from "@/components/Button"
+
 import { ROUTES } from "@/constants/Routes"
-import { InputLink, TagSelect } from "./components"
+
+import { BeatInfo } from "../../interfaces/BeatInfo.interface"
 import {
-  useGetBeatsQuery,
-  useUploadFileAndInfoMutation,
-  useUpdateBeatInfoMutation,
   useDeleteBeatFileAndInfoMutation,
+  useGetBeatsQuery,
+  useUpdateBeatInfoMutation,
+  useUploadFileAndInfoMutation,
 } from "../../store/api"
 import { selectBeatsInfo, selectUploadProgress } from "../../store/selectors"
 import { removeFileFromEditor, setEditorInfo } from "../../store/slice"
-import { BeatInfo } from "../../interfaces/BeatInfo.interface"
+import { InputLink, TagSelect } from "./components"
 
 export const BeatEditor: FC = () => {
   const { id } = useParams()
@@ -63,7 +67,7 @@ export const BeatEditor: FC = () => {
   useEffect(() => {
     if (id) {
       dispatch(
-        setEditorInfo(allBeats?.find((beat) => beat.id === id) as BeatInfo)
+        setEditorInfo(allBeats?.find((beat) => beat.id === id) as BeatInfo),
       )
 
       return () => {

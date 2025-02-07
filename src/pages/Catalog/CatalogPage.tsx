@@ -1,7 +1,9 @@
 import { FC } from "react"
-import { BeatsCatalog } from "@/modules/Beats/ui/BeatsCatalog"
-import { BeatSearch } from "./components/BeatSearch"
+
 import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import { BeatsCatalog } from "@/modules/Beats/ui/BeatsCatalog"
+
+import { BeatSearch } from "./components/BeatSearch"
 
 const CatalogPage: FC = () => {
   const { data: allBeats } = useGetBeatsQuery()

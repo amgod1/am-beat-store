@@ -1,9 +1,5 @@
-import { FC, lazy, Suspense } from "react"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes/"
-import { Layout } from "../layout/Layout"
-import { ROUTES } from "@/constants/Routes"
-import { Loader } from "@/components/Loader"
+import { FC, Suspense, lazy } from "react"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 
 import LoginPage from "@/pages/Auth/LoginPage"
 import SignUpPage from "@/pages/Auth/SignUpPage"
@@ -12,6 +8,13 @@ import CatalogPage from "@/pages/Catalog"
 import UserPage from "@/pages/User"
 import UserBeatsPage from "@/pages/UserBeats"
 import UserCartPage from "@/pages/UserCart"
+
+import { Loader } from "@/components/Loader"
+
+import { ROUTES } from "@/constants/Routes"
+
+import { Layout } from "../layout/Layout"
+import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes/"
 
 const EditBeatPage = lazy(() => import("@/pages/EditBeat"))
 const UploadPage = lazy(() => import("@/pages/Upload"))

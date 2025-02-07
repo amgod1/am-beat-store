@@ -1,6 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom"
 import { MdClose } from "react-icons/md"
+import { useSearchParams } from "react-router-dom"
+
 // import { useAppDispatch } from "@/hooks"
 import { useGetTagsQuery } from "@/modules/Tags/store/api"
 
@@ -19,7 +20,7 @@ export const BeatSearch: FC = () => {
         prev.set("q", event.target.value)
         return prev
       },
-      { replace: true }
+      { replace: true },
     )
 
     startSearching(event.target.value.trim())
@@ -79,15 +80,15 @@ export const BeatSearch: FC = () => {
                 filteredTagIds.length === 1 ? "tag" : "tags"
               }`
             : q
-            ? "no tags found"
-            : ""}
+              ? "no tags found"
+              : ""}
         </p>
         <p className="h-5 w-2/3 text-sm">
           {filteredBeats?.length
             ? `found ${filteredBeats.length} beats`
             : q
-            ? "no beats found with this tags"
-            : ""}
+              ? "no beats found with this tags"
+              : ""}
         </p>
       </div>
     </div>

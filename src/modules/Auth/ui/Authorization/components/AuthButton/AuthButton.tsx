@@ -1,9 +1,12 @@
 import { FC } from "react"
-import { AuthButton as AuthButtonProps } from "./AuthButton.interface"
-import { Button } from "@/components/Button"
-import { AUTH_TITLES } from "@/constants/AuthTitles"
-import { TbLogin2 } from "react-icons/tb"
 import { FiUserPlus } from "react-icons/fi"
+import { TbLogin2 } from "react-icons/tb"
+
+import { Button } from "@/components/Button"
+
+import { AUTH_TITLES } from "@/constants/AuthTitles"
+
+import { AuthButton as AuthButtonProps } from "./AuthButton.interface"
 
 export const AuthButton: FC<AuthButtonProps> = ({ isLogin, loading }) => (
   <Button type="submit" loading={loading}>

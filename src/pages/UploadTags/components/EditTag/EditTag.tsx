@@ -1,16 +1,18 @@
-import { FC, ChangeEvent, useState, useEffect } from "react"
-import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { tagSchema } from "@/modules/Tags/validation/Tag.schema"
-import { TagForm } from "@/modules/Tags/validation/TagForm.interface"
-import { Button } from "@/components/Button"
-import { Input } from "@/components/Input"
-import { Loader } from "@/components/Loader"
+import { ChangeEvent, FC, useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+
 import {
   useDeleteTagMutation,
   useGetTagsQuery,
   useUpdateTagMutation,
 } from "@/modules/Tags/store/api"
+import { tagSchema } from "@/modules/Tags/validation/Tag.schema"
+import { TagForm } from "@/modules/Tags/validation/TagForm.interface"
+
+import { Button } from "@/components/Button"
+import { Input } from "@/components/Input"
+import { Loader } from "@/components/Loader"
 
 export const EditTag: FC = () => {
   const { data: tags, isLoading } = useGetTagsQuery()
@@ -44,7 +46,7 @@ export const EditTag: FC = () => {
 
   const onChangeHandler = (event: ChangeEvent<HTMLSelectElement>) => {
     const selectedTag = tags?.tagsArray.find(
-      (tag) => tag.id === event.target.value
+      (tag) => tag.id === event.target.value,
     )
     setSelectedOption(event.target.value)
     setValue("tag", selectedTag?.value || "")

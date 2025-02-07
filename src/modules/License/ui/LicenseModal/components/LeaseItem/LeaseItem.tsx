@@ -1,4 +1,5 @@
 import { FC } from "react"
+
 import { LeaseItem as LeaseItemProps } from "./LeaseItem.interface"
 
 export const LeaseItem: FC<LeaseItemProps> = ({
@@ -23,8 +24,8 @@ export const LeaseItem: FC<LeaseItemProps> = ({
         disabled
           ? "bg-dark opacity-50"
           : selected
-          ? "bg-warning text-dark"
-          : "bg-dark hover:bg-info hover:text-dark cursor-pointer"
+            ? "bg-warning text-dark"
+            : "bg-dark hover:bg-info hover:text-dark cursor-pointer"
       }`}
     >
       <h3 className="text-base sm:text-2xl text-nowrap">{lease.title}</h3>

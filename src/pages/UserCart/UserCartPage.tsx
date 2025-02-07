@@ -1,8 +1,10 @@
 import { FC } from "react"
+
+import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
 import { EmptyRedirect } from "@/modules/Profile/ui/EmptyRedirect"
+
 import { CartCheckout } from "./components/CartCheckout"
 import { CartItems } from "./components/CartItems"
-import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
 
 const UserCartPage: FC = () => {
   const { data: profile } = useGetUserProfileQuery()

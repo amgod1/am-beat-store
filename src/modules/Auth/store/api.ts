@@ -1,10 +1,12 @@
-import { firebaseApi } from "@/app/store/store"
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth"
-import { generateUserInfo, ShortUserInfo } from "../helpers/generateUserInfo"
+
+import { firebaseApi } from "@/app/store/store"
+
+import { ShortUserInfo, generateUserInfo } from "../helpers/generateUserInfo"
 import { AuthorizationForm } from "../validation/AuthorizationForm.interface"
 
 export const authApi = firebaseApi.injectEndpoints({
@@ -16,7 +18,7 @@ export const authApi = firebaseApi.injectEndpoints({
           const { user } = await signInWithEmailAndPassword(
             auth,
             formInput.email,
-            formInput.password
+            formInput.password,
           )
 
           return { data: generateUserInfo(user.uid, user.email!) }
@@ -32,7 +34,7 @@ export const authApi = firebaseApi.injectEndpoints({
           const { user } = await createUserWithEmailAndPassword(
             auth,
             formInput.email,
-            formInput.password
+            formInput.password,
           )
 
           return { data: generateUserInfo(user.uid, user.email!) }

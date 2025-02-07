@@ -1,4 +1,5 @@
 import { FC, useState } from "react"
+
 import { AddTag, EditTag, Switch } from "./components"
 
 const UploadTagsPage: FC = () => {

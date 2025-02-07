@@ -1,8 +1,11 @@
 import { FC } from "react"
-import { useAppSelector } from "@/hooks/useAppSelector"
-import { BeatEditor } from "@/modules/Beats/ui/BeatEditor"
-import { FileInput } from "./components/FileInput"
+
 import { selectBeatsInfo } from "@/modules/Beats/store/selectors"
+import { BeatEditor } from "@/modules/Beats/ui/BeatEditor"
+
+import { useAppSelector } from "@/hooks/useAppSelector"
+
+import { FileInput } from "./components/FileInput"
 
 const UploadBeatsPage: FC = () => {
   const { file } = useAppSelector(selectBeatsInfo)

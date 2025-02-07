@@ -1,6 +1,8 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+
+import { CartItem } from "@/modules/Profile/interfaces"
+
 import { InitialState } from "./initialState.interface"
-import { CartItem } from "@/modules/Profile"
 
 const initialState: InitialState = {
   show: false,

@@ -1,4 +1,4 @@
-import { BeatInfo } from "@/modules/Beats/store"
+import { BeatInfo } from "@/modules/Beats/interfaces/BeatInfo.interface"
 
 export interface DownloadButton {
   beat: BeatInfo

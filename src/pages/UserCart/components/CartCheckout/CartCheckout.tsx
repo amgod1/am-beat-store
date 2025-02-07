@@ -1,13 +1,16 @@
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
-import { Button } from "@/components/Button"
-import { ROUTES } from "@/constants/Routes"
+
+import { useMakeBeatsUnavailableMutation } from "@/modules/Beats/store/api"
 import { calculateTotalPrice } from "@/modules/Profile/helpers/calculateTotalPrice"
 import {
   useGetUserProfileQuery,
   usePurchaseBeatsMutation,
 } from "@/modules/Profile/store/api"
-import { useMakeBeatsUnavailableMutation } from "@/modules/Beats/store/api"
+
+import { Button } from "@/components/Button"
+
+import { ROUTES } from "@/constants/Routes"
 
 export const CartCheckout: FC = () => {
   const { data: profile, isLoading: isProfileLoading } =

@@ -1,12 +1,14 @@
-import { getAuth, User } from "firebase/auth"
+import { User, getAuth } from "firebase/auth"
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
+
 import { db } from "@/app/firebase.config"
 import { firebaseApi } from "@/app/store/store"
+
 import { generateUserProfile } from "../helpers/generateUserProfile"
 import { getUpdatedProfileBeats } from "../helpers/getUpdatedProfileBeats"
-import { ProfileInfo } from "../interfaces/ProfileInfo.interface"
-import { CartItem } from "../interfaces/CartItem.interface"
 import { CartCheckout } from "../interfaces/CartCheckout.interface"
+import { CartItem } from "../interfaces/CartItem.interface"
+import { ProfileInfo } from "../interfaces/ProfileInfo.interface"
 
 const COLLECTION_NAME = "users"
 
@@ -69,7 +71,7 @@ export const profileApi = firebaseApi
             const userDocRef = doc(db, COLLECTION_NAME, uid)
 
             const updateIndex = prevCart.findIndex(
-              (el) => el.beatId === newCartItem.beatId
+              (el) => el.beatId === newCartItem.beatId,
             )
 
             if (updateIndex >= 0) {
@@ -101,7 +103,7 @@ export const profileApi = firebaseApi
             const { uid } = getAuth().currentUser as User
 
             let updatedCart: CartItem[] = prevCart.filter(
-              (el) => el.beatId !== deleteBeatId
+              (el) => el.beatId !== deleteBeatId,
             )
 
             const userDocRef = doc(db, COLLECTION_NAME, uid)

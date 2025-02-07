@@ -1,12 +1,16 @@
+import { yupResolver } from "@hookform/resolvers/yup"
 import { FC } from "react"
 import { useForm } from "react-hook-form"
-import { yupResolver } from "@hookform/resolvers/yup"
-import { Input } from "@/components/Input"
+
 import { authorizationSchema } from "@/modules/Auth/validation/Authorization.schema"
 import { AuthorizationForm } from "@/modules/Auth/validation/AuthorizationForm.interface"
+
+import { Input } from "@/components/Input"
+
 import { AUTH_TITLES } from "@/constants/AuthTitles"
-import { AuthButton, AuthHeading, AuthSwitch } from "./components"
+
 import { Authorization as AuthorizationProps } from "./Authorization.interface"
+import { AuthButton, AuthHeading, AuthSwitch } from "./components"
 
 export const Authorization: FC<AuthorizationProps> = ({
   isLogin,

@@ -1,4 +1,5 @@
 import { FC } from "react"
+
 import { Button as ButtonProps } from "./Button.interface"
 
 export const Button: FC<ButtonProps> = ({
@@ -19,8 +20,8 @@ export const Button: FC<ButtonProps> = ({
       loading
         ? "opacity-50 hover:text-primary hover:bg-dark"
         : danger
-        ? "hover:bg-danger"
-        : "hover:bg-warning"
+          ? "hover:bg-danger"
+          : "hover:bg-warning"
     }
     `}
     tabIndex={-1}

@@ -1,17 +1,21 @@
 import { FC, MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppDispatch } from "@/hooks/useAppDispatch"
-import { Button } from "@/components/Button"
-import { Loader } from "@/components/Loader"
-import { PlayButton } from "@/modules/Player/ui/PlayButton"
-import { showModal } from "@/modules/License/store/slice"
-import { LEASES } from "@/modules/License/constants/Leases"
-import { ROUTES } from "@/constants/Routes"
+
 import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import { LEASES } from "@/modules/License/constants/Leases"
+import { showModal } from "@/modules/License/store/slice"
+import { PlayButton } from "@/modules/Player/ui/PlayButton"
 import {
   useGetUserProfileQuery,
   useRemoveFromCartMutation,
 } from "@/modules/Profile/store/api"
+
+import { Button } from "@/components/Button"
+import { Loader } from "@/components/Loader"
+
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+
+import { ROUTES } from "@/constants/Routes"
 
 export const CartItems: FC = () => {
   const { data: profile, isLoading: isProfileLoading } =
@@ -36,7 +40,7 @@ export const CartItems: FC = () => {
 
   const updateLeseHandler = (beatId: string, leasePlanId: number) => () => {
     const alreadyPurchasedLeaseId = profile?.purchasedBeats.find(
-      (beat) => beat.beatId === beatId
+      (beat) => beat.beatId === beatId,
     )?.leasePlanId
 
     dispatch(
@@ -45,7 +49,7 @@ export const CartItems: FC = () => {
         leasePlanId: alreadyPurchasedLeaseId
           ? alreadyPurchasedLeaseId + 1
           : leasePlanId || 1,
-      })
+      }),
     )
   }
 

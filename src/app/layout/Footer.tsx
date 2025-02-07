@@ -1,6 +1,7 @@
 import { FC } from "react"
-import { BsInstagram } from "react-icons/bs"
 import { BiLogoGmail } from "react-icons/bi"
+import { BsInstagram } from "react-icons/bs"
+
 import { IconLink } from "@/components/IconLink"
 
 export const Footer: FC = () => (

@@ -1,7 +1,9 @@
 import { FC } from "react"
 import { useParams } from "react-router-dom"
-import { BeatsCatalog } from "@/modules/Beats/ui/BeatsCatalog"
+
 import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import { BeatsCatalog } from "@/modules/Beats/ui/BeatsCatalog"
+
 import { Loader } from "@/components/Loader"
 
 export const RelatedBeats: FC = () => {

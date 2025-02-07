@@ -1,12 +1,15 @@
+import { getAuth, signOut } from "firebase/auth"
 import { BsFillMusicPlayerFill } from "react-icons/bs"
+import { IoCart } from "react-icons/io5"
 import { MdAdminPanelSettings, MdLogout } from "react-icons/md"
 import { TbLogin2 } from "react-icons/tb"
-import { IoCart } from "react-icons/io5"
-import { getAuth, signOut } from "firebase/auth"
-import { IconLink } from "@/components/IconLink"
-import { ROUTES } from "@/constants/Routes"
+
 import { useCurrentUserAuth } from "@/modules/Auth/hooks/useCurrentUserAuth"
 import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
+
+import { IconLink } from "@/components/IconLink"
+
+import { ROUTES } from "@/constants/Routes"
 
 export const Header = () => {
   const { user } = useCurrentUserAuth()

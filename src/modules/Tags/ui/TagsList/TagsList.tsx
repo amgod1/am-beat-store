@@ -1,9 +1,12 @@
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
-import { ROUTES } from "@/constants/Routes"
+
 import { Loader } from "@/components/Loader"
-import { TagsList as TagsListProps } from "./TagsList.interface"
+
+import { ROUTES } from "@/constants/Routes"
+
 import { useGetTagsQuery } from "../../store/api"
+import { TagsList as TagsListProps } from "./TagsList.interface"
 
 export const TagsList: FC<TagsListProps> = ({ tagIds, breakpoint = 0 }) => {
   const navigate = useNavigate()

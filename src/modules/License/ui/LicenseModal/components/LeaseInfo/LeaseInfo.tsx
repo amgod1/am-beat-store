@@ -1,7 +1,9 @@
 import { FC } from "react"
+
 import { LEASES } from "@/modules/License/constants/Leases"
-import { LeaseInfo as LeaseInfoProps } from "./LeaseInfo.interface"
+
 import { LeaseInfoIcon } from "../LeaseInfoIcon"
+import { LeaseInfo as LeaseInfoProps } from "./LeaseInfo.interface"
 
 export const LeaseInfo: FC<LeaseInfoProps> = ({ id }) => {
   return (

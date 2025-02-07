@@ -1,5 +1,3 @@
-import { db, storage } from "@/app/firebase.config"
-import { firebaseApi } from "@/app/store/store"
 import {
   collection,
   deleteDoc,
@@ -10,17 +8,22 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore"
-import { BeatFileInfo, BeatInfo } from "../interfaces/BeatInfo.interface"
-import { FileLinks } from "../interfaces/FileLinks.interface"
-import { nanoid } from "nanoid"
 import {
   deleteObject,
   getDownloadURL,
   ref,
   uploadBytesResumable,
 } from "firebase/storage"
+import { nanoid } from "nanoid"
+
+import { db, storage } from "@/app/firebase.config"
+import { firebaseApi } from "@/app/store/store"
+
+import { CartItem } from "@/modules/Profile/interfaces/CartItem.interface"
+
+import { BeatFileInfo, BeatInfo } from "../interfaces/BeatInfo.interface"
+import { FileLinks } from "../interfaces/FileLinks.interface"
 import { setProgress } from "./slice"
-import { CartItem } from "@/modules/Profile"
 
 const COLLECTION_NAME = "beats"
 
@@ -38,7 +41,7 @@ export const beatsApi = firebaseApi
             const querySnapshot = await getDocs(q)
 
             const beats = querySnapshot.docs.map((doc) =>
-              doc.data()
+              doc.data(),
             ) as BeatInfo[]
 
             return { data: beats }
@@ -72,7 +75,7 @@ export const beatsApi = firebaseApi
                 "state_changed",
                 (snapshot) => {
                   const progress = Math.round(
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
                   )
 
                   if (isNaN(progress)) {
@@ -106,7 +109,7 @@ export const beatsApi = firebaseApi
                   } catch (error) {
                     reject({ error })
                   }
-                }
+                },
               )
             })
           } catch (error) {
@@ -166,7 +169,7 @@ export const beatsApi = firebaseApi
                   const beatInfoRef = doc(db, COLLECTION_NAME, beatId)
 
                   return updateDoc(beatInfoRef, { available: false })
-                })
+                }),
             )
 
             return { data: null }

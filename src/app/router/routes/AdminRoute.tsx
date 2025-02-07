@@ -1,7 +1,9 @@
 import { FC } from "react"
 import { Navigate, Outlet } from "react-router-dom"
-import { ROUTES } from "@/constants/Routes"
+
 import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
+
+import { ROUTES } from "@/constants/Routes"
 
 export const AdminRoute: FC = () => {
   const { data: profile } = useGetUserProfileQuery()

@@ -1,6 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { InitialState } from "./InitialState.interface"
+
 import { BeatInfo } from "@/modules/Beats/interfaces/BeatInfo.interface"
+
+import { InitialState } from "./InitialState.interface"
 
 const initialState: InitialState = {
   id: null,
@@ -42,7 +44,7 @@ const playerSlice = createSlice({
     },
     setAudioProgress: (
       state,
-      { payload: newProgress }: PayloadAction<number>
+      { payload: newProgress }: PayloadAction<number>,
     ) => {
       state.progress = newProgress
     },

@@ -1,4 +1,5 @@
 import { FC } from "react"
+
 import { LeaseInfoItem as LeaseInfoItemProps } from "./LeaseInfoIcon.interface"
 
 export const LeaseInfoIcon: FC<LeaseInfoItemProps> = ({ icon: Icon }) => {
