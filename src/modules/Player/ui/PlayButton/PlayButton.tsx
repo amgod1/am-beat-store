@@ -1,8 +1,10 @@
 import { FC } from "react"
-import { useAppDispatch, useAppSelector } from "@/hooks"
-import { playAudio, selectPlayerInfo } from "../../store"
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { useAppSelector } from "@/hooks/useAppSelector"
 import { FaRegCirclePause, FaRegCirclePlay } from "react-icons/fa6"
 import { PlayButton as PlayButtonProps } from "./PlayButton.interface"
+import { selectPlayerInfo } from "../../store/selectors"
+import { playAudio } from "../../store/slice"
 
 export const PlayButton: FC<PlayButtonProps> = ({
   beat,

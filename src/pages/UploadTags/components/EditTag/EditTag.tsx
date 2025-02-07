@@ -1,8 +1,11 @@
 import { FC, ChangeEvent, useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import { TagForm, tagSchema } from "@/modules/Tags"
-import { Button, Input, Loader } from "@/components"
+import { tagSchema } from "@/modules/Tags/validation/Tag.schema"
+import { TagForm } from "@/modules/Tags/validation/TagForm.interface"
+import { Button } from "@/components/Button"
+import { Input } from "@/components/Input"
+import { Loader } from "@/components/Loader"
 import {
   useDeleteTagMutation,
   useGetTagsQuery,

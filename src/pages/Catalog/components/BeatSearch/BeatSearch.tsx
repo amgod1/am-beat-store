@@ -1,8 +1,7 @@
 import { ChangeEvent, FC, useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { useAppDispatch } from "@/hooks"
-import { clearFilteredBeats, searchBeatsByTags } from "@/modules/Beats"
 import { MdClose } from "react-icons/md"
+// import { useAppDispatch } from "@/hooks"
 import { useGetTagsQuery } from "@/modules/Tags/store/api"
 
 export const BeatSearch: FC = () => {
@@ -10,7 +9,7 @@ export const BeatSearch: FC = () => {
   const { data: tags } = useGetTagsQuery()
   const filteredBeats = []
   const [searchParams, setSearchParams] = useSearchParams({ q: "" })
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
   const q = (searchParams.get("q") as string) || ""
 
@@ -35,10 +34,10 @@ export const BeatSearch: FC = () => {
 
       if (filterTagIds.length) {
         setFilteredTagIds(filterTagIds)
-        dispatch(searchBeatsByTags(filterTagIds))
+        // dispatch(searchBeatsByTags(filterTagIds))
       } else {
         setFilteredTagIds([])
-        dispatch(clearFilteredBeats())
+        // dispatch(clearFilteredBeats())
       }
     }
   }
@@ -51,7 +50,7 @@ export const BeatSearch: FC = () => {
     if (q.trim()) {
       startSearching(q)
     } else {
-      dispatch(clearFilteredBeats())
+      // dispatch(clearFilteredBeats())
       setFilteredTagIds([])
     }
   }, [q])

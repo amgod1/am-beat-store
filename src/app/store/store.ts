@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react"
-import { beatsReducer } from "@/modules/Beats"
-import { playerReducer } from "@/modules/Player"
-import { licenseReducer } from "@/modules/License"
+import { beatsReducer } from "@/modules/Beats/store/slice"
+import { playerReducer } from "@/modules/Player/store/slice"
+import { licenseReducer } from "@/modules/License/store/slice"
 
 export const firebaseApi = createApi({
   reducerPath: "firebaseApi",

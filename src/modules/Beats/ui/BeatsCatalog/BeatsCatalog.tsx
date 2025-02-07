@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { BeatsCatalog as BeatsCatalogProps } from "./BeatsCatalog.interface"
-import { Loader } from "@/components"
+import { Loader } from "@/components/Loader"
 import { CatalogItem } from "./components"
 import { useGetBeatsQuery } from "../../store/api"
 

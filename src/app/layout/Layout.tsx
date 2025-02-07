@@ -1,16 +1,18 @@
-import { FC, lazy, Suspense } from "react"
+import { FC, Suspense, lazy } from "react"
 import { Navigate, Outlet, useLocation } from "react-router-dom"
+
+import { selectShowLicenseModal } from "@/modules/License/store/selectors"
+import { LicenseModal } from "@/modules/License/ui/LicenseModal/LicenseModal"
+import { selectShowPlayer } from "@/modules/Player/store/selectors"
+
+import { useAppSelector } from "@/hooks/useAppSelector"
+
 import { ROUTES } from "@/constants/Routes"
-import { Header } from "./Header"
+
 import { Footer } from "./Footer"
-import { useAppSelector } from "@/hooks"
-import { selectShowPlayer } from "@/modules/Player"
-import { selectShowLicenseModal } from "@/modules/License"
+import { Header } from "./Header"
 
 const Player = lazy(() => import("@/modules/Player/ui/Player/Player"))
-const LicenseModal = lazy(
-  () => import("@/modules/License/ui/LicenseModal/LicenseModal")
-)
 
 export const Layout: FC = () => {
   const { pathname } = useLocation()
@@ -24,7 +26,7 @@ export const Layout: FC = () => {
   return (
     <>
       <Header />
-      <main className="flex flex-grow items-center flex-col">
+      <main className="flex flex-grow flex-col items-center">
         <Outlet />
       </main>
       {showModal && (

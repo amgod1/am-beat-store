@@ -1,11 +1,11 @@
-import { firebaseApi } from "@/app/store"
+import { firebaseApi } from "@/app/store/store"
 import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
 } from "firebase/auth"
-import { generateUserInfo, ShortUserInfo } from "../helpers"
-import { AuthorizationForm } from "../validation"
+import { generateUserInfo, ShortUserInfo } from "../helpers/generateUserInfo"
+import { AuthorizationForm } from "../validation/AuthorizationForm.interface"
 
 export const authApi = firebaseApi.injectEndpoints({
   endpoints: (builder) => ({

@@ -1,4 +1,4 @@
-import { CartItem } from "../interfaces"
+import { CartItem } from "../interfaces/CartItem.interface"
 
 export interface CartCheckout {
   purchasedBeats: CartItem[]

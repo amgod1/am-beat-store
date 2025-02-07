@@ -1,17 +1,23 @@
 import { FC, Fragment, MouseEvent, TouchEvent, useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "@/hooks"
 import { MdClose } from "react-icons/md"
-import { Button } from "@/components"
-import { LEASES } from "@/modules/License/constants"
-import { hideModal, updateLeasePlanId, selectCartItem } from "../../store"
-import { LeaseInfo, LeaseItem } from "./components"
+
+import { LEASES } from "@/modules/License/constants/Leases"
 import {
   useAddToCartMutation,
   useGetUserProfileQuery,
   useRemoveFromCartMutation,
 } from "@/modules/Profile/store/api"
 
-const LicenseModal: FC = () => {
+import { Button } from "@/components/Button"
+
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { useAppSelector } from "@/hooks/useAppSelector"
+
+import { selectCartItem } from "../../store/selectors"
+import { hideModal, updateLeasePlanId } from "../../store/slice"
+import { LeaseInfo, LeaseItem } from "./components"
+
+export const LicenseModal: FC = () => {
   const { data: profile } = useGetUserProfileQuery()
   const [addToCart, { isLoading: isAddLoading }] = useAddToCartMutation()
   const [removeFromCart, { isLoading: isRemoveLoading }] =
@@ -20,7 +26,7 @@ const LicenseModal: FC = () => {
   const dispatch = useAppDispatch()
 
   const alreadyPurchasedLeaseId = profile?.purchasedBeats.find(
-    (beat) => beat.beatId === beatId
+    (beat) => beat.beatId === beatId,
   )?.leasePlanId
 
   const isLoading = isAddLoading && isRemoveLoading
@@ -128,5 +134,3 @@ const LicenseModal: FC = () => {
     </div>
   )
 }
-
-export default LicenseModal

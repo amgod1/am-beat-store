@@ -1,5 +1,5 @@
 import { db, storage } from "@/app/firebase.config"
-import { firebaseApi } from "@/app/store"
+import { firebaseApi } from "@/app/store/store"
 import {
   collection,
   deleteDoc,
@@ -10,7 +10,8 @@ import {
   setDoc,
   updateDoc,
 } from "firebase/firestore"
-import { BeatFileInfo, BeatInfo } from "./InitialState.interface"
+import { BeatFileInfo, BeatInfo } from "../interfaces/BeatInfo.interface"
+import { FileLinks } from "../interfaces/FileLinks.interface"
 import { nanoid } from "nanoid"
 import {
   deleteObject,
@@ -19,7 +20,6 @@ import {
   uploadBytesResumable,
 } from "firebase/storage"
 import { setProgress } from "./slice"
-import { FileLinks } from "../interfaces"
 import { CartItem } from "@/modules/Profile"
 
 const COLLECTION_NAME = "beats"

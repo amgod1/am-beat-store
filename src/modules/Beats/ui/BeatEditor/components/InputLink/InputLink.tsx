@@ -1,7 +1,9 @@
 import { ChangeEvent, FC } from "react"
 import { InputLink as InputLinkProps } from "./InputLink.interface"
-import { useAppDispatch, useAppSelector } from "@/hooks"
-import { selectBeatsInfo, setBeatFileLinks } from "@/modules/Beats"
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { useAppSelector } from "@/hooks/useAppSelector"
+import { setBeatFileLinks } from "@/modules/Beats/store/slice"
+import { selectBeatsInfo } from "@/modules/Beats/store/selectors"
 import { FileLink } from "@/modules/Beats/interfaces/FileLinks.interface"
 
 export const InputLink: FC<InputLinkProps> = ({ title, disabled }) => {

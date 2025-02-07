@@ -1,5 +1,5 @@
-import { LEASES } from "@/modules/License"
-import { CartItem } from "../interfaces"
+import { LEASES } from "@/modules/License/constants/Leases"
+import { CartItem } from "../interfaces/CartItem.interface"
 
 export const calculateTotalPrice = (cart: CartItem[]): number =>
   cart.reduce(

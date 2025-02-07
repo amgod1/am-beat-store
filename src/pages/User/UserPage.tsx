@@ -1,8 +1,9 @@
 import { FC } from "react"
 import { useLocation, Outlet, Navigate } from "react-router-dom"
-import { Loader, Tabs } from "@/components"
+import { Loader } from "@/components/Loader"
+import { Tabs } from "@/components/Tabs"
 import { ROUTES } from "@/constants/Routes"
-import { getUserNameFromEmail } from "@/modules/Profile"
+import { getUserNameFromEmail } from "@/modules/Profile/helpers/getUserNameFromEmail"
 import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
 
 const UserPage: FC = () => {

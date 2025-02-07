@@ -1,10 +1,12 @@
 import { FC, MouseEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAppSelector } from "@/hooks"
-import { selectPlayerInfo, PlayButton } from "@/modules/Player"
+import { useAppSelector } from "@/hooks/useAppSelector"
 import { ROUTES } from "@/constants/Routes"
 import { CatalogItem as CatalogItemProps } from "./CatalogItem.interface"
-import { AddToCart } from "@/modules/Profile"
+import { AddToCart } from "@/modules/Profile/ui/AddToCart"
+import { TagsList } from "@/modules/Tags/ui/TagsList/TagsList"
+import { selectPlayerInfo } from "@/modules/Player/store/selectors"
+import { PlayButton } from "@/modules/Player/ui/PlayButton"
 
 export const CatalogItem: FC<CatalogItemProps> = ({ beat }) => {
   const navigate = useNavigate()
@@ -34,7 +36,7 @@ export const CatalogItem: FC<CatalogItemProps> = ({ beat }) => {
       <td className="w-32 text-center hidden sm:table-cell">{`${beat.bpm}bpm`}</td>
       <td className="hidden md:table-cell">
         <div className="flex gap-2 lg:flex-row flex-wrap justify-start flex-col p-3">
-          {/* <TagsList tagIds={beat.tagIds} breakpoint={2} /> */}
+          <TagsList tagIds={beat.tagIds} breakpoint={2} />
         </div>
       </td>
       <td>

@@ -1,9 +1,12 @@
 import { getAuth, User } from "firebase/auth"
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "@/app/firebase.config"
-import { firebaseApi } from "@/app/store"
-import { CartCheckout, CartItem, ProfileInfo } from "../interfaces"
-import { generateUserProfile, getUpdatedProfileBeats } from "../helpers"
+import { firebaseApi } from "@/app/store/store"
+import { generateUserProfile } from "../helpers/generateUserProfile"
+import { getUpdatedProfileBeats } from "../helpers/getUpdatedProfileBeats"
+import { ProfileInfo } from "../interfaces/ProfileInfo.interface"
+import { CartItem } from "../interfaces/CartItem.interface"
+import { CartCheckout } from "../interfaces/CartCheckout.interface"
 
 const COLLECTION_NAME = "users"
 

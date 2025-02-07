@@ -1,6 +1,7 @@
 import { FC } from "react"
-import { Authorization, AuthorizationForm } from "@/modules/Auth"
+import { Authorization } from "@/modules/Auth/ui/Authorization"
 import { useSignUpMutation } from "@/modules/Auth/store/api"
+import { AuthorizationForm } from "@/modules/Auth/validation/AuthorizationForm.interface"
 
 const SignUpPage: FC = () => {
   const [signUp, { isLoading }] = useSignUpMutation()

@@ -1,14 +1,15 @@
 import { FC, useEffect } from "react"
 import { Navigate, useNavigate, useParams } from "react-router-dom"
-import { Button, Loader } from "@/components"
-import { AddToCart } from "@/modules/Profile"
-import { PlayButton } from "@/modules/Player"
-import { TagsList } from "@/modules/Tags"
+import { Button } from "@/components/Button"
+import { Loader } from "@/components/Loader"
 import { ROUTES } from "@/constants/Routes"
-import { RelatedBeats } from "./components"
+import { RelatedBeats } from "./components/RelatedBeats"
 import { useGetBeatsQuery } from "@/modules/Beats/store/api"
 import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
-import { useCurrentUserAuth } from "@/modules/Auth"
+import { useCurrentUserAuth } from "@/modules/Auth/hooks/useCurrentUserAuth"
+import { PlayButton } from "@/modules/Player/ui/PlayButton"
+import { AddToCart } from "@/modules/Profile/ui"
+import { TagsList } from "@/modules/Tags/ui/TagsList/TagsList"
 
 const BeatPage: FC = () => {
   const { id } = useParams()

@@ -1,12 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { BeatInfo, InitialState } from "./InitialState.interface"
-import { getTitleAndBpm } from "../helpers"
-import { searchBeatsByTags } from "./thunks"
+import { InitialState } from "./InitialState.interface"
+import { BeatInfo } from "../interfaces/BeatInfo.interface"
+import { getTitleAndBpm } from "../helpers/getTitleAndBpm"
 import { FileLink } from "../interfaces/FileLinks.interface"
 
 const initialState: InitialState = {
-  filteredBeats: [],
-  allBeats: [],
   info: {
     file: null,
     id: null,
@@ -63,23 +61,12 @@ const beatsSlice = createSlice({
       state.info.url = beat.url
       state.info.fileLinks = beat.fileLinks
     },
-    clearFilteredBeats: (state) => {
-      state.filteredBeats = []
-    },
     setBeatFileLinks: (
       state,
       { payload: newFileLinkInfo }: PayloadAction<FileLink>
     ) => {
       Object.assign(state.info.fileLinks, newFileLinkInfo)
     },
-  },
-  extraReducers(builder) {
-    builder.addCase(
-      searchBeatsByTags.fulfilled,
-      (state, { payload: beats }: PayloadAction<BeatInfo[]>) => {
-        state.filteredBeats = beats
-      }
-    )
   },
 })
 
@@ -92,5 +79,4 @@ export const {
   setBeatFileLinks,
   setProgress,
   setEditorInfo,
-  clearFilteredBeats,
 } = beatsSlice.actions

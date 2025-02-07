@@ -1,5 +1,5 @@
 import * as yup from "yup"
-import { Tag } from "../interfaces"
+import { Tag } from "../interfaces/Tag.type"
 
 export const tagSchema = (allTags: Tag) =>
   yup

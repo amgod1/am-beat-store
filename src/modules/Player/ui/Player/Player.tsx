@@ -1,18 +1,22 @@
-import { FC, useEffect, useRef, ChangeEvent } from "react"
+import { ChangeEvent, FC, useEffect, useRef } from "react"
+import { BiSkipNextCircle, BiSkipPreviousCircle } from "react-icons/bi"
 import { FaRegCirclePause, FaRegCirclePlay } from "react-icons/fa6"
 import { IoIosCloseCircleOutline } from "react-icons/io"
-import { BiSkipPreviousCircle, BiSkipNextCircle } from "react-icons/bi"
-import { useAppDispatch, useAppSelector } from "@/hooks"
+
+import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+import { AddToCart } from "@/modules/Profile/ui/AddToCart"
+
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { useAppSelector } from "@/hooks/useAppSelector"
+
+import { selectPlayerInfo } from "../../store/selectors"
 import {
-  pausePlaying,
-  continuePlaying,
   closePlayer,
-  selectPlayerInfo,
+  continuePlaying,
+  pausePlaying,
   playAudio,
   setAudioProgress,
-} from "../../store"
-import { AddToCart } from "@/modules/Profile"
-import { useGetBeatsQuery } from "@/modules/Beats/store/api"
+} from "../../store/slice"
 
 const Player: FC = () => {
   const info = useAppSelector(selectPlayerInfo)
@@ -32,8 +36,8 @@ const Player: FC = () => {
     const progress = parseInt(
       String(
         (currentAudio.current!.currentTime / currentAudio.current!.duration) *
-          100
-      )
+          100,
+      ),
     )
 
     dispatch(setAudioProgress(progress))

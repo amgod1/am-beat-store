@@ -1,6 +1,7 @@
 import { FC } from "react"
-import { EmptyRedirect } from "@/modules/Profile"
-import { CartCheckout, CartItems } from "./components"
+import { EmptyRedirect } from "@/modules/Profile/ui/EmptyRedirect"
+import { CartCheckout } from "./components/CartCheckout"
+import { CartItems } from "./components/CartItems"
 import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
 
 const UserCartPage: FC = () => {

@@ -5,7 +5,7 @@ import { IoCart } from "react-icons/io5"
 import { getAuth, signOut } from "firebase/auth"
 import { IconLink } from "@/components/IconLink"
 import { ROUTES } from "@/constants/Routes"
-import { useCurrentUserAuth } from "@/modules/Auth"
+import { useCurrentUserAuth } from "@/modules/Auth/hooks/useCurrentUserAuth"
 import { useGetUserProfileQuery } from "@/modules/Profile/store/api"
 
 export const Header = () => {

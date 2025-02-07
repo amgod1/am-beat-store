@@ -1,9 +1,9 @@
 import { FC, lazy, Suspense } from "react"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
-import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes"
-import { Layout } from "../layout"
+import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes/"
+import { Layout } from "../layout/Layout"
 import { ROUTES } from "@/constants/Routes"
-import { Loader } from "@/components"
+import { Loader } from "@/components/Loader"
 
 import LoginPage from "@/pages/Auth/LoginPage"
 import SignUpPage from "@/pages/Auth/SignUpPage"

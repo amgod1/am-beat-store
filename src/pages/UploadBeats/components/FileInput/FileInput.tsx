@@ -1,6 +1,6 @@
 import { FC, ChangeEvent, DragEvent, useState } from "react"
-import { useAppDispatch } from "@/hooks"
-import { uploadFileToEditor } from "@/modules/Beats"
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { uploadFileToEditor } from "@/modules/Beats/store/slice"
 
 export const FileInput: FC = () => {
   const dispatch = useAppDispatch()

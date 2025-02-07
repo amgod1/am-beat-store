@@ -1,8 +1,8 @@
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
-import { Button } from "@/components"
+import { Button } from "@/components/Button"
 import { ROUTES } from "@/constants/Routes"
-import { calculateTotalPrice } from "@/modules/Profile"
+import { calculateTotalPrice } from "@/modules/Profile/helpers/calculateTotalPrice"
 import {
   useGetUserProfileQuery,
   usePurchaseBeatsMutation,

@@ -1,5 +1,5 @@
 import { db } from "@/app/firebase.config"
-import { firebaseApi } from "@/app/store"
+import { firebaseApi } from "@/app/store/store"
 import {
   collection,
   deleteField,
@@ -7,7 +7,7 @@ import {
   getDocs,
   updateDoc,
 } from "firebase/firestore"
-import { Tag, TagInfo } from "../interfaces"
+import { Tag, TagInfo } from "../interfaces/Tag.type"
 import { nanoid } from "nanoid"
 
 const COLLECTION_NAME = "tags"

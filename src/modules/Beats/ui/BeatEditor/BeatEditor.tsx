@@ -1,22 +1,19 @@
 import { FC, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { useAppDispatch, useAppSelector } from "@/hooks"
-import { Button } from "@/components"
+import { useAppDispatch } from "@/hooks/useAppDispatch"
+import { useAppSelector } from "@/hooks/useAppSelector"
+import { Button } from "@/components/Button"
 import { ROUTES } from "@/constants/Routes"
 import { InputLink, TagSelect } from "./components"
-import {
-  BeatInfo,
-  removeFileFromEditor,
-  selectBeatsInfo,
-  selectUploadProgress,
-  setEditorInfo,
-} from "../../store"
 import {
   useGetBeatsQuery,
   useUploadFileAndInfoMutation,
   useUpdateBeatInfoMutation,
   useDeleteBeatFileAndInfoMutation,
 } from "../../store/api"
+import { selectBeatsInfo, selectUploadProgress } from "../../store/selectors"
+import { removeFileFromEditor, setEditorInfo } from "../../store/slice"
+import { BeatInfo } from "../../interfaces/BeatInfo.interface"
 
 export const BeatEditor: FC = () => {
   const { id } = useParams()

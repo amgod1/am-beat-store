@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { InitialState } from "./InitialState.interface"
-import { BeatInfo } from "@/modules/Beats"
+import { BeatInfo } from "@/modules/Beats/interfaces/BeatInfo.interface"
 
 const initialState: InitialState = {
   id: null,
