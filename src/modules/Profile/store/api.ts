@@ -16,10 +16,14 @@ export const profileApi = firebaseApi
   .enhanceEndpoints({ addTagTypes: ["user"] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getUserProfile: builder.query<ProfileInfo, void>({
+      getUserProfile: builder.query<ProfileInfo | null, void>({
         queryFn: async () => {
           try {
-            const currentUser = getAuth().currentUser as User
+            const currentUser = getAuth().currentUser
+
+            if (!currentUser) {
+              return { data: null }
+            }
 
             const shortUserInfo = {
               id: currentUser.uid,

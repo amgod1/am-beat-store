@@ -10,7 +10,12 @@ import { Input } from "@/components/Input"
 import { AUTH_TITLES } from "@/constants/AuthTitles"
 
 import { Authorization as AuthorizationProps } from "./Authorization.interface"
-import { AuthButton, AuthHeading, AuthSwitch } from "./components"
+import {
+  AdditionalProvider,
+  AuthButton,
+  AuthHeading,
+  AuthSwitch,
+} from "./components"
 
 export const Authorization: FC<AuthorizationProps> = ({
   isLogin,
@@ -31,7 +36,7 @@ export const Authorization: FC<AuthorizationProps> = ({
   })
 
   return (
-    <section className="flex items-center flex-grow">
+    <section className="flex flex-grow items-center">
       <form
         onSubmit={handleSubmit(submitCallback)}
         className="flex flex-col gap-2"
@@ -53,6 +58,11 @@ export const Authorization: FC<AuthorizationProps> = ({
           errors={errors}
         />
         <AuthButton isLogin={isLogin} loading={isLoading} />
+        <p className="text-center">- or -</p>
+        <div className="flex flex-row justify-between gap-2 sm:flex-col">
+          <AdditionalProvider provider="Google" isLoading={isLoading} />
+          <AdditionalProvider provider="Apple" isLoading={isLoading} />
+        </div>
       </form>
     </section>
   )

@@ -1,4 +1,5 @@
 import { getAuth, signOut } from "firebase/auth"
+import { useEffect } from "react"
 import { BsFillMusicPlayerFill } from "react-icons/bs"
 import { IoCart } from "react-icons/io5"
 import { MdAdminPanelSettings, MdLogout } from "react-icons/md"
@@ -13,18 +14,22 @@ import { ROUTES } from "@/constants/Routes"
 
 export const Header = () => {
   const { user } = useCurrentUserAuth()
-  const { data: profile } = useGetUserProfileQuery()
+  const { data: profile, refetch } = useGetUserProfileQuery()
 
   const logOutHandler = () => {
     const auth = getAuth()
     signOut(auth)
   }
 
+  useEffect(() => {
+    refetch()
+  }, [user])
+
   return (
     <header className="my-8 flex h-8 justify-between">
       <div className="flex items-center gap-4">
         <IconLink Icon={BsFillMusicPlayerFill} navigation={ROUTES.Catalog} />
-        <h1 className="text-2xl hidden sm:block">am beat store</h1>
+        <h1 className="hidden text-2xl sm:block">am beat store</h1>
       </div>
       <div className="flex items-center gap-4">
         {user ? (

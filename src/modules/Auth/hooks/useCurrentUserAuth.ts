@@ -9,7 +9,7 @@ export const useCurrentUserAuth = () => {
     const unSubscribe = onAuthStateChanged(auth, (user) => setUser(!!user))
 
     return unSubscribe
-  }, [])
+  }, [auth])
 
   return { user }
 }
