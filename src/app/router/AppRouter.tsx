@@ -14,7 +14,7 @@ import { Loader } from "@/components/Loader"
 import { ROUTES } from "@/constants/Routes"
 
 import { Layout } from "../layout/Layout"
-import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes/"
+import { AdminRoute, PrivateRoute, ProtectedRoute } from "./routes"
 
 const EditBeatPage = lazy(() => import("@/pages/EditBeat"))
 const UploadPage = lazy(() => import("@/pages/Upload"))

@@ -1,60 +1,22 @@
-import { ChangeEvent, FC, useEffect, useState } from "react"
+import { ChangeEvent, FC } from "react"
 import { MdClose } from "react-icons/md"
 import { useSearchParams } from "react-router-dom"
 
-// import { useAppDispatch } from "@/hooks"
-import { useGetTagsQuery } from "@/modules/Tags/store/api"
+import { useFilteredBeats } from "@/hooks/useFilteredBeats"
 
 export const BeatSearch: FC = () => {
-  const [filteredTagIds, setFilteredTagIds] = useState<string[]>([])
-  const { data: tags } = useGetTagsQuery()
-  const filteredBeats = []
   const [searchParams, setSearchParams] = useSearchParams({ q: "" })
-  // const dispatch = useAppDispatch()
+  const q = searchParams.get("q") || ""
 
-  const q = (searchParams.get("q") as string) || ""
+  const { filteredBeats, filteredTagIds } = useFilteredBeats()
 
   const updateSearchValue = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchParams(
-      (prev) => {
-        prev.set("q", event.target.value)
-        return prev
-      },
-      { replace: true },
-    )
-
-    startSearching(event.target.value.trim())
-  }
-
-  const startSearching = (searchValue: string) => {
-    if (searchValue && searchValue.trim() !== "") {
-      const filterTagIds =
-        tags?.tagsArray
-          .filter((tag) => tag.value.includes(searchValue.trim()))
-          .map((tag) => tag.id) || []
-
-      if (filterTagIds.length) {
-        setFilteredTagIds(filterTagIds)
-        // dispatch(searchBeatsByTags(filterTagIds))
-      } else {
-        setFilteredTagIds([])
-        // dispatch(clearFilteredBeats())
-      }
-    }
+    setSearchParams({ q: event.target.value }, { replace: true })
   }
 
   const clearAllFilters = () => {
     setSearchParams({ q: "" })
   }
-
-  useEffect(() => {
-    if (q.trim()) {
-      startSearching(q)
-    } else {
-      // dispatch(clearFilteredBeats())
-      setFilteredTagIds([])
-    }
-  }, [q])
 
   return (
     <div className="flex justify-center items-center">
@@ -63,7 +25,7 @@ export const BeatSearch: FC = () => {
           <input
             value={q}
             onChange={updateSearchValue}
-            placeholder="what type of track are you looking for?"
+            placeholder="What type of track are you looking for?"
             className="bg-accent h-16 sm:h-20 w-full py-4 pl-4 text-base sm:text-lg placeholder-green-800 outline-none border-t-2 border-b-2 border-l-2 border-primary disabled:opacity-50"
           />
           <button
@@ -76,18 +38,16 @@ export const BeatSearch: FC = () => {
         </div>
         <p className="h-5 w-2/3 text-sm">
           {filteredTagIds.length
-            ? `filtered by ${filteredTagIds.length} ${
-                filteredTagIds.length === 1 ? "tag" : "tags"
-              }`
+            ? `filtered by ${filteredTagIds.length} ${filteredTagIds.length === 1 ? "tag" : "tags"}`
             : q
               ? "no tags found"
               : ""}
         </p>
         <p className="h-5 w-2/3 text-sm">
-          {filteredBeats?.length
+          {q && filteredBeats?.length
             ? `found ${filteredBeats.length} beats`
             : q
-              ? "no beats found with this tags"
+              ? "no beats found with these tags"
               : ""}
         </p>
       </div>
