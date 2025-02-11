@@ -8,8 +8,11 @@ export const Footer: FC = () => (
   <footer className="my-8 flex h-8 justify-between">
     <div className="flex items-center gap-4">
       <IconLink Icon={BsInstagram} href="https://www.instagram.com/amgod_1/" />
-      <IconLink Icon={BiLogoGmail} href="https://www.instagram.com/amgod_1/" />
+      <IconLink
+        Icon={BiLogoGmail}
+        href="mailto:amgodthe1@gmail.com?subject=am%20beat%20store&body=Hello,%20I%20have%20a%20question%20about..."
+      />
     </div>
-    <h2 className="text-2xl hidden sm:block">prod by am</h2>
+    <h2 className="hidden text-2xl sm:block">prod by am</h2>
   </footer>
 )

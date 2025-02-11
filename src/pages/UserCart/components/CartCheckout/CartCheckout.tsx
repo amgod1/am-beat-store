@@ -34,7 +34,7 @@ export const CartCheckout: FC = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4 w-full lg:w-1/3 border border-primary bg-accent p-4 h-fit">
+    <div className="flex h-fit w-full flex-col gap-4 border border-primary bg-accent p-4 lg:w-1/3">
       <div className="flex flex-row justify-between text-2xl">
         <p>total:</p>
         <p>{totalPrice}$</p>

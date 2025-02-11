@@ -164,7 +164,7 @@ export const beatsApi = firebaseApi
           try {
             await Promise.all(
               cart
-                .filter((cartItem) => cartItem.leasePlanId === 3)
+                .filter(({ leasePlanId }) => leasePlanId === 3)
                 .map(({ beatId }) => {
                   const beatInfoRef = doc(db, COLLECTION_NAME, beatId)
 
@@ -178,7 +178,11 @@ export const beatsApi = firebaseApi
           }
         },
         invalidatesTags: (_, __, cart) =>
-          cart.map(({ beatId }) => ({ type: "beat", beatId })),
+          cart.map(({ leasePlanId, beatId }) => {
+            if (leasePlanId === 3) {
+              return { type: "beat", beatId }
+            }
+          }),
       }),
     }),
   })

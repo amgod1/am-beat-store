@@ -66,11 +66,11 @@ export const CartItems: FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-full lg:w-2/3">
+    <div className="flex w-full flex-col lg:w-2/3">
       {decodedCart?.map((cartItem) => (
         <div
           key={cartItem.beat?.id}
-          className="flex flex-col sm:grid sm:grid-rows-1 sm:grid-cols-6 gap-2 sm:gap-4 sm:items-center border border-primary hover:bg-accent cursor-pointer p-4"
+          className="flex cursor-pointer flex-col gap-2 border border-primary p-4 hover:bg-accent sm:grid sm:grid-cols-6 sm:grid-rows-1 sm:items-center sm:gap-4"
           onClick={openBeatPage(cartItem.beat?.id!)}
         >
           {cartItem?.beat && <PlayButton beat={cartItem.beat} />}
